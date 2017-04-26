@@ -8,7 +8,10 @@ import {
   Footer,
   FooterTab,
   Button,
-  Text
+  Text,
+  Header,
+  Body,
+  Title
 } from 'native-base';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
@@ -43,6 +46,11 @@ export default class BabyApp extends Component {
   render() {
     return (
       <Container>
+        <Header>
+          <Body>
+            <Title>Baby App</Title>
+          </Body>
+        </Header>
         <Content>
           { this.renderActiveScreen() }
         </Content>
