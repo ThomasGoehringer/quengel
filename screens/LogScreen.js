@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import {
-  Text
+  View
+} from 'react-native';
+import {
+  Container,
+  Text,
+  Fab,
+  Icon
 } from 'native-base';
 
 export default class LogScreen extends Component {
@@ -10,7 +16,16 @@ export default class LogScreen extends Component {
 
   render() {
     return (
-      <Text>Screen</Text>
+      <Container>
+        <Text>Screen</Text>
+        <Fab
+          direction="up"
+          style={{ backgroundColor: '#5067FF' }}
+          position="bottomRight"
+        >
+          <Icon name="add" />
+        </Fab>
+      </Container>
     );
   }
 }
