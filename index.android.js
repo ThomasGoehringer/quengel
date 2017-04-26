@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  View
+  AppRegistry
 } from 'react-native';
 import {
   Container,

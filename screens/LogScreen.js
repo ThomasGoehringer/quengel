@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 import {
-  View
-} from 'react-native';
-import {
   Container,
-  Content,
-  Text,
   Fab,
-  Icon,
-  Card,
-  CardItem,
-  Body
+  Icon
 } from 'native-base';
-import LogEntry from '../components/LogEntry';
+import LogEntry from '../components/LogTextEntry';
 
 export default class LogScreen extends Component {
   componentDidMount() {
