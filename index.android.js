@@ -8,10 +8,10 @@ import {
   Footer,
   FooterTab,
   Button,
-  Text,
   Header,
   Body,
-  Title
+  Title,
+  Icon
 } from 'native-base';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
@@ -31,7 +31,6 @@ export default class BabyApp extends Component {
   renderActiveScreen() {
     switch (this.state.activeScreen) {
       case 'LogScreen':
-        console.log(this.state.activeScreen);
         return (<LogScreen />);
       case 'MilestoneScreen':
         return (<MilestoneScreen />);
@@ -61,25 +60,37 @@ export default class BabyApp extends Component {
               active={this.state.activeScreen === 'LogScreen'}
               onPress={() => this.setState({ activeScreen: 'LogScreen' })}
             >
-              <Text>Day</Text>
+              <Icon
+                active={this.state.activeScreen === 'LogScreen'}
+                name="add"
+              />
             </Button>
             <Button
               active={this.state.activeScreen === 'CalendarScreen'}
               onPress={() => this.setState({ activeScreen: 'CalendarScreen' })}
             >
-              <Text>Calendar</Text>
+              <Icon
+                active={this.state.activeScreen === 'CalendarScreen'}
+                name="calendar"
+              />
             </Button>
             <Button
               active={this.state.activeScreen === 'MilestoneScreen'}
               onPress={() => this.setState({ activeScreen: 'MilestoneScreen' })}
             >
-              <Text>Milestones</Text>
+              <Icon
+                active={this.state.activeScreen === 'MilestoneScreen'}
+                name="trophy"
+              />
             </Button>
             <Button
               active={this.state.activeScreen === 'StatisticScreen'}
               onPress={() => this.setState({ activeScreen: 'StatisticScreen' })}
             >
-              <Text>Statistics</Text>
+              <Icon
+                active={this.state.activeScreen === 'StatisticScreen'}
+                name="stats"
+              />
             </Button>
           </FooterTab>
         </Footer>
