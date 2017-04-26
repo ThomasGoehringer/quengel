@@ -70,7 +70,7 @@ export default class BabyApp extends Component {
             >
               <Icon
                 active={this.state.activeScreen === 'LogScreen'}
-                name="add"
+                name="book"
               />
             </Button>
             <Button
