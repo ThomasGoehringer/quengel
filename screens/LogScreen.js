@@ -4,10 +4,15 @@ import {
 } from 'react-native';
 import {
   Container,
+  Content,
   Text,
   Fab,
-  Icon
+  Icon,
+  Card,
+  CardItem,
+  Body
 } from 'native-base';
+import LogEntry from '../components/LogEntry';
 
 export default class LogScreen extends Component {
   componentDidMount() {
@@ -17,7 +22,7 @@ export default class LogScreen extends Component {
   render() {
     return (
       <Container>
-        <Text>Screen</Text>
+        <LogEntry />
         <Fab
           direction="up"
           style={{ backgroundColor: '#5067FF' }}
