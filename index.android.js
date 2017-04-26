@@ -40,6 +40,7 @@ export default class BabyApp extends Component {
       case 'StatisticScreen':
         return (<StatisticScreen />);
       default:
+        return (<LogScreen />);
     }
   }
 
