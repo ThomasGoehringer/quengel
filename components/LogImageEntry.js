@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { Container, Content, Card, CardItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
 
 
-export default class LogEntry extends Component {
+export default class LogImageEntry extends Component {
   render() {
     return (
       <Container>
