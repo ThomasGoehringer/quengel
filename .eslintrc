@@ -4,8 +4,7 @@
   "rules": {
     "comma-dangle": ["error", "never"],
     "no-console": ["error", {"allow": ["log", "error"]}],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "linebreak-style": ["error", "windows"]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   },
   "globals": {
     "fetch": true
