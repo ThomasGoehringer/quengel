@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Container,
-  Fab,
-  Icon
-} from 'native-base';
-import LogEntry from '../components/LogTextEntry';
+  View
+} from 'react-native';
+import LogTextEntry from '../components/LogTextEntry';
 
 export default class LogScreen extends Component {
   componentDidMount() {
@@ -13,16 +11,9 @@ export default class LogScreen extends Component {
 
   render() {
     return (
-      <Container>
-        <LogEntry />
-        <Fab
-          direction="up"
-          style={{ backgroundColor: '#5067FF' }}
-          position="bottomRight"
-        >
-          <Icon name="add" />
-        </Fab>
-      </Container>
+      <View>
+        <LogTextEntry />
+      </View>
     );
   }
 }

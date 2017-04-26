@@ -11,6 +11,7 @@ import {
   Header,
   Body,
   Title,
+  Fab,
   Icon
 } from 'native-base';
 import LogScreen from './screens/LogScreen';
@@ -54,6 +55,13 @@ export default class BabyApp extends Component {
         <Content>
           { this.renderActiveScreen() }
         </Content>
+        <Fab
+          direction="up"
+          style={{ backgroundColor: '#5067FF', position: 'absolute', bottom: 30 }}
+          position="bottomRight"
+        >
+          <Icon name="add" />
+        </Fab>
         <Footer >
           <FooterTab>
             <Button
