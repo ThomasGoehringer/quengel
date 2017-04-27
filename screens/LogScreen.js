@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
 import {
-  View
+  View,
+  ActivityIndicator,
+  FlatList
 } from 'react-native';
-import LogTextEntry from '../components/LogTextEntry';
 import LogImageEntry from '../components/LogImageEntry';
 
-export default class LogScreen extends Component {
-  componentDidMount() {
 
+export default class LogScreen extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 500);
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={{ padding: 10 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
     return (
       <View style={{ padding: 10 }}>
-        <LogTextEntry />
-        <LogImageEntry />
-        <LogImageEntry />
-        <LogTextEntry />
-        <LogImageEntry />
+        <FlatList data={[{key: 'a'}, {key: 'b'}]} renderItem={({item}) => <LogImageEntry />} />
       </View>
     );
   }
