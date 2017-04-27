@@ -44,6 +44,18 @@ export default class BabyApp extends Component {
     }
   }
 
+  renderFab() {
+    return (
+      <Fab
+        direction="up"
+        style={{ backgroundColor: '#5067FF', position: 'absolute', bottom: 30 }}
+        position="bottomRight"
+      >
+        <Icon name="add" />
+      </Fab>
+    );
+  }
+
   render() {
     return (
       <Container>
@@ -55,13 +67,7 @@ export default class BabyApp extends Component {
         <Content>
           { this.renderActiveScreen() }
         </Content>
-        <Fab
-          direction="up"
-          style={{ backgroundColor: '#5067FF', position: 'absolute', bottom: 30 }}
-          position="bottomRight"
-        >
-          <Icon name="add" />
-        </Fab>
+        { this.state.activeScreen === 'LogScreen' && this.renderFab() }
         <Footer >
           <FooterTab>
             <Button
