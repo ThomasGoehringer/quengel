@@ -4,7 +4,7 @@ import { Badge as BadgeNB } from 'native-base';
 
 
 const Badge = props => (
-  <BadgeNB warning style={{ alignSelf: 'center', justifyContent: 'center', marginRight: 10 }}>
+  <BadgeNB warning style={{ alignSelf: 'center', justifyContent: 'center', marginRight: 10, marginBottom: 10 }}>
     <Text style={{ color: '#FFFFFF' }}>Quiet</Text>
   </BadgeNB>
 );
