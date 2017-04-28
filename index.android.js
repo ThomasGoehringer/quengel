@@ -22,6 +22,7 @@ import MilestoneScreen from './screens/MilestoneScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import EntryScreen from './screens/EntryScreen';
+import ProfilScreen from './screens/ProfilScreen';
 
 
 export default class MainScreen extends Component {
@@ -67,12 +68,28 @@ export default class MainScreen extends Component {
     );
   }
 
+  renderProfil() {
+    const { navigate } = this.props.navigation;
+
+    return (
+      <Fab
+        onPress={() => navigate('Profil')}
+        direction="down"
+        style={{ backgroundColor: '#3F51B5', position: 'absolute', bottom: 40 }}
+        position="topRight"
+      >
+        <Icon name="person" />
+      </Fab>
+    );
+  }
+
   render() {
     return (
       <Container>
         <Header>
           <Body>
             <Title>Baby App</Title>
+            { this.state.activeScreen === 'LogScreen' && this.renderProfil() }
           </Body>
         </Header>
         <Content>
@@ -127,7 +144,8 @@ export default class MainScreen extends Component {
 
 const BabyApp = StackNavigator({
   Main: { screen: MainScreen },
-  Entry: { screen: EntryScreen }
+  Entry: { screen: EntryScreen },
+  Profil: { screen: ProfilScreen }
 }, { headerMode: 'screen' });
 
 
