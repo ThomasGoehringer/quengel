@@ -4,8 +4,8 @@ import {
   ActivityIndicator,
   FlatList
 } from 'react-native';
-import LogTextEntry from '../components/LogTextEntry';
-import LogImageEntry from '../components/LogImageEntry';
+import LogEntry from '../components/LogEntry';
+import MilestoneEntry from '../components/MilestoneEntry';
 import databaseService from '../services/databaseService';
 
 
@@ -25,15 +25,15 @@ export default class LogScreen extends Component {
   }
 
   renderListItem(data) {
-    if (data.item.image) {
+    if (data.item.milestone) {
       return (
-        <LogImageEntry
+        <MilestoneEntry
           uri={data.item.image}
         />
       );
     }
 
-    return <LogTextEntry />;
+    return <LogEntry />;
   }
 
   render() {
