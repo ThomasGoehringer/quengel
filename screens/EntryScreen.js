@@ -4,7 +4,7 @@ import {
   Text,
   Keyboard
 } from 'react-native';
-import { Item, Icon, Input, Button } from 'native-base';
+import { Item, Icon, Input, Button, Badge } from 'native-base';
 
 
 export default class Entry extends Component {
@@ -13,7 +13,15 @@ export default class Entry extends Component {
 
     return (
       <View style={{ flex: 1, justifyContent: 'space-between' }}>
-        <Text>Platz fuer Badges</Text>
+        <Badge info style={{ alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ color: '#FFFFFF' }}>Hydration</Text>
+        </Badge>
+        <Badge danger style={{ alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ color: '#FFFFFF' }}>Happy</Text>
+        </Badge>
+        <Badge warning style={{ alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ color: '#FFFFFF' }}>Quiet</Text>
+        </Badge>
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
           <Item regular>
             <Input
