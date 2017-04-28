@@ -45,7 +45,7 @@ const Badge = (props) => {
   return (
     <BadgeNB style={{ alignSelf: 'center', justifyContent: 'center', marginRight: 10, marginBottom: 10, ...backgroundColor }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name={iconName} size={15} />
+        <Icon name={iconName} size={14} />
         <Text style={{ color: '#FFFFFF', paddingHorizontal: 5 }}>{props.text}</Text>
       </View>
     </BadgeNB>

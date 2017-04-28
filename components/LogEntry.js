@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Card } from 'native-base';
 import moment from 'moment';
@@ -27,35 +27,43 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class LogEntry extends Component {
-  render() {
-    return (
-      <Card>
-        <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
-          <Badge text="tes" feature="diapers" />
-          <Badge text="tes" feature="hydration" />
-          <Badge text="tes" feature="meals" />
-          <Badge text="tes" feature="nursing" />
-          <Badge text="tes" feature="weight" />
-          <Badge text="tes" feature="height" />
-          <Badge text="tes" feature="headCircumference" />
-        </View>
-        <Separator text={moment().format('DD MMM YY')} lineColor="lightgray" />
+const LogEntry = props => (
+  <Card>
+    <View style={{ paddingLeft: 15, paddingTop: 15, flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
+      {props.badges.map(badge =>
+        <Badge
+          key={badge.badgeType + badge.createdAt}
+          text={badge.value}
+          feature={badge.badgeType}
+        />
+      )}
+    </View>
+
+    <Separator text={moment().format('DD MMM YY')} lineColor="lightgray" />
+
+    {props.text.map(text =>
+      <View key={text.value + text.createdAt}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={styles.textTime}>10:38</Text>
           <FeelingStatus emotion="happy" />
         </View>
-        <Text style={styles.text}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </Text>
-        <Text style={styles.textTime}>16:42</Text>
-        <Text style={styles.text}>
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </Text>
-      </Card>
-    );
-  }
-}
+        <Text style={styles.text}>{text.value}</Text>
+      </View>
+    )}
+  </Card>
+);
 
 LogEntry.propTypes = {
+  badges: PropTypes.arrayOf(PropTypes.shape({
+    badgeType: PropTypes.string,
+    value: PropTypes.string,
+    createdAt: PropTypes.string
+  })).isRequired,
+  text: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string,
+    createdAt: PropTypes.string
+  })).isRequired
 };
+
+
+export default LogEntry;

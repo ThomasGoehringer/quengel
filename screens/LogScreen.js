@@ -33,7 +33,7 @@ export default class LogScreen extends Component {
       );
     }
 
-    return <LogEntry />;
+    return <LogEntry {...data.item} />;
   }
 
   render() {
