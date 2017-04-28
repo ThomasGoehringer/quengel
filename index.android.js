@@ -14,13 +14,21 @@ import {
   Fab,
   Icon
 } from 'native-base';
+import {
+  StackNavigator
+} from 'react-navigation';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
+import EntryScreen from './screens/EntryScreen';
 
 
-export default class BabyApp extends Component {
+export default class MainScreen extends Component {
+  static navigationOptions = {
+    header: null
+  };
+
   constructor() {
     super();
     this.renderActiveScreen = this.renderActiveScreen.bind(this);
@@ -45,8 +53,11 @@ export default class BabyApp extends Component {
   }
 
   renderFab() {
+    const { navigate } = this.props.navigation;
+
     return (
       <Fab
+        onPress={() => navigate('Entry')}
         direction="up"
         style={{ backgroundColor: '#5067FF', position: 'absolute', bottom: 30 }}
         position="bottomRight"
@@ -112,6 +123,12 @@ export default class BabyApp extends Component {
     );
   }
 }
+
+
+const BabyApp = StackNavigator({
+  Main: { screen: MainScreen },
+  Entry: { screen: EntryScreen }
+}, { headerMode: 'screen' });
 
 
 AppRegistry.registerComponent('BabyApp', () => BabyApp);
