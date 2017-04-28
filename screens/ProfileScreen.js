@@ -3,10 +3,10 @@ import {
   View,
   Text
 } from 'react-native';
-import { List, ListItem } from 'native-base';
+import { Item, Icon, Input, Button, Badge, List, ListItem, Right, Switch } from 'native-base';
 
 
-export default class ProfileScreen extends Component {
+export default class Profil extends Component {
   render() {
     const { goBack } = this.props.navigation;
 
@@ -15,6 +15,7 @@ export default class ProfileScreen extends Component {
         <List>
           <ListItem >
             <Text>Einstellung 1</Text>
+
           </ListItem>
           <ListItem>
             <Text>Einstellung 2</Text>
