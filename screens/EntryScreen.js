@@ -4,27 +4,34 @@ import {
   Text,
   Keyboard
 } from 'react-native';
-import { Item, Input, Button } from 'native-base';
+import { Item, Icon, Input, Button } from 'native-base';
 
 
-export default class LogImageEntry extends Component {
+export default class Entry extends Component {
   render() {
     const { goBack } = this.props.navigation;
 
     return (
-      <View style={{ padding: 10 }}>
-        <Item regular>
-          <Input placeholder="Regular Textbox" />
-        </Item>
-        <Button
-          block
-          onPress={() => {
-            goBack();
-            Keyboard.dismiss();
-          }}
-        >
-          <Text>Done</Text>
-        </Button>
+      <View style={{ flex: 1, justifyContent: 'space-between' }}>
+        <Text>Platz fuer Badges</Text>
+        <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
+          <Item regular>
+            <Input
+              placeholder="Eintrag hinzufügen"
+              autoFocus
+            />
+            <Button
+              transparent
+              style={{ alignSelf: 'center' }}
+              onPress={() => {
+                goBack();
+                Keyboard.dismiss();
+              }}
+            >
+              <Icon name="send" />
+            </Button>
+          </Item>
+        </View>
       </View>
     );
   }
