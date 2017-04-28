@@ -32,20 +32,18 @@ export default class LogEntry extends Component {
     return (
       <Card>
         <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
-          <Badge text="test" />
-          <Badge text="test" />
-          <Badge text="test" />
-          <Badge text="test" />
-          <Badge text="test" />
-          <Badge text="test" />
-          <Badge text="test" />
-          <Badge text="test" />
-          <Badge text="test" />
+          <Badge text="tes" feature="diapers" />
+          <Badge text="tes" feature="hydration" />
+          <Badge text="tes" feature="meals" />
+          <Badge text="tes" feature="nursing" />
+          <Badge text="tes" feature="weight" />
+          <Badge text="tes" feature="height" />
+          <Badge text="tes" feature="headCircumference" />
         </View>
         <Separator text={moment().format('DD MMM YY')} lineColor="lightgray" />
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={styles.textTime}>10:38</Text>
-          <FeelingStatus emotion="sad" />
+          <FeelingStatus emotion="happy" />
         </View>
         <Text style={styles.text}>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
