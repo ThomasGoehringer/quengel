@@ -16,25 +16,25 @@ async function getEntries() {
           createdAt: '28.04.2017 16:33',
           type: 'TextEntry',
           text: 'Lorem ipsum dolor sit amet',
-          image: null,
+          image: 'asdasd',
           badges: ['nutrition', 'hydration', 'mood']
         },
         {
-          createdAt: '28.04.2017 16:33',
+          createdAt: '28.04.2017 16:34',
           type: 'TextEntry',
           text: 'Lorem ipsum dolor sit amet',
           image: null,
           badges: ['nutrition', 'hydration', 'mood']
         },
         {
-          createdAt: '28.04.2017 16:33',
+          createdAt: '28.04.2017 16:35',
           type: 'TextEntry',
           text: 'Lorem ipsum dolor sit amet',
-          image: null,
+          image: 'adasd',
           badges: ['nutrition', 'hydration', 'mood']
         },
         {
-          createdAt: '28.04.2017 16:33',
+          createdAt: '28.04.2017 16:36',
           type: 'TextEntry',
           text: 'Lorem ipsum dolor sit amet',
           image: null,

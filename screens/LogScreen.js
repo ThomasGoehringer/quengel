@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   FlatList
 } from 'react-native';
+import LogTextEntry from '../components/LogTextEntry';
 import LogImageEntry from '../components/LogImageEntry';
 import databaseService from '../services/databaseService';
 
@@ -23,6 +24,14 @@ export default class LogScreen extends Component {
     });
   }
 
+  renderListItem(data) {
+    if (data.item.image) {
+      return <LogImageEntry />;
+    }
+
+    return <LogTextEntry />;
+  }
+
   render() {
     if (this.state.loading) {
       return (
@@ -34,7 +43,11 @@ export default class LogScreen extends Component {
 
     return (
       <View style={{ padding: 10 }}>
-        <FlatList data={[{key: 'a'}, {key: 'b'}]} renderItem={({item}) => <LogImageEntry />} />
+        <FlatList
+          data={this.state.entries}
+          keyExtractor={item => item.createdAt}
+          renderItem={this.renderListItem}
+        />
       </View>
     );
   }
