@@ -72,14 +72,17 @@ export default class MainScreen extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <Fab
+      <Button transparent person
+        active={this.state.activeScreen === 'ProfilScreen'}
         onPress={() => navigate('Profile')}
-        direction="down"
-        style={{ backgroundColor: '#3F51B5', position: 'absolute', bottom: 40 }}
-        position="topRight"
+        style={{ position: 'absolute', right: 0, height: 30 }}
       >
-        <Icon name="person" />
-      </Fab>
+        <Icon
+          active={this.state.activeScreen === 'ProfilScreen'}
+          style={{ color: '#fff' }}
+          name="person"
+        />
+      </Button>
     );
   }
 
