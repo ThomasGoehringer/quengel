@@ -12,7 +12,7 @@ export default class LogImageEntry extends Component {
     const { goBack } = this.props.navigation;
 
     return (
-      <View>
+      <View style={{ padding: 10 }}>
         <Item regular>
           <Input placeholder="Regular Textbox" />
         </Item>

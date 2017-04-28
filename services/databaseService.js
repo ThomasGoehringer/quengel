@@ -16,7 +16,7 @@ async function getEntries() {
           createdAt: '28.04.2017 16:33',
           type: 'TextEntry',
           text: 'Lorem ipsum dolor sit amet',
-          image: 'asdasd',
+          image: 'https://facebook.github.io/react/img/logo_og.png',
           badges: ['nutrition', 'hydration', 'mood']
         },
         {
@@ -30,14 +30,14 @@ async function getEntries() {
           createdAt: '28.04.2017 16:35',
           type: 'TextEntry',
           text: 'Lorem ipsum dolor sit amet',
-          image: 'adasd',
+          image: null,
           badges: ['nutrition', 'hydration', 'mood']
         },
         {
           createdAt: '28.04.2017 16:36',
           type: 'TextEntry',
           text: 'Lorem ipsum dolor sit amet',
-          image: null,
+          image: 'http://3.bp.blogspot.com/-GL-JfPHCj3I/Tb_zrNTOZbI/AAAAAAAAABw/X8BByO04uSY/s1600/Eastern%2BEurope%2BUnicorn.jpg',
           badges: ['nutrition', 'hydration', 'mood']
         }
       ]);

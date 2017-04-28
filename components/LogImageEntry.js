@@ -1,17 +1,29 @@
-import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { Container, Content, Card, CardItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import React, { Component, PropTypes } from 'react';
+import { StyleSheet, Image } from 'react-native';
+import { Card, CardItem, Text, Button, Icon, Left, Body, Right } from 'native-base';
 
+
+const styles = StyleSheet.create({
+  img: {
+    resizeMode: 'cover',
+    width: null,
+    height: 200,
+    flex: 1
+  }
+});
 
 export default class LogImageEntry extends Component {
   render() {
     return (
       <Card>
         <CardItem cardBody>
-          <Image style={{ resizeMode: 'cover', width: null, height: 200, flex: 1 }} source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }} />
+          <Image
+            style={styles.img}
+            source={{ uri: this.props.uri }}
+          />
         </CardItem>
 
-        <CardItem style={{ paddingVertical: 0 }}>
+        <CardItem>
           <Left>
             <Button iconLeft transparent>
               <Icon active name="thumbs-up" />
@@ -32,3 +44,7 @@ export default class LogImageEntry extends Component {
     );
   }
 }
+
+LogImageEntry.propTypes = {
+  uri: PropTypes.string.isRequired
+};

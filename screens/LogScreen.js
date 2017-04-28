@@ -26,7 +26,11 @@ export default class LogScreen extends Component {
 
   renderListItem(data) {
     if (data.item.image) {
-      return <LogImageEntry />;
+      return (
+        <LogImageEntry
+          uri={data.item.image}
+        />
+      );
     }
 
     return <LogTextEntry />;
