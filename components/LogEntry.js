@@ -45,7 +45,7 @@ const LogEntry = props => (
       <View key={text.value + text.createdAt}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text style={styles.textTime}>10:38</Text>
-          <FeelingStatus emotion="happy" />
+          {text.emotion && <FeelingStatus emotion={text.emotion} />}
         </View>
         <Text style={styles.text}>{text.value}</Text>
       </View>

@@ -20,7 +20,12 @@ async function getEntries() {
             },
             {
               value: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+              emotion: 'neutral',
               createdAt: '28.04.2017 16:34'
+            },
+            {
+              emotion: 'happy',
+              createdAt: '28.04.2017 16:35'
             }
           ],
           badges: [
@@ -53,10 +58,6 @@ async function getEntries() {
             {
               value: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
               createdAt: '28.04.2017 16:33'
-            },
-            {
-              value: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-              createdAt: '27.04.2017 16:34'
             }
           ],
           badges: [
@@ -79,6 +80,11 @@ async function getEntries() {
               badgeType: 'weight',
               value: '2700g',
               createdAt: '28.04.2017 16:33'
+            },
+            {
+              badgeType: 'nursing',
+              value: '4:38 min',
+              createdAt: '28.04.2017 16:33'
             }
           ],
           milestone: false,
@@ -93,6 +99,10 @@ async function getEntries() {
             {
               value: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
               createdAt: '28.04.2017 16:34'
+            },
+            {
+              value: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+              createdAt: '28.04.2017 16:35'
             }
           ],
           badges: [
