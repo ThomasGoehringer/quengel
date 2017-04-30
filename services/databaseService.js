@@ -12,10 +12,11 @@ async function getEntries() {
 }
 
 async function createEntry(entry) {
+  console.log('createEntry', entry);
   try {
     const response = await fetch(`${serverAPI}/quengel/entry`, {
       method: 'post',
-      body: entry
+      body: JSON.stringify(entry)
     });
     return response.json();
   } catch (error) {

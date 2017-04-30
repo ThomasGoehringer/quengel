@@ -7,34 +7,46 @@ import {
 } from 'react-native';
 import { Item, Input, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import databaseService from '../services/databaseService';
 
 
 export default class Entry extends Component {
   constructor() {
     super();
     this.state = {
-      hydration: 0,
-      diapers: 0,
+      text: '',
+      badges: {
+        hydration: 0,
+        diapers: 0
+      },
       emotion: 'help'
     };
   }
 
   setHydration(direction) {
     if (direction === 'up') {
-      this.setState({ hydration: this.state.hydration + 1 });
+      this.setState({
+        badges: { ...this.state.badges, hydration: this.state.badges.hydration + 1 }
+      });
     } else if (direction === 'down') {
-      if (this.state.hydration > 0) {
-        this.setState({ hydration: this.state.hydration - 1 });
+      if (this.state.badges.hydration > 0) {
+        this.setState({
+          badges: { ...this.state.badges, hydration: this.state.badges.hydration - 1 }
+        });
       }
     }
   }
 
   setDiapers(direction) {
     if (direction === 'up') {
-      this.setState({ diapers: this.state.diapers + 1 });
+      this.setState({
+        badges: { ...this.state.badges, diapers: this.state.badges.diapers + 1 }
+      });
     } else if (direction === 'down') {
-      if (this.state.diapers > 0) {
-        this.setState({ diapers: this.state.diapers - 1 });
+      if (this.state.badges.diapers > 0) {
+        this.setState({
+          badges: { ...this.state.badges, diapers: this.state.badges.diapers - 1 }
+        });
       }
     }
   }
@@ -55,6 +67,32 @@ export default class Entry extends Component {
     }
   }
 
+  handleSubmit() {
+    const currDate = new Date();
+
+    const badges = [];
+
+    Object.keys(this.state.badges).forEach((badgeKey) => {
+      badges.push({
+        badgeType: badgeKey,
+        value: this.state.badges[badgeKey],
+        createdAt: currDate
+      });
+    });
+
+    const entry = {
+      text: [{
+        value: this.state.text,
+        emotion: this.state.emotion,
+        createdAt: currDate
+      }],
+      badges,
+      milestone: false
+    };
+
+    databaseService.createEntry(entry);
+  }
+
   render() {
     const { goBack } = this.props.navigation;
 
@@ -72,7 +110,7 @@ export default class Entry extends Component {
               size={90}
             />
             <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
-              {this.state.hydration}
+              {this.state.badges.hydration}
             </Text>
             <Icon
               onPress={() => this.setHydration('up')}
@@ -87,11 +125,11 @@ export default class Entry extends Component {
               size={40}
             />
             <Icon
-              name="cup-water"
+              name="delete"
               size={90}
             />
             <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
-              {this.state.diapers}
+              {this.state.badges.diapers}
             </Text>
             <Icon
               onPress={() => this.setDiapers('up')}
@@ -116,13 +154,15 @@ export default class Entry extends Component {
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
           <Item regular>
             <Input
+              onChangeText={text => this.setState({ text })}
               placeholder="Eintrag hinzufügen"
             />
             <Button
               transparent
               style={{ alignSelf: 'center' }}
               onPress={() => {
-                goBack();
+                this.handleSubmit();
+                //goBack();
                 Keyboard.dismiss();
               }}
             >
