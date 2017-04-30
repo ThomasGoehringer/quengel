@@ -39,12 +39,12 @@ const LogEntry = props => (
       )}
     </View>
 
-    <Separator text={moment().format('DD MMM YY')} lineColor="lightgray" />
+    <Separator text={moment(props.createdAt).format('DD MMM YY')} lineColor="lightgray" />
 
     {props.text.map(text =>
       <View key={text.value + text.createdAt}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={styles.textTime}>10:38</Text>
+          <Text style={styles.textTime}>{moment(text.createdAt).format('HH:mm')}</Text>
           {text.emotion && <FeelingStatus emotion={text.emotion} />}
         </View>
         <Text style={styles.text}>{text.value}</Text>
@@ -62,7 +62,8 @@ LogEntry.propTypes = {
   text: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string,
     createdAt: PropTypes.string
-  })).isRequired
+  })).isRequired,
+  createdAt: PropTypes.string.isRequired
 };
 
 
