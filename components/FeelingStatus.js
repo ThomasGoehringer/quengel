@@ -17,13 +17,13 @@ const FeelingStatus = (props) => {
   let backgroundColor;
 
   switch (props.emotion) {
-    case 'happy':
+    case 'emoticon-happy':
       backgroundColor = { backgroundColor: '#00b572' };
       break;
-    case 'neutral':
+    case 'emoticon-neutral':
       backgroundColor = { backgroundColor: '#5363ab' };
       break;
-    case 'sad':
+    case 'emoticon-sad':
       backgroundColor = { backgroundColor: '#ff7200' };
       break;
     default:
@@ -34,7 +34,7 @@ const FeelingStatus = (props) => {
     <Icon
       size={14}
       style={[styles.icon, backgroundColor]}
-      name={`emoticon-${props.emotion}`}
+      name={props.emotion}
     />
   );
 };

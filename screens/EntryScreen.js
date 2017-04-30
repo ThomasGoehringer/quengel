@@ -3,9 +3,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Keyboard
+  Keyboard,
+  TextInput
 } from 'react-native';
-import { Item, Input, Button } from 'native-base';
+import { Item, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import databaseService from '../services/databaseService';
 
@@ -73,23 +74,34 @@ export default class Entry extends Component {
     const badges = [];
 
     Object.keys(this.state.badges).forEach((badgeKey) => {
+      const badgeValue = this.state.badges[badgeKey];
+      if (badgeValue === 0) return;
+
       badges.push({
         badgeType: badgeKey,
-        value: this.state.badges[badgeKey],
+        value: badgeValue,
         createdAt: currDate
       });
     });
 
-    const entry = {
-      text: [{
+    const emotion = this.state.emotion;
+    const entryText = [];
+
+    if (this.state.text !== '' || emotion !== 'help') {
+      entryText.push({
         value: this.state.text,
-        emotion: this.state.emotion,
+        emotion: emotion === 'help' ? null : emotion,
         createdAt: currDate
-      }],
+      });
+    }
+
+    const entry = {
+      text: entryText,
       badges,
       milestone: false
     };
 
+    if (entry.text.length === 0 && entry.badges.length === 0) return;
     databaseService.createEntry(entry);
   }
 
@@ -153,7 +165,7 @@ export default class Entry extends Component {
         </View>
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
           <Item regular>
-            <Input
+            <TextInput
               onChangeText={text => this.setState({ text })}
               placeholder="Eintrag hinzufügen"
             />
