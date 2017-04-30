@@ -128,7 +128,7 @@ async function getEntries() {
             }
           ],
           milestone: false,
-          createdAt: '29.04.2017 16:33'
+          createdAt: '2017-04-29T16:33:42.732Z'
         }
       ]);
     }, 500);
