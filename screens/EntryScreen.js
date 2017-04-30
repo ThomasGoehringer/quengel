@@ -162,7 +162,7 @@ export default class Entry extends Component {
               style={{ alignSelf: 'center' }}
               onPress={() => {
                 this.handleSubmit();
-                //goBack();
+                goBack();
                 Keyboard.dismiss();
               }}
             >
