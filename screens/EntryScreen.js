@@ -20,9 +20,6 @@ export default class Entry extends Component {
           <View style={{ flex: 0.5, backgroundColor: 'blue' }}>
             <Text>Test</Text>
           </View>
-          <View style={{ flex: 0.5, backgroundColor: 'green' }}>
-            <Text>Test</Text>
-          </View>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 0.5, backgroundColor: 'green' }}>
@@ -31,15 +28,11 @@ export default class Entry extends Component {
           <View style={{ flex: 0.5, backgroundColor: 'blue' }}>
             <Text>Test</Text>
           </View>
-          <View style={{ flex: 0.5, backgroundColor: 'green' }}>
-            <Text>Test</Text>
-          </View>
         </View>
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
           <Item regular>
             <Input
               placeholder="Eintrag hinzufügen"
-              autoFocus
             />
             <Button
               transparent
