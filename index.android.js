@@ -60,7 +60,7 @@ export default class MainScreen extends Component {
       <Fab
         onPress={() => navigate('Entry')}
         direction="up"
-        style={{ backgroundColor: '#5067FF', position: 'absolute', bottom: 30 }}
+        style={{ backgroundColor: '#5067FF', position: 'absolute', bottom: 35 }}
         position="bottomRight"
       >
         <Icon name="add" />

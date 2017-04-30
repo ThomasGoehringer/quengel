@@ -4,7 +4,7 @@ import {
   Text,
   Keyboard
 } from 'react-native';
-import { Item, Icon, Input, Button, Badge } from 'native-base';
+import { Item, Icon, Input, Button } from 'native-base';
 
 
 export default class Entry extends Component {
@@ -13,15 +13,28 @@ export default class Entry extends Component {
 
     return (
       <View style={{ flex: 1, justifyContent: 'space-between' }}>
-        <Badge info style={{ alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: '#FFFFFF' }}>Hydration</Text>
-        </Badge>
-        <Badge danger style={{ alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: '#FFFFFF' }}>Happy</Text>
-        </Badge>
-        <Badge warning style={{ alignSelf: 'center', alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: '#FFFFFF' }}>Quiet</Text>
-        </Badge>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 0.5, backgroundColor: 'green' }}>
+            <Text>Test</Text>
+          </View>
+          <View style={{ flex: 0.5, backgroundColor: 'blue' }}>
+            <Text>Test</Text>
+          </View>
+          <View style={{ flex: 0.5, backgroundColor: 'green' }}>
+            <Text>Test</Text>
+          </View>
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 0.5, backgroundColor: 'green' }}>
+            <Text>Test</Text>
+          </View>
+          <View style={{ flex: 0.5, backgroundColor: 'blue' }}>
+            <Text>Test</Text>
+          </View>
+          <View style={{ flex: 0.5, backgroundColor: 'green' }}>
+            <Text>Test</Text>
+          </View>
+        </View>
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
           <Item regular>
             <Input
