@@ -20,7 +20,6 @@ export default class Entry extends Component {
   }
 
   setHydration(direction) {
-    console.log(direction);
     if (direction === 'up') {
       this.setState({ hydration: this.state.hydration + 1 });
     } else if (direction === 'down') {
@@ -31,7 +30,6 @@ export default class Entry extends Component {
   }
 
   setDiapers(direction) {
-    console.log(direction);
     if (direction === 'up') {
       this.setState({ diapers: this.state.diapers + 1 });
     } else if (direction === 'down') {
@@ -56,57 +54,50 @@ export default class Entry extends Component {
       this.setState({ emotion: newEmotion });
     }
   }
+
   render() {
     const { goBack } = this.props.navigation;
 
     return (
       <View style={{ flex: 1, justifyContent: 'space-between' }}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 0.5, backgroundColor: 'green' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-              <Icon
-                onPress={() => this.setHydration('down')}
-                name="chevron-left"
-                size={40}
-              />
-              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Icon
-                  name="cup-water"
-                  size={90}
-                />
-                <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
-                  {this.state.hydration}
-                </Text>
-              </View>
-              <Icon
-                onPress={() => this.setHydration('up')}
-                name="chevron-right"
-                size={40}
-              />
-            </View>
+          <View style={{ flex: 0.5, backgroundColor: '#007bff', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <Icon
+              onPress={() => this.setHydration('down')}
+              name="chevron-left"
+              size={40}
+            />
+            <Icon
+              name="cup-water"
+              size={90}
+            />
+            <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
+              {this.state.hydration}
+            </Text>
+            <Icon
+              onPress={() => this.setHydration('up')}
+              name="chevron-right"
+              size={40}
+            />
           </View>
-          <View style={{ flex: 0.5, backgroundColor: 'blue' }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ flex: 0.5, backgroundColor: '#ffac49', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <Icon
               onPress={() => this.setDiapers('down')}
               name="chevron-left"
               size={40}
             />
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Icon
-                name="cup-water"
-                size={90}
-              />
-              <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
-                {this.state.diapers}
-              </Text>
-            </View>
+            <Icon
+              name="cup-water"
+              size={90}
+            />
+            <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
+              {this.state.diapers}
+            </Text>
             <Icon
               onPress={() => this.setDiapers('up')}
               name="chevron-right"
               size={40}
             />
-          </View>
           </View>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -119,8 +110,7 @@ export default class Entry extends Component {
               <Icon name="chevron-right" size={40} color="#ffffff" />
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 0.5, backgroundColor: 'blue' }}>
-            <Text>Test</Text>
+          <View style={{ flex: 0.5, backgroundColor: '#c557b4' }}>
           </View>
         </View>
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
