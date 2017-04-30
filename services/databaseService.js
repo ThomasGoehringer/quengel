@@ -11,7 +11,20 @@ async function getEntries() {
   }
 }
 
+async function createEntry(entry) {
+  try {
+    const response = await fetch(`${serverAPI}/quengel/entry`, {
+      method: 'post',
+      body: entry
+    });
+    return response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 
 module.exports = {
-  getEntries
+  getEntries,
+  createEntry
 };
