@@ -28,19 +28,14 @@ const styles = StyleSheet.create({
 });
 
 export default class LogEntry extends Component {
-  constructor() {
-    super();
-    this.renderBadges = this.renderBadges.bind(this);
-  }
-
   renderBadges() {
     // Merge badges with same badgeType together
     const mergedBadges = Object.values(this.props.badges.reduce((acc, item) => {
-      const obj = acc[item.badgeType] ?
-        Object.assign({},
-          acc[item.badgeType],
-          { value: (Number(acc[item.badgeType].value) + Number(item.value)).toString() }
-        ) : item;
+      const obj = acc[item.badgeType] ? {
+        ...acc[item.badgeType],
+        value: (Number(acc[item.badgeType].value) + Number(item.value)).toString()
+      } : item;
+
       acc[item.badgeType] = obj;
       return acc;
     }, {}));
