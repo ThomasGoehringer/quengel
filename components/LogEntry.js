@@ -7,16 +7,10 @@ import Badge from '../components/Badge';
 import FeelingStatus from '../components/FeelingStatus';
 
 const styles = StyleSheet.create({
-  img: {
-    resizeMode: 'cover',
-    width: null,
-    height: 200
-  },
   text: {
     paddingTop: 0,
     paddingBottom: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingHorizontal: 20,
     color: 'rgb(50,50,50)'
   },
   textTime: {
@@ -51,7 +45,7 @@ export default class LogEntry extends Component {
 
   render() {
     return (
-      <Card>
+      <Card style={this.props.text.length === 0 ? { paddingBottom: 15 } : {}}>
         <View style={{ paddingLeft: 15, paddingTop: 15, flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
           {this.renderBadges()}
         </View>
