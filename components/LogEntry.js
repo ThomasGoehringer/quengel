@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Card } from 'native-base';
 import moment from 'moment';
@@ -27,31 +27,55 @@ const styles = StyleSheet.create({
   }
 });
 
-const LogEntry = props => (
-  <Card>
-    <View style={{ paddingLeft: 15, paddingTop: 15, flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
-      {props.badges.map(badge =>
-        <Badge
-          key={badge.badgeType + badge.createdAt}
-          text={badge.unit ? badge.value + badge.unit : badge.value}
-          feature={badge.badgeType}
-        />
-      )}
-    </View>
+export default class LogEntry extends Component {
+  constructor() {
+    super();
+    this.renderBadges = this.renderBadges.bind(this);
+  }
 
-    <Separator text={moment(props.createdAt).format('DD MMM YY')} lineColor="lightgray" />
+  renderBadges() {
+    // Merge badges with same badgeType together
+    const mergedBadges = Object.values(this.props.badges.reduce((acc, item) => {
+      const obj = acc[item.badgeType] ?
+        Object.assign({},
+          acc[item.badgeType],
+          { value: (Number(acc[item.badgeType].value) + Number(item.value)).toString() }
+        ) : item;
+      acc[item.badgeType] = obj;
+      return acc;
+    }, {}));
 
-    {props.text.map(text =>
-      <View key={text.value + text.createdAt}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={styles.textTime}>{moment(text.createdAt).format('HH:mm')}</Text>
-          {text.emotion && <FeelingStatus emotion={text.emotion} />}
+    return mergedBadges.map(badge =>
+      <Badge
+        key={badge.badgeType + badge.createdAt}
+        text={badge.unit ? badge.value + badge.unit : badge.value}
+        feature={badge.badgeType}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <Card>
+        <View style={{ paddingLeft: 15, paddingTop: 15, flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}>
+          {this.renderBadges()}
         </View>
-        <Text style={styles.text}>{text.value}</Text>
-      </View>
-    )}
-  </Card>
-);
+
+        <Separator text={moment(this.props.createdAt).format('DD MMM YY')} lineColor="lightgray" />
+
+        {this.props.text.map(text =>
+          <View key={text.value + text.createdAt}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={styles.textTime}>{moment(text.createdAt).format('HH:mm')}</Text>
+              {text.emotion && <FeelingStatus emotion={text.emotion} />}
+            </View>
+            <Text style={styles.text}>{text.value}</Text>
+          </View>
+        )}
+      </Card>
+    );
+  }
+}
 
 LogEntry.propTypes = {
   badges: PropTypes.arrayOf(PropTypes.shape({
@@ -65,6 +89,3 @@ LogEntry.propTypes = {
   })).isRequired,
   createdAt: PropTypes.string.isRequired
 };
-
-
-export default LogEntry;

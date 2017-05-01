@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import databaseService from '../services/databaseService';
 
 
-export default class Entry extends Component {
+export default class EntryScreen extends Component {
   constructor() {
     super();
     this.state = {
