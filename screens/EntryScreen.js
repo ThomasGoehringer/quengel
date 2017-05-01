@@ -77,9 +77,32 @@ export default class Entry extends Component {
       const badgeValue = this.state.badges[badgeKey];
       if (badgeValue === 0) return;
 
+      let badgeUnit;
+
+      switch (badgeKey) {
+        case 'hydration':
+          badgeUnit = 'ml';
+          break;
+        case 'nursing':
+          badgeUnit = 'min';
+          break;
+        case 'weight':
+          badgeUnit = 'g';
+          break;
+        case 'height':
+          badgeUnit = 'cm';
+          break;
+        case 'headCircumference':
+          badgeUnit = 'cm';
+          break;
+        default:
+          badgeUnit = null;
+      }
+
       badges.push({
         badgeType: badgeKey,
         value: badgeValue,
+        unit: badgeUnit,
         createdAt: currDate
       });
     });

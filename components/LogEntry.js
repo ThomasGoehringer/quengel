@@ -33,7 +33,7 @@ const LogEntry = props => (
       {props.badges.map(badge =>
         <Badge
           key={badge.badgeType + badge.createdAt}
-          text={badge.value}
+          text={badge.unit ? badge.value + badge.unit : badge.value}
           feature={badge.badgeType}
         />
       )}
