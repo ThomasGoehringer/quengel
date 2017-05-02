@@ -4,6 +4,10 @@ import {
   ActivityIndicator,
   FlatList
 } from 'react-native';
+import {
+  Icon
+} from 'native-base';
+import Fab from 'react-native-action-button';
 import LogEntry from '../components/LogEntry';
 import MilestoneEntry from '../components/MilestoneEntry';
 import databaseService from '../services/databaseService';
@@ -22,6 +26,32 @@ export default class LogScreen extends Component {
     databaseService.getEntries().then((entries) => {
       this.setState({ loading: false, entries });
     });
+  }
+
+  handleEntrySubmit() {
+    databaseService.getEntries().then((entries) => {
+      this.setState({ entries });
+    });
+  }
+
+  renderFab() {
+    const { navigate } = this.props.navigation;
+
+    return (
+      <Fab
+        onPress={() => {
+          navigate('Entry', {
+            handleEntry: () => this.handleEntrySubmit()
+          });
+        }}
+        degrees={0}
+        backgroundTappable
+        buttonColor="#4e788b"
+        useNativeFeedback
+      >
+        <Icon name="add" />
+      </Fab>
+    );
   }
 
   renderListItem(data) {
@@ -46,12 +76,14 @@ export default class LogScreen extends Component {
     }
 
     return (
-      <View style={{ padding: 10 }}>
+      <View>
         <FlatList
+          style={{ paddingHorizontal: 10 }}
           data={this.state.entries}
           keyExtractor={item => item.createdAt}
           renderItem={this.renderListItem}
         />
+        { this.renderFab() }
       </View>
     );
   }

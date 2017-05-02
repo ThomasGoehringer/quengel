@@ -122,7 +122,12 @@ export default class EntryScreen extends Component {
     };
 
     if (entry.text.length === 0 && entry.badges.length === 0) return;
-    databaseService.createEntry(entry);
+
+    databaseService.createEntry(entry).then(() => {
+      this.props.navigation.state.params.handleEntry(entry)
+      console.log('HFWSASDASD');
+      }
+    );
   }
 
   render() {

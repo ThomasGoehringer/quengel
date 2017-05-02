@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry
+  AppRegistry,
+  View
 } from 'react-native';
 import {
   StyleProvider,
-  Container,
-  Content,
   Footer,
   FooterTab,
   Button,
   Header,
   Body,
   Title,
-  Fab,
   Icon
 } from 'native-base';
 import {
@@ -20,11 +18,11 @@ import {
 } from 'react-navigation';
 import getTheme from './config/native-base-theme/components';
 import platform from './config/native-base-theme/variables/platform';
+import EntryScreen from './screens/EntryScreen';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
-import EntryScreen from './screens/EntryScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
 
@@ -44,7 +42,7 @@ export default class MainScreen extends Component {
   renderActiveScreen() {
     switch (this.state.activeScreen) {
       case 'LogScreen':
-        return (<LogScreen />);
+        return (<LogScreen navigation={this.props.navigation} />);
       case 'MilestoneScreen':
         return (<MilestoneScreen />);
       case 'CalendarScreen':
@@ -54,21 +52,6 @@ export default class MainScreen extends Component {
       default:
         return (<LogScreen />);
     }
-  }
-
-  renderFab() {
-    const { navigate } = this.props.navigation;
-
-    return (
-      <Fab
-        onPress={() => navigate('Entry')}
-        direction="up"
-        style={{ backgroundColor: '#4e788b', position: 'absolute', bottom: 35 }}
-        position="bottomRight"
-      >
-        <Icon name="add" />
-      </Fab>
-    );
   }
 
   renderProfile() {
@@ -92,17 +75,16 @@ export default class MainScreen extends Component {
   render() {
     return (
       <StyleProvider style={getTheme(platform)}>
-        <Container>
+        <View style={{ flex: 1 }}>
           <Header>
             <Body>
               <Title>Quengel</Title>
               { this.state.activeScreen === 'LogScreen' && this.renderProfile() }
             </Body>
           </Header>
-          <Content>
+          <View style={{ flex: 1 }}>
             { this.renderActiveScreen() }
-          </Content>
-          { this.state.activeScreen === 'LogScreen' && this.renderFab() }
+          </View>
           <Footer>
             <FooterTab>
               <Button
@@ -143,18 +125,16 @@ export default class MainScreen extends Component {
               </Button>
             </FooterTab>
           </Footer>
-        </Container>
+        </View>
       </StyleProvider>
     );
   }
 }
 
-
 const BabyApp = StackNavigator({
   Main: { screen: MainScreen },
-  Entry: { screen: EntryScreen },
-  Profile: { screen: ProfileScreen }
+  Profile: { screen: ProfileScreen },
+  Entry: { screen: EntryScreen }
 }, { headerMode: 'screen' });
-
 
 AppRegistry.registerComponent('BabyApp', () => BabyApp);
