@@ -18,14 +18,14 @@ import {
 import {
   StackNavigator
 } from 'react-navigation';
+import getTheme from './config/native-base-theme/components';
+import platform from './config/native-base-theme/variables/platform';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import EntryScreen from './screens/EntryScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import getTheme from './native-base-theme/components';
-import platform from './native-base-theme/variables/platform';
 
 
 export default class MainScreen extends Component {
