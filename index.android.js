@@ -3,6 +3,7 @@ import {
   AppRegistry
 } from 'react-native';
 import {
+  StyleProvider,
   Container,
   Content,
   Footer,
@@ -23,6 +24,8 @@ import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import EntryScreen from './screens/EntryScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import getTheme from './native-base-theme/components';
+import platform from './native-base-theme/variables/platform';
 
 
 export default class MainScreen extends Component {
@@ -60,7 +63,7 @@ export default class MainScreen extends Component {
       <Fab
         onPress={() => navigate('Entry')}
         direction="up"
-        style={{ backgroundColor: '#5067FF', position: 'absolute', bottom: 35 }}
+        style={{ backgroundColor: '#f64228', position: 'absolute', bottom: 35 }}
         position="bottomRight"
       >
         <Icon name="add" />
@@ -88,6 +91,7 @@ export default class MainScreen extends Component {
 
   render() {
     return (
+      <StyleProvider style={getTheme(platform)}>
       <Container>
         <Header>
           <Body>
@@ -99,7 +103,7 @@ export default class MainScreen extends Component {
           { this.renderActiveScreen() }
         </Content>
         { this.state.activeScreen === 'LogScreen' && this.renderFab() }
-        <Footer >
+        <Footer>
           <FooterTab>
             <Button
               active={this.state.activeScreen === 'LogScreen'}
@@ -140,6 +144,7 @@ export default class MainScreen extends Component {
           </FooterTab>
         </Footer>
       </Container>
+      </StyleProvider>
     );
   }
 }
