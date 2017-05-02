@@ -63,7 +63,7 @@ export default class MainScreen extends Component {
       <Fab
         onPress={() => navigate('Entry')}
         direction="up"
-        style={{ backgroundColor: '#f64228', position: 'absolute', bottom: 35 }}
+        style={{ backgroundColor: '#4e788b', position: 'absolute', bottom: 35 }}
         position="bottomRight"
       >
         <Icon name="add" />
@@ -92,58 +92,58 @@ export default class MainScreen extends Component {
   render() {
     return (
       <StyleProvider style={getTheme(platform)}>
-      <Container>
-        <Header>
-          <Body>
-            <Title>Quengel</Title>
-            { this.state.activeScreen === 'LogScreen' && this.renderProfile() }
-          </Body>
-        </Header>
-        <Content>
-          { this.renderActiveScreen() }
-        </Content>
-        { this.state.activeScreen === 'LogScreen' && this.renderFab() }
-        <Footer>
-          <FooterTab>
-            <Button
-              active={this.state.activeScreen === 'LogScreen'}
-              onPress={() => this.setState({ activeScreen: 'LogScreen' })}
-            >
-              <Icon
+        <Container>
+          <Header>
+            <Body>
+              <Title>Quengel</Title>
+              { this.state.activeScreen === 'LogScreen' && this.renderProfile() }
+            </Body>
+          </Header>
+          <Content>
+            { this.renderActiveScreen() }
+          </Content>
+          { this.state.activeScreen === 'LogScreen' && this.renderFab() }
+          <Footer>
+            <FooterTab>
+              <Button
                 active={this.state.activeScreen === 'LogScreen'}
-                name="book"
-              />
-            </Button>
-            <Button
-              active={this.state.activeScreen === 'CalendarScreen'}
-              onPress={() => this.setState({ activeScreen: 'CalendarScreen' })}
-            >
-              <Icon
+                onPress={() => this.setState({ activeScreen: 'LogScreen' })}
+              >
+                <Icon
+                  active={this.state.activeScreen === 'LogScreen'}
+                  name="book"
+                />
+              </Button>
+              <Button
                 active={this.state.activeScreen === 'CalendarScreen'}
-                name="calendar"
-              />
-            </Button>
-            <Button
-              active={this.state.activeScreen === 'MilestoneScreen'}
-              onPress={() => this.setState({ activeScreen: 'MilestoneScreen' })}
-            >
-              <Icon
+                onPress={() => this.setState({ activeScreen: 'CalendarScreen' })}
+              >
+                <Icon
+                  active={this.state.activeScreen === 'CalendarScreen'}
+                  name="calendar"
+                />
+              </Button>
+              <Button
                 active={this.state.activeScreen === 'MilestoneScreen'}
-                name="trophy"
-              />
-            </Button>
-            <Button
-              active={this.state.activeScreen === 'StatisticScreen'}
-              onPress={() => this.setState({ activeScreen: 'StatisticScreen' })}
-            >
-              <Icon
+                onPress={() => this.setState({ activeScreen: 'MilestoneScreen' })}
+              >
+                <Icon
+                  active={this.state.activeScreen === 'MilestoneScreen'}
+                  name="trophy"
+                />
+              </Button>
+              <Button
                 active={this.state.activeScreen === 'StatisticScreen'}
-                name="stats"
-              />
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+                onPress={() => this.setState({ activeScreen: 'StatisticScreen' })}
+              >
+                <Icon
+                  active={this.state.activeScreen === 'StatisticScreen'}
+                  name="stats"
+                />
+              </Button>
+            </FooterTab>
+          </Footer>
+        </Container>
       </StyleProvider>
     );
   }

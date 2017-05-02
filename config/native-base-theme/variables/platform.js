@@ -7,8 +7,8 @@ const deviceWidth = Dimensions.get('window').width;
 const platform = Platform.OS;
 const platformStyle = undefined;
 
-// Custom variables
-const globalColor = '#ff7d50';
+// Custom variables 4e788b a23e48
+const globalColor = '#4e788b';
 
 export default {
   platformStyle,
@@ -144,7 +144,7 @@ export default {
 
 
     // FooterTab
-  tabBarTextColor: (platform === 'ios') ? '#6b6b6b' : '#d2633d',
+  tabBarTextColor: (platform === 'ios') ? '#6b6b6b' : '#294450',
   tabBarTextSize: (platform === 'ios') ? 14 : 11,
   activeTab: (platform === 'ios') ? '#007aff' : '#fff',
   sTabBarActiveTextColor: '#007aff',
@@ -173,8 +173,8 @@ export default {
   toolbarDefaultBorder: (platform === 'ios') ? '#a7a6ab' : '#3F51B5',
   iosStatusbar: (platform === 'ios') ? 'dark-content' : 'light-content',
   get statusBarColor() {
-    return '#d2633d';
-    // return color(this.toolbarDefaultBg).darken(0.2).hexString();
+    // return '#1c1f20';
+    return color(this.toolbarDefaultBg).darken(0.2).hexString();
   },
 
 

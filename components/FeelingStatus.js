@@ -18,16 +18,16 @@ const FeelingStatus = (props) => {
 
   switch (props.emotion) {
     case 'emoticon-happy':
-      backgroundColor = { backgroundColor: '#00b572' };
+      backgroundColor = { backgroundColor: '#1c1f20' };
       break;
     case 'emoticon-neutral':
-      backgroundColor = { backgroundColor: '#5363ab' };
+      backgroundColor = { backgroundColor: '#1c1f20' };
       break;
     case 'emoticon-sad':
-      backgroundColor = { backgroundColor: '#ff7200' };
+      backgroundColor = { backgroundColor: '#1c1f20' };
       break;
     default:
-      backgroundColor = { backgroundColor: '#00b572' };
+      backgroundColor = { backgroundColor: '#1c1f20' };
   }
 
   return (
