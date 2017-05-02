@@ -80,9 +80,6 @@ export default class EntryScreen extends Component {
       let badgeUnit;
 
       switch (badgeKey) {
-        case 'hydration':
-          badgeUnit = 'ml';
-          break;
         case 'nursing':
           badgeUnit = 'min';
           break;
