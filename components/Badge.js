@@ -10,31 +10,31 @@ const Badge = (props) => {
 
   switch (props.feature) {
     case 'diapers':
-      backgroundColor = { backgroundColor: '#ffac49' };
+      backgroundColor = { backgroundColor: '#c27ba0' };
       iconName = 'delete';
       break;
     case 'hydration':
-      backgroundColor = { backgroundColor: '#007bff' };
+      backgroundColor = { backgroundColor: '#6fa8dc' };
       iconName = 'cup-water';
       break;
     case 'meals':
-      backgroundColor = { backgroundColor: '#ff5333' };
+      backgroundColor = { backgroundColor: '#93c47d' };
       iconName = 'food-apple';
       break;
     case 'nursing':
-      backgroundColor = { backgroundColor: '#00c4b7' };
+      backgroundColor = { backgroundColor: '#fe7d55' };
       iconName = 'timer';
       break;
     case 'weight':
-      backgroundColor = { backgroundColor: '#c557b4' };
+      backgroundColor = { backgroundColor: '#ffac49' };
       iconName = 'scale-bathroom';
       break;
     case 'height':
-      backgroundColor = { backgroundColor: '#c557b4' };
+      backgroundColor = { backgroundColor: '#ffac49' };
       iconName = 'ruler';
       break;
     case 'headCircumference':
-      backgroundColor = { backgroundColor: '#c557b4' };
+      backgroundColor = { backgroundColor: '#ffac49' };
       iconName = 'face';
       break;
     default:
