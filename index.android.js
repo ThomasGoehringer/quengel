@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  View
+  StyleSheet,
+  View,
+  Image
 } from 'react-native';
 import {
   StyleProvider,
@@ -9,13 +11,10 @@ import {
   FooterTab,
   Button,
   Header,
-  Body,
-  Title,
+  Left,
   Icon
 } from 'native-base';
-import {
-  StackNavigator
-} from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import getTheme from './config/native-base-theme/components';
 import platform from './config/native-base-theme/variables/platform';
 import EntryScreen from './screens/EntryScreen';
@@ -24,7 +23,16 @@ import MilestoneScreen from './screens/MilestoneScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import logo from './assets/images/logo.png';
 
+
+const styles = StyleSheet.create({
+  logo: {
+    marginLeft: 5,
+    width: 60,
+    height: 60
+  }
+});
 
 export default class MainScreen extends Component {
   static navigationOptions = {
@@ -58,10 +66,12 @@ export default class MainScreen extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <Button transparent person
+      <Button
+        transparent
+        person
         active={this.state.activeScreen === 'ProfilScreen'}
         onPress={() => navigate('Profile')}
-        style={{ position: 'absolute', right: 0, height: 30 }}
+        style={{ position: 'absolute', right: 15, height: 30 }}
       >
         <Icon
           active={this.state.activeScreen === 'ProfilScreen'}
@@ -77,10 +87,10 @@ export default class MainScreen extends Component {
       <StyleProvider style={getTheme(platform)}>
         <View style={{ flex: 1 }}>
           <Header>
-            <Body>
-              <Title>Quengel</Title>
-              { this.state.activeScreen === 'LogScreen' && this.renderProfile() }
-            </Body>
+            <Left>
+              <Image source={logo} style={styles.logo} />
+            </Left>
+            { this.renderProfile() }
           </Header>
           <View style={{ flex: 1 }}>
             { this.renderActiveScreen() }
