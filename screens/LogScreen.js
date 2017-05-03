@@ -23,14 +23,12 @@ export default class LogScreen extends Component {
   }
 
   componentDidMount() {
-    databaseService.getEntries().then((entries) => {
-      this.setState({ loading: false, entries });
-    });
+    this.updateEntries();
   }
 
-  handleEntrySubmit() {
+  updateEntries() {
     databaseService.getEntries().then((entries) => {
-      this.setState({ entries });
+      this.setState({ loading: false, entries: entries.reverse() });
     });
   }
 
@@ -41,7 +39,7 @@ export default class LogScreen extends Component {
       <Fab
         onPress={() => {
           navigate('Entry', {
-            handleEntry: () => this.handleEntrySubmit()
+            handleEntry: () => this.updateEntries()
           });
         }}
         degrees={0}
