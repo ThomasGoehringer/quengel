@@ -9,6 +9,7 @@ import {
 import { Item, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import databaseService from '../services/databaseService';
+import WeightModal from '../components/WeightModal';
 
 
 export default class EntryScreen extends Component {
@@ -20,8 +21,11 @@ export default class EntryScreen extends Component {
         hydration: 0,
         diapers: 0
       },
-      emotion: 'help'
+      emotion: 'help',
+      modalVisible: false,
+      activeModal: ''
     };
+    this.handleModalSubmit = this.handleModalSubmit.bind(this);
   }
 
   setHydration(direction) {
@@ -129,6 +133,29 @@ export default class EntryScreen extends Component {
     });
   }
 
+  handleModalSubmit(modalData) {
+    console.log('handler', modalData);
+    this.setState({
+      modalVisible: false,
+      activeModal: ''
+    });
+  }
+
+  renderModal() {
+    if (this.state.activeModal === 'weightModal') {
+      return (
+        <WeightModal
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
+    }
+  }
+
   render() {
     const { goBack } = this.props.navigation;
 
@@ -186,6 +213,34 @@ export default class EntryScreen extends Component {
           </View>
           <View style={{ flex: 0.5, backgroundColor: '#c557b4' }} />
         </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 0.5, flexDirection: 'row', backgroundColor: '#f44242', alignItems: 'center', justifyContent: 'center' }}>
+            <TouchableOpacity
+              onPress={() => this.setState({
+                modalVisible: true,
+                activeModal: 'weightModal'
+              })}
+            >
+              <Icon
+                name="scale-bathroom"
+                size={90}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Icon
+                style={{ paddingHorizontal: 20 }}
+                name="ruler"
+                size={90}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Icon
+                name="face"
+                size={90}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
           <Item regular>
             <TextInput
@@ -205,6 +260,7 @@ export default class EntryScreen extends Component {
             </Button>
           </Item>
         </View>
+        {this.renderModal()}
       </View>
     );
   }

@@ -1,31 +1,76 @@
 import React, { Component } from 'react';
-import { Modal, View, Text, TextInput } from 'react-native';
+import { Modal, View, Text, TextInput, StyleSheet } from 'react-native';
 
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center'
+  },
+  container: {
+    marginHorizontal: 20,
+    padding: 15,
+    backgroundColor: '#fff'
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  input: {
+    flex: 1
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  button: {
+    fontWeight: 'bold',
+    marginLeft: 10
+  }
+});
 
 export default class WeightModal extends Component {
+  constructor() {
+    super();
+    this.state = {
+      visible: false
+    };
+  }
+
+  componentWillMount() {
+    this.setState({ visible: this.props.visible });
+  }
+
   render() {
     return (
       <Modal
         animationType={'fade'}
         transparent
-        visible={this.props.visible}
-        onRequestClose
+        visible={this.state.visible}
+        onRequestClose={this.props.onCancel}
       >
-        <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)', justifyContent: 'center' }}>
-          <View style={{ marginHorizontal: 20, padding: 15, backgroundColor: 'white' }} >
+        <View style={styles.background}>
+          <View style={styles.container} >
             <Text>Gewicht eingeben</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={styles.inputContainer}>
               <TextInput
                 editable
-                maxLength={5}
                 keyboardType="numeric"
-                style={{ flex: 1 }}
+                maxLength={5}
+                placeholder="Gewicht"
+                style={styles.input}
               />
               <Text>Gramm</Text>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Text>ABBRECHEN</Text>
-              <Text>AKZEPTIEREN</Text>
+            <View style={styles.buttonContainer}>
+              <Text
+                onPress={this.props.onCancel}
+                style={styles.button}>ABBRECHEN</Text>
+              <Text
+                onPress={() => this.props.onSubmit(123)}
+                style={styles.button}
+              >AKZEPTIEREN</Text>
             </View>
           </View>
         </View>
