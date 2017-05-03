@@ -29,6 +29,7 @@ export default class LogScreen extends Component {
   updateEntries() {
     databaseService.getEntries().then((entries) => {
       this.setState({ loading: false, entries: entries.reverse() });
+      this.logList.scrollToOffset({ x: 0, y: 0, animated: true });
     });
   }
 
@@ -80,6 +81,7 @@ export default class LogScreen extends Component {
           data={this.state.entries}
           keyExtractor={item => item.createdAt}
           renderItem={this.renderListItem}
+          ref={(list) => { this.logList = list; }}
         />
         { this.renderFab() }
       </View>

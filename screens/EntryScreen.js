@@ -184,8 +184,7 @@ export default class EntryScreen extends Component {
               <Icon name="chevron-right" size={40} color="#ffffff" />
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 0.5, backgroundColor: '#c557b4' }}>
-          </View>
+          <View style={{ flex: 0.5, backgroundColor: '#c557b4' }} />
         </View>
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
           <Item regular>
