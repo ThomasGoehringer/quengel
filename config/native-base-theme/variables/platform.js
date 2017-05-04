@@ -7,7 +7,7 @@ const deviceWidth = Dimensions.get('window').width;
 const platform = Platform.OS;
 const platformStyle = undefined;
 
-// Custom variables 4e788b a23e48
+// Custom variables 4e788b 81a392 5f7c8a
 const globalColor = '#4e788b';
 
 export default {
