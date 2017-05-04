@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {
-  Text
+  View,
+  Text,
+  TouchableOpacity,
+  Keyboard,
+  TextInput
 } from 'react-native';
 import {
   Thumbnail,
@@ -9,27 +13,83 @@ import {
   Left,
   Body,
   Right,
-  Modal,
-  View,
-  TextInput
+  Item,
+  Button
 } from 'native-base';
 import {
 } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NameModal from '../components/NameModal';
+import GenderModal from '../components/GenderModal';
+import BirthdayModal from '../components/BirthdayModal';
 
 export default class Profil extends Component {
   constructor() {
     super();
     this.state = {
-      modalVisible: false
+      text: '',
+      modalVisible: false,
+      activeModal: ''
     };
+    this.handleModalSubmit = this.handleModalSubmit.bind(this);
   }
 
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+  handleModalSubmit(modalData) {
+    console.log('handler', modalData);
+    this.setState({
+      modalVisible: false,
+      activeModal: ''
+    });
   }
+
+  renderNameModal() {
+    if (this.state.activeModal === 'NameModal') {
+      return (
+        <NameModal
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
+    }
+  }
+
+  renderGenderModal() {
+    if (this.state.activeModal === 'GenderModal') {
+      return (
+        <GenderModal
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
+    }
+  }
+
+  renderBirthdayModal() {
+    if (this.state.activeModal === 'BirthdayModal') {
+      return (
+        <BirthdayModal
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
+    }
+  }
+
 
   render() {
+    const { goBack } = this.props.navigation;
 
     return (
 
@@ -68,12 +128,18 @@ export default class Profil extends Component {
               <Text>Quengel</Text>
             </Body>
             <Right>
-              <Icon
-                onClick={renderModalFenster}
-                style={{ color: '#6B6B6E' }}
-                name="lead-pencil"
-                size={20}
-              />
+              <TouchableOpacity
+                onPress={() => this.setState({
+                  modalVisible: true,
+                  activeModal: 'NameModal'
+                })}
+              >
+                <Icon
+                  style={{ color: '#6B6B6E' }}
+                  name="lead-pencil"
+                  size={20}
+                />
+              </TouchableOpacity>
             </Right>
           </ListItem>
 
@@ -85,10 +151,18 @@ export default class Profil extends Component {
               <Text>Junge</Text>
             </Body>
             <Right>
-              <Icon
-                name="lead-pencil"
-                size={20}
-              />
+              <TouchableOpacity
+                onPress={() => this.setState({
+                  modalVisible: true,
+                  activeModal: 'GenderModal'
+                })}
+              >
+                <Icon
+                  style={{ color: '#6B6B6E' }}
+                  name="lead-pencil"
+                  size={20}
+                />
+              </TouchableOpacity>
             </Right>
           </ListItem>
           <ListItem>
@@ -99,10 +173,18 @@ export default class Profil extends Component {
               <Text>2017.4.18</Text>
             </Body>
             <Right>
-              <Icon
-                name="lead-pencil"
-                size={20}
-              />
+              <TouchableOpacity
+                onPress={() => this.setState({
+                  modalVisible: true,
+                  activeModal: 'BirthdayModal'
+                })}
+              >
+                <Icon
+                  style={{ color: '#6B6B6E' }}
+                  name="lead-pencil"
+                  size={20}
+                />
+              </TouchableOpacity>
             </Right>
           </ListItem>
           <ListItem>
@@ -112,18 +194,13 @@ export default class Profil extends Component {
             <Body>
               <Text>myqbaby@guengel.de</Text>
             </Body>
-            <Right>
-            </Right>
+            <Right />
           </ListItem>
         </List>
+        {this.renderNameModal()}
+        {this.renderGenderModal()}
+        {this.renderBirthdayModal()}
       </View>
-
     );
   }
 }
-
-// const BabyApp = StackNavigator({
-//   ProfileName: { screen: ProfileName }
-// }, { headerMode: 'screen' });
-//
-// AppRegistry.registerComponent('BabyApp', () => BabyApp);
