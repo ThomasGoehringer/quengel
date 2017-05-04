@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Modal, View, Text, TextInput, StyleSheet } from 'react-native';
+import { COLOR, FONTSIZE } from '../config/globals';
 
 
 const styles = StyleSheet.create({
@@ -13,6 +14,10 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#fff'
   },
+  headline: {
+    fontSize: FONTSIZE.SUBHEADING,
+    fontWeight: 'bold'
+  },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center'
@@ -22,9 +27,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginTop: 10
   },
   button: {
+    color: COLOR.PRIMARY,
     fontWeight: 'bold',
     marginLeft: 10
   }
@@ -54,7 +61,7 @@ export default class WeightModal extends Component {
       >
         <View style={styles.background}>
           <View style={styles.container} >
-            <Text>Gewicht eingeben</Text>
+            <Text style={styles.headline}>Gewicht eingeben</Text>
             <View style={styles.inputContainer}>
               <TextInput
                 defaultValue={`${this.state.data}`}
@@ -65,8 +72,10 @@ export default class WeightModal extends Component {
                 placeholder="Gewicht"
                 ref={(input) => { this.textInput = input; }}
                 returnKeyType="done"
+                selectionColor={COLOR.PRIMARY}
                 selectTextOnFocus
                 style={styles.input}
+                underlineColorAndroid={COLOR.PRIMARY}
               />
               <Text>Gramm</Text>
             </View>

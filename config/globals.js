@@ -1,5 +1,6 @@
 module.exports = {
   COLOR: {
+    PRIMARY: '#9bbdc6',
     DIAPERS: '#c27ba0',
     HYDRATION: '#6fa8dc',
     MEALS: '#93c47d',
