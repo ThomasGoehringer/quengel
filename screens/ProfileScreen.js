@@ -23,6 +23,7 @@ import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
 import BirthdayModal from '../components/BirthdayModal';
 import profile from '../assets/images/test.png';
+import { COLOR } from '../config/globals';
 
 export default class Profil extends Component {
   constructor() {
