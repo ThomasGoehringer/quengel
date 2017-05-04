@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import databaseService from '../services/databaseService';
 import WeightModal from '../components/WeightModal';
 import HeightModal from '../components/HeightModal';
+import HeadCircumferenceModal from '../components/HeadCircumferenceModal';
 
 
 export default class EntryScreen extends Component {
@@ -151,6 +152,12 @@ export default class EntryScreen extends Component {
         });
         break;
 
+      case 'headCircumferenceModal':
+        this.setState({
+          badges: { ...this.state.badges, headCircumference: modalData }
+        });
+        break;
+
       default:
         break;
     }
@@ -176,6 +183,18 @@ export default class EntryScreen extends Component {
     } else if (this.state.activeModal === 'heightModal') {
       return (
         <HeightModal
+          data={this.state.badges.height}
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
+    } else if (this.state.activeModal === 'headCircumferenceModal') {
+      return (
+        <HeadCircumferenceModal
           data={this.state.badges.height}
           visible={this.state.modalVisible}
           onSubmit={this.handleModalSubmit}
@@ -285,7 +304,12 @@ export default class EntryScreen extends Component {
               : null}
             </View>
             <View style={{ alignItems: 'center' }}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.setState({
+                  modalVisible: true,
+                  activeModal: 'headCircumferenceModal'
+                })}
+              >
                 <Icon
                   name="face"
                   size={90}
