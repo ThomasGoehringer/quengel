@@ -116,7 +116,7 @@ export default class Profil extends Component {
         >
           <Thumbnail
             size={100}
-            source={require('../img/test.png')}
+            source={require('../assets/images/test.png')}
           />
         </ListItem>
         <List>
