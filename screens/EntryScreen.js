@@ -4,9 +4,9 @@ import {
   Text,
   TouchableOpacity,
   Keyboard,
-  TextInput
+  TextInput,
+  Button
 } from 'react-native';
-import { Item, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import databaseService from '../services/databaseService';
 import WeightModal from '../components/WeightModal';
@@ -272,24 +272,23 @@ export default class EntryScreen extends Component {
             </View>
           </View>
         </View>
-        <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>
-          <Item regular>
-            <TextInput
-              onChangeText={text => this.setState({ text })}
-              placeholder="Eintrag hinzufügen"
-            />
-            <Button
-              transparent
-              style={{ alignSelf: 'center' }}
-              onPress={() => {
-                this.handleSubmit();
-                goBack();
-                Keyboard.dismiss();
-              }}
-            >
-              <Icon name="send" />
-            </Button>
-          </Item>
+        <View elevation={8} style={{ flexDirection: 'row', backgroundColor: '#FFFFFF' }}>
+          <TextInput
+            style={{ flex: 1 }}
+            onChangeText={text => this.setState({ text })}
+            placeholder="Eintrag hinzufügen"
+          />
+          <Button
+            title="Fertig"
+            style={{ alignSelf: 'center' }}
+            onPress={() => {
+              this.handleSubmit();
+              goBack();
+              Keyboard.dismiss();
+            }}
+          >
+            <Icon name="send" />
+          </Button>
         </View>
         {this.renderModal()}
       </View>
