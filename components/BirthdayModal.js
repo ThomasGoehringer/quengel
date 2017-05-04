@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, View, Text, TextInput, StyleSheet } from 'react-native';
+import DatePicker from 'react-native-datepicker';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const styles = StyleSheet.create({
@@ -15,7 +17,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 15
   },
   input: {
     flex: 1
@@ -34,7 +37,8 @@ export default class BirthdayModal extends Component {
   constructor() {
     super();
     this.state = {
-      visible: false
+      visible: false,
+      date: '2017-05-05'
     };
   }
 
@@ -54,12 +58,35 @@ export default class BirthdayModal extends Component {
           <View style={styles.container} >
             <Text>Geburtstag eingeben</Text>
             <View style={styles.inputContainer}>
-              <TextInput
-                editable
-                keyboardType="numeric"
-                maxLength={5}
-                placeholder="TT.MM.JJJJ"
-                style={styles.input}
+              <Icon
+                name="calendar"
+                size={30}
+              />
+              <DatePicker
+                style={{width: 210}}
+                date={this.state.date}
+                mode="date"
+                placeholder="select date"
+                format="DD-MM-YYYY"
+                minDate="2017-01-01"
+                maxDate="2017-06-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0,
+                    width: 0,
+                    height: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+
+                }}
+                onDateChange={(date) => {this.setState({date: date})}}
               />
             </View>
             <View style={styles.buttonContainer}>
