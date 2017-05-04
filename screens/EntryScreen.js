@@ -19,7 +19,10 @@ export default class EntryScreen extends Component {
       text: '',
       badges: {
         hydration: 0,
-        diapers: 0
+        diapers: 0,
+        weight: 0,
+        height: 0,
+        headCircumference: 0
       },
       emotion: 'help',
       modalVisible: false,
@@ -135,6 +138,15 @@ export default class EntryScreen extends Component {
 
   handleModalSubmit(modalData) {
     console.log('handler', modalData);
+    switch (this.state.activeModal) {
+      case 'weightModal':
+        this.setState({
+          badges: { ...this.state.badges, weight: modalData }
+        });
+        break;
+      default:
+        break;
+    }
     this.setState({
       modalVisible: false,
       activeModal: ''
@@ -145,6 +157,7 @@ export default class EntryScreen extends Component {
     if (this.state.activeModal === 'weightModal') {
       return (
         <WeightModal
+          data={this.state.badges.weight}
           visible={this.state.modalVisible}
           onSubmit={this.handleModalSubmit}
           onCancel={() => this.setState({
@@ -215,30 +228,39 @@ export default class EntryScreen extends Component {
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 0.5, flexDirection: 'row', backgroundColor: '#f44242', alignItems: 'center', justifyContent: 'center' }}>
-            <TouchableOpacity
-              onPress={() => this.setState({
-                modalVisible: true,
-                activeModal: 'weightModal'
-              })}
-            >
-              <Icon
-                name="scale-bathroom"
-                size={90}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon
-                style={{ paddingHorizontal: 20 }}
-                name="ruler"
-                size={90}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon
-                name="face"
-                size={90}
-              />
-            </TouchableOpacity>
+            <View style={{ alignItems: 'center' }}>
+              <TouchableOpacity
+                onPress={() => this.setState({
+                  modalVisible: true,
+                  activeModal: 'weightModal'
+                })}
+              >
+                <Icon
+                  name="scale-bathroom"
+                  size={90}
+                />
+              </TouchableOpacity>
+              <Text>{this.state.badges.weight}</Text>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+              <TouchableOpacity>
+                <Icon
+                  style={{ paddingHorizontal: 20 }}
+                  name="ruler"
+                  size={90}
+                />
+              </TouchableOpacity>
+              <Text>{this.state.badges.height}</Text>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+              <TouchableOpacity>
+                <Icon
+                  name="face"
+                  size={90}
+                />
+              </TouchableOpacity>
+              <Text>{this.state.badges.headCircumference}</Text>
+            </View>
           </View>
         </View>
         <View elevation={8} style={{ backgroundColor: '#FFFFFF' }}>

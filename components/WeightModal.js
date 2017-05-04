@@ -34,12 +34,13 @@ export default class WeightModal extends Component {
   constructor() {
     super();
     this.state = {
-      visible: false
+      visible: false,
+      data: 0
     };
   }
 
   componentWillMount() {
-    this.setState({ visible: this.props.visible });
+    this.setState({ visible: this.props.visible, data: this.props.data });
   }
 
   render() {
@@ -49,16 +50,21 @@ export default class WeightModal extends Component {
         transparent
         visible={this.state.visible}
         onRequestClose={this.props.onCancel}
+        onShow={() => { this.textInput.focus(); }}
       >
         <View style={styles.background}>
           <View style={styles.container} >
             <Text>Gewicht eingeben</Text>
             <View style={styles.inputContainer}>
               <TextInput
+                defaultValue={`${this.state.data}`}
                 editable
                 keyboardType="numeric"
                 maxLength={5}
+                onChangeText={value => this.setState({ data: value })}
                 placeholder="Gewicht"
+                ref={(input) => { this.textInput = input; }}
+                selectTextOnFocus
                 style={styles.input}
               />
               <Text>Gramm</Text>
@@ -68,7 +74,7 @@ export default class WeightModal extends Component {
                 onPress={this.props.onCancel}
                 style={styles.button}>ABBRECHEN</Text>
               <Text
-                onPress={() => this.props.onSubmit(123)}
+                onPress={() => this.props.onSubmit(this.state.data)}
                 style={styles.button}
               >AKZEPTIEREN</Text>
             </View>
