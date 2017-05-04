@@ -10,6 +10,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import databaseService from '../services/databaseService';
 import WeightModal from '../components/WeightModal';
+import HeightModal from '../components/HeightModal';
+import HeadCircumferenceModal from '../components/HeadCircumferenceModal';
 
 
 export default class EntryScreen extends Component {
@@ -143,6 +145,19 @@ export default class EntryScreen extends Component {
           badges: { ...this.state.badges, weight: modalData }
         });
         break;
+
+      case 'heightModal':
+        this.setState({
+          badges: { ...this.state.badges, height: modalData }
+        });
+        break;
+
+      case 'headCircumferenceModal':
+        this.setState({
+          badges: { ...this.state.badges, headCircumference: modalData }
+        });
+        break;
+
       default:
         break;
     }
@@ -157,6 +172,30 @@ export default class EntryScreen extends Component {
       return (
         <WeightModal
           data={this.state.badges.weight}
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
+    } else if (this.state.activeModal === 'heightModal') {
+      return (
+        <HeightModal
+          data={this.state.badges.height}
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
+    } else if (this.state.activeModal === 'headCircumferenceModal') {
+      return (
+        <HeadCircumferenceModal
+          data={this.state.badges.height}
           visible={this.state.modalVisible}
           onSubmit={this.handleModalSubmit}
           onCancel={() => this.setState({
@@ -248,7 +287,12 @@ export default class EntryScreen extends Component {
               : null}
             </View>
             <View style={{ alignItems: 'center' }}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.setState({
+                  modalVisible: true,
+                  activeModal: 'heightModal'
+                })}
+              >
                 <Icon
                   style={{ paddingHorizontal: 20 }}
                   name="ruler"
@@ -260,7 +304,12 @@ export default class EntryScreen extends Component {
               : null}
             </View>
             <View style={{ alignItems: 'center' }}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.setState({
+                  modalVisible: true,
+                  activeModal: 'headCircumferenceModal'
+                })}
+              >
                 <Icon
                   name="face"
                   size={90}

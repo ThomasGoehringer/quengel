@@ -170,7 +170,7 @@ export default class Profil extends Component {
               <Text>Geburtstag</Text>
             </Left>
             <Body>
-              <Text>2017.4.18</Text>
+              <Text>18.04.2017</Text>
             </Body>
             <Right>
               <TouchableOpacity
@@ -192,7 +192,7 @@ export default class Profil extends Component {
               <Text>E-Mail-Adresse</Text>
             </Left>
             <Body>
-              <Text>myqbaby@guengel.de</Text>
+              <Text>mybaby@guengel.de</Text>
             </Body>
             <Right />
           </ListItem>

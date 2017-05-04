@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, View, Text, TextInput, StyleSheet } from 'react-native';
-
+import { Radio } from 'native-base';
 
 const styles = StyleSheet.create({
   background: {
@@ -20,13 +20,27 @@ const styles = StyleSheet.create({
   input: {
     flex: 1
   },
+  itemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 0
+  },
+  radioContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 0
+  },
+  itemText: {
+    marginLeft: 10
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end'
   },
   button: {
     fontWeight: 'bold',
-    marginLeft: 10
+    marginLeft: 15
   }
 });
 
@@ -53,14 +67,15 @@ export default class GenderModal extends Component {
         <View style={styles.background}>
           <View style={styles.container} >
             <Text>Geschlecht eingeben</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                editable
-                keyboardType="numeric"
-                maxLength={5}
-                placeholder="Geschlecht"
-                style={styles.input}
-              />
+            <View style={styles.itemContainer} >
+              <View style={styles.radioContainer}>
+                <Radio selected={false} />
+                <Text style={styles.itemText}>Junge</Text>
+              </View>
+              <View style={styles.radioContainer}>
+                <Radio selected={true} />
+                <Text style={styles.itemText}>Mädchen</Text>
+              </View>
             </View>
             <View style={styles.buttonContainer}>
               <Text
