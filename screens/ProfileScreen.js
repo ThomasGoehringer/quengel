@@ -22,6 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
 import BirthdayModal from '../components/BirthdayModal';
+import profile from '../assets/images/test.png';
 
 export default class Profil extends Component {
   constructor() {
@@ -116,7 +117,7 @@ export default class Profil extends Component {
         >
           <Thumbnail
             size={100}
-            source={require('../assets/images/test.png')}
+            source={profile}
           />
         </ListItem>
         <List>
