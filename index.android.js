@@ -23,6 +23,7 @@ import MilestoneScreen from './screens/MilestoneScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import LoginScreen from './screens/LoginScreen';
 import logo from './assets/images/logo.png';
 
 
@@ -83,6 +84,12 @@ export default class MainScreen extends Component {
   }
 
   render() {
+    if (false) {
+      return (
+        <LoginScreen />
+      );
+    }
+
     return (
       <StyleProvider style={getTheme(platform)}>
         <View style={{ flex: 1 }}>
