@@ -3,8 +3,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Keyboard,
-  TextInput
+  StyleSheet,
+  ScrollView
 } from 'react-native';
 import {
   Thumbnail,
@@ -138,114 +138,168 @@ export default class Profil extends Component {
 
     return (
 
-      <View style={{ flex: 1 }}>
-        <ListItem
-          style={{
-            justifyContent: 'center',
-            borderBottomWidth: 0
-          }}
-        >
-          <Text
-            style={{
-              textAlign: 'center'
-            }}
-          >
-            Dein kleiner quengel!
-          </Text>
-        </ListItem>
-        <ListItem
-          style={{
-            justifyContent: 'center',
-            borderBottomWidth: 0
-          }}
-        >
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.thumbnailContainer}>
           <Thumbnail
             size={100}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 100
+            }}
             source={profile}
           />
-        </ListItem>
-        <List>
-          <ListItem >
-            <Left>
-              <Text>Name</Text>
-            </Left>
-            <Body>
-              <Text>Quengel</Text>
-            </Body>
-            <Right>
-              <TouchableOpacity
-                onPress={() => this.setState({
-                  modalVisible: true,
-                  activeModal: 'NameModal'
-                })}
-              >
-                <Icon
-                  style={{ color: '#6B6B6E' }}
-                  name="lead-pencil"
-                  size={20}
-                />
-              </TouchableOpacity>
-            </Right>
-          </ListItem>
+        </View>
 
-          <ListItem >
-            <Left>
-              <Text>Geschlecht</Text>
-            </Left>
-            <Body>
-              <Text>Junge</Text>
-            </Body>
-            <Right>
-              <TouchableOpacity
-                onPress={() => this.setState({
-                  modalVisible: true,
-                  activeModal: 'GenderModal'
-                })}
+        <View style={styles.itemContainer}>
+          <View style={styles.itemText_1}>
+            <Text>Name</Text>
+          </View>
+          <View style={styles.itemText_2}>
+            <Text>Quengel</Text>
+          </View>
+          <View style={styles.itemIcon}>
+            <TouchableOpacity
+              onPress={() => this.setState({
+                modalVisible: true,
+                activeModal: 'NameModal'
+              })}
+            >
+              <Icon
+                style={{ color: COLOR.PRIMARY }}
+                name="lead-pencil"
+                size={20}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <View style={styles.itemText_1}>
+            <Text>Geschlecht</Text>
+          </View>
+          <View style={styles.itemText_2}>
+            <Text>Junge</Text>
+          </View>
+          <View style={styles.itemIcon}>
+            <TouchableOpacity
+              onPress={() => this.setState({
+                modalVisible: true,
+                activeModal: 'GenderModal'
+              })}
+            >
+              <Icon
+                style={{ color: COLOR.PRIMARY }}
+                name="lead-pencil"
+                size={20}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <View style={styles.itemText_1}>
+            <Text>Geburtstag</Text>
+          </View>
+          <View style={styles.itemText_2}>
+            <Text>18.04.2017</Text>
+          </View>
+          <View style={styles.itemIcon}>
+            <TouchableOpacity
+              onPress={() => this.setState({
+                modalVisible: true,
+                activeModal: 'BirthdayModal'
+              })}
+            >
+              <Icon
+                style={{ color: COLOR.PRIMARY }}
+                name="lead-pencil"
+                size={20}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <View
+
+          >
+
+            <TouchableOpacity
+              onPress={() => this.setState({
+                modalVisible: true
+              })}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-end'
+              }}
+            >
+              <Text
+                style={{
+                  paddingTop: 5
+                }}
               >
-                <Icon
-                  style={{ color: '#6B6B6E' }}
-                  name="lead-pencil"
-                  size={20}
-                />
-              </TouchableOpacity>
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text>Geburtstag</Text>
-            </Left>
-            <Body>
-              <Text>18.04.2017</Text>
-            </Body>
-            <Right>
-              <TouchableOpacity
-                onPress={() => this.setState({
-                  modalVisible: true,
-                  activeModal: 'BirthdayModal'
-                })}
-              >
-                <Icon
-                  style={{ color: '#6B6B6E' }}
-                  name="lead-pencil"
-                  size={20}
-                />
-              </TouchableOpacity>
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text>E-Mail-Adresse</Text>
-            </Left>
-            <Body>
-              <Text>mybaby@guengel.de</Text>
-            </Body>
-            <Right />
-          </ListItem>
-        </List>
+                weiteres Kind
+              </Text>
+              <Icon
+                style={{
+                  color: COLOR.PRIMARY,
+                  marginLeft: 15
+                }}
+                name="plus-circle"
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <View style={styles.itemText_1}>
+            <Text>Kontodaten</Text>
+          </View>
+          <View style={styles.itemText_2}>
+          </View>
+          <View style={styles.itemIcon}>
+          </View>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <View style={styles.itemText_1}>
+            <Text>E-Mail Adresse</Text>
+          </View>
+          <View style={styles.itemText_2}>
+            <Text>mybaby@guengel.de</Text>
+          </View>
+          <View style={styles.itemIcon}>
+          </View>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <View style={styles.itemText_1}>
+            <Text style={styles.boldFont_left}>Konto löschen</Text>
+          </View>
+          <View style={styles.itemText_2}>
+            <Text style={styles.boldFont_right}>Passwort ändern</Text>
+          </View>
+          <View style={styles.itemIcon}>
+          </View>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <View style={styles.itemText_1}>
+            <Text style={styles.boldFont_left}>Abmelden</Text>
+          </View>
+          <View style={styles.itemText_2}>
+            <Text style={styles.boldFont_right}>Impressum</Text>
+          </View>
+          <View style={styles.itemIcon}>
+          </View>
+        </View>
+
         {this.renderNameModal()}
         {this.renderGenderModal()}
         {this.renderBirthdayModal()}
-      </View>
+      </ScrollView>
     );
   }
 }
