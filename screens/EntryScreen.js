@@ -137,7 +137,6 @@ export default class EntryScreen extends Component {
   }
 
   handleModalSubmit(modalData) {
-    console.log('handler', modalData);
     switch (this.state.activeModal) {
       case 'weightModal':
         this.setState({

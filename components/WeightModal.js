@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Modal, View, Text, TextInput, StyleSheet } from 'react-native';
 
 
@@ -61,9 +61,10 @@ export default class WeightModal extends Component {
                 editable
                 keyboardType="numeric"
                 maxLength={5}
-                onChangeText={value => this.setState({ data: value })}
+                onChangeText={value => this.setState({ data: Number(value) })}
                 placeholder="Gewicht"
                 ref={(input) => { this.textInput = input; }}
+                returnKeyType="done"
                 selectTextOnFocus
                 style={styles.input}
               />
@@ -72,11 +73,16 @@ export default class WeightModal extends Component {
             <View style={styles.buttonContainer}>
               <Text
                 onPress={this.props.onCancel}
-                style={styles.button}>ABBRECHEN</Text>
+                style={styles.button}
+              >
+                ABBRECHEN
+              </Text>
               <Text
                 onPress={() => this.props.onSubmit(this.state.data)}
                 style={styles.button}
-              >AKZEPTIEREN</Text>
+              >
+                AKZEPTIEREN
+              </Text>
             </View>
           </View>
         </View>
@@ -84,3 +90,10 @@ export default class WeightModal extends Component {
     );
   }
 }
+
+WeightModal.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  data: PropTypes.number.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
+};
