@@ -24,7 +24,24 @@ async function createEntry(entry) {
   }
 }
 
+async function register(user) {
+  try {
+    const response = await fetch(`${serverAPI}/user/register`, {
+      method: 'post',
+      body: JSON.stringify(user)
+    });
+
+    const json = await response.json();
+    return json.token;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+
 module.exports = {
   getEntries,
-  createEntry
+  createEntry,
+  register
 };

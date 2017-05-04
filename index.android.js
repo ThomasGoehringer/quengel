@@ -23,7 +23,7 @@ import MilestoneScreen from './screens/MilestoneScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 import logo from './assets/images/logo.png';
 
 
@@ -86,7 +86,7 @@ export default class MainScreen extends Component {
   render() {
     if (false) {
       return (
-        <LoginScreen />
+        <RegisterScreen navigation={this.props.navigation} />
       );
     }
 
@@ -151,7 +151,8 @@ export default class MainScreen extends Component {
 const BabyApp = StackNavigator({
   Main: { screen: MainScreen },
   Profile: { screen: ProfileScreen },
-  Entry: { screen: EntryScreen }
+  Entry: { screen: EntryScreen },
+  Register: { screen: RegisterScreen }
 }, { headerMode: 'screen' });
 
 AppRegistry.registerComponent('BabyApp', () => BabyApp);
