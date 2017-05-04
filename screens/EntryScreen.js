@@ -176,11 +176,12 @@ export default class EntryScreen extends Component {
       <View style={{ flex: 1, justifyContent: 'space-between' }}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 0.5, backgroundColor: '#007bff', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-            <Icon
-              onPress={() => this.setHydration('down')}
-              name="chevron-left"
-              size={40}
-            />
+            <TouchableOpacity onPress={() => this.setHydration('down')}>
+              <Icon
+                name="chevron-left"
+                size={40}
+              />
+            </TouchableOpacity>
             <Icon
               name="cup-water"
               size={90}
@@ -188,18 +189,20 @@ export default class EntryScreen extends Component {
             <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
               {this.state.badges.hydration}
             </Text>
-            <Icon
-              onPress={() => this.setHydration('up')}
-              name="chevron-right"
-              size={40}
-            />
+            <TouchableOpacity onPress={() => this.setHydration('up')}>
+              <Icon
+                name="chevron-right"
+                size={40}
+              />
+            </TouchableOpacity>
           </View>
           <View style={{ flex: 0.5, backgroundColor: '#ffac49', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-            <Icon
-              onPress={() => this.setDiapers('down')}
-              name="chevron-left"
-              size={40}
-            />
+            <TouchableOpacity onPress={() => this.setDiapers('down')}>
+              <Icon
+                name="chevron-left"
+                size={40}
+              />
+            </TouchableOpacity>
             <Icon
               name="delete"
               size={90}
@@ -207,11 +210,12 @@ export default class EntryScreen extends Component {
             <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
               {this.state.badges.diapers}
             </Text>
-            <Icon
-              onPress={() => this.setDiapers('up')}
-              name="chevron-right"
-              size={40}
-            />
+            <TouchableOpacity onPress={() => this.setDiapers('up')}>
+              <Icon
+                name="chevron-right"
+                size={40}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -240,7 +244,9 @@ export default class EntryScreen extends Component {
                   size={90}
                 />
               </TouchableOpacity>
-              <Text>{this.state.badges.weight}</Text>
+              {this.state.badges.weight !== 0 ?
+                <Text>{this.state.badges.weight}</Text>
+              : null}
             </View>
             <View style={{ alignItems: 'center' }}>
               <TouchableOpacity>
@@ -250,7 +256,9 @@ export default class EntryScreen extends Component {
                   size={90}
                 />
               </TouchableOpacity>
-              <Text>{this.state.badges.height}</Text>
+              {this.state.badges.height !== 0 ?
+                <Text>{this.state.badges.height}</Text>
+              : null}
             </View>
             <View style={{ alignItems: 'center' }}>
               <TouchableOpacity>
@@ -259,7 +267,9 @@ export default class EntryScreen extends Component {
                   size={90}
                 />
               </TouchableOpacity>
-              <Text>{this.state.badges.headCircumference}</Text>
+              {this.state.badges.headCircumference !== 0 ?
+                <Text>{this.state.badges.headCircumference}</Text>
+              : null}
             </View>
           </View>
         </View>

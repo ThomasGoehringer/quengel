@@ -68,8 +68,8 @@ export default class LogScreen extends Component {
   render() {
     if (this.state.loading) {
       return (
-        <View style={{ padding: 10 }}>
-          <ActivityIndicator />
+        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+          <ActivityIndicator size={50} color="#4e788b" />
         </View>
       );
     }
@@ -81,6 +81,8 @@ export default class LogScreen extends Component {
           data={this.state.entries}
           keyExtractor={item => item.createdAt}
           renderItem={this.renderListItem}
+          ListHeaderComponent={() => <View style={{ paddingTop: 10 }} />}
+          ListFooterComponent={() => <View style={{ paddingTop: 10 }} />}
           ref={(list) => { this.logList = list; }}
         />
         { this.renderFab() }
