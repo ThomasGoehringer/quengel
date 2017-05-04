@@ -25,6 +25,49 @@ import BirthdayModal from '../components/BirthdayModal';
 import profile from '../assets/images/test.png';
 import { COLOR } from '../config/globals';
 
+const styles = StyleSheet.create({
+  thumbnailContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 15
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 8,
+    paddingLeft: 15,
+    paddingRight: 15
+  },
+  itemText_1: {
+    width: 130,
+    padding: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: COLOR.PRIMARY
+  },
+  itemText_2: {
+    width: 150,
+    padding: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: COLOR.PRIMARY
+  },
+  labelIcon: {
+    marginLeft: 15
+  },
+  itemIcon: {
+    width: 30,
+    justifyContent: 'flex-end',
+    marginLeft: 15
+  },
+  boldFont_left: {
+    justifyContent: 'flex-end',
+    textAlign: 'left'
+  },
+  boldFont_right: {
+    justifyContent: 'flex-end',
+    textAlign: 'right'
+  }
+})
+
 export default class Profil extends Component {
   constructor() {
     super();
