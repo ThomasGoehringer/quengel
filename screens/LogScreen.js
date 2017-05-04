@@ -8,6 +8,7 @@ import {
   Icon
 } from 'native-base';
 import Fab from 'react-native-action-button';
+import { COLOR } from '../config/globals';
 import LogEntry from '../components/LogEntry';
 import MilestoneEntry from '../components/MilestoneEntry';
 import databaseService from '../services/databaseService';
@@ -45,7 +46,7 @@ export default class LogScreen extends Component {
         }}
         degrees={0}
         backgroundTappable
-        buttonColor="#4e788b"
+        buttonColor={COLOR.PRIMARY}
         useNativeFeedback
       >
         <Icon name="add" />
@@ -69,7 +70,7 @@ export default class LogScreen extends Component {
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
-          <ActivityIndicator size={50} color="#4e788b" />
+          <ActivityIndicator size={50} color={COLOR.PRIMARY} />
         </View>
       );
     }

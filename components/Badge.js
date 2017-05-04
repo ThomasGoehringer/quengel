@@ -1,8 +1,26 @@
 import React, { PropTypes } from 'react';
-import { View, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Badge as BadgeNB } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { COLOR } from '../config/globals';
 
+
+const styles = StyleSheet.create({
+  badge: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+    marginBottom: 10
+  },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  text: {
+    color: '#FFFFFF',
+    paddingHorizontal: 5
+  }
+});
 
 const Badge = (props) => {
   let backgroundColor;
@@ -10,43 +28,45 @@ const Badge = (props) => {
 
   switch (props.feature) {
     case 'diapers':
-      backgroundColor = { backgroundColor: '#c27ba0' };
+      backgroundColor = { backgroundColor: COLOR.DIAPERS };
       iconName = 'delete';
       break;
     case 'hydration':
-      backgroundColor = { backgroundColor: '#6fa8dc' };
+      backgroundColor = { backgroundColor: COLOR.HYDRATION };
       iconName = 'cup-water';
       break;
     case 'meals':
-      backgroundColor = { backgroundColor: '#93c47d' };
+      backgroundColor = { backgroundColor: COLOR.MEALS };
       iconName = 'food-apple';
       break;
     case 'nursing':
-      backgroundColor = { backgroundColor: '#fe7d55' };
+      backgroundColor = { backgroundColor: COLOR.NURSING };
       iconName = 'timer';
       break;
     case 'weight':
-      backgroundColor = { backgroundColor: '#ffac49' };
+      backgroundColor = { backgroundColor: COLOR.MEASUREMENT };
       iconName = 'scale-bathroom';
       break;
     case 'height':
-      backgroundColor = { backgroundColor: '#ffac49' };
+      backgroundColor = { backgroundColor: COLOR.MEASUREMENT };
       iconName = 'ruler';
       break;
     case 'headCircumference':
-      backgroundColor = { backgroundColor: '#ffac49' };
+      backgroundColor = { backgroundColor: COLOR.MEASUREMENT };
       iconName = 'face';
       break;
     default:
-      backgroundColor = { backgroundColor: '#ffac49' };
+      backgroundColor = { backgroundColor: COLOR.PRIMARY };
       iconName = 'star';
   }
 
+  const badgeNBStyle = Object.assign({}, StyleSheet.flatten(styles.badge), backgroundColor);
+
   return (
-    <BadgeNB style={{ alignSelf: 'center', justifyContent: 'center', marginRight: 10, marginBottom: 10, ...backgroundColor }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <BadgeNB style={badgeNBStyle}>
+      <View style={styles.container}>
         <Icon name={iconName} size={14} />
-        <Text style={{ color: '#FFFFFF', paddingHorizontal: 5 }}>{props.text}</Text>
+        <Text style={styles.text}>{props.text}</Text>
       </View>
     </BadgeNB>
   );
