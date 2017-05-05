@@ -33,7 +33,7 @@ export default class LoginScreen extends Component {
           jwt
         };
 
-        setData('user', JSON.stringify(data)).then(() => {
+        setData('user', data).then(() => {
           Keyboard.dismiss();
           this.props.navigation.navigate('Main');
         });

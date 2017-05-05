@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import databaseService from '../services/databaseService';
+import { getData } from '../services/storageService';
 import WeightModal from '../components/WeightModal';
 import HeightModal from '../components/HeightModal';
 import HeadCircumferenceModal from '../components/HeadCircumferenceModal';
@@ -132,10 +133,12 @@ export default class EntryScreen extends Component {
 
     if (entry.text.length === 0 && entry.badges.length === 0) return;
 
-    databaseService.createEntry(entry).then(() => {
-      // Callback to LogScreen
-      this.props.navigation.state.params.handleEntry();
-    });
+    getData('user')
+      .then(user => databaseService.createEntry(entry, user))
+      .then(() => {
+        // Callback to LogScreen
+        this.props.navigation.state.params.handleEntry();
+      });
   }
 
   handleModalSubmit(modalData) {

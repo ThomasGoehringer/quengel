@@ -34,4 +34,8 @@ async function removeData(key) {
 }
 
 
-export { setData, getData, removeData };
+module.exports = {
+  setData,
+  getData,
+  removeData
+};
