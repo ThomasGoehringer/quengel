@@ -6,24 +6,14 @@ import {
   StyleSheet,
   ScrollView
 } from 'react-native';
-import {
-  Thumbnail,
-  List,
-  ListItem,
-  Left,
-  Body,
-  Right,
-  Item,
-  Button
-} from 'native-base';
-import {
-} from 'react-navigation';
+import { Thumbnail } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
 import BirthdayModal from '../components/BirthdayModal';
 import profile from '../assets/images/test.png';
 import { COLOR } from '../config/globals';
+
 
 const styles = StyleSheet.create({
   thumbnailContainer: {
@@ -66,7 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     textAlign: 'right'
   }
-})
+});
 
 export default class Profil extends Component {
   constructor() {
@@ -137,7 +127,6 @@ export default class Profil extends Component {
     const { goBack } = this.props.navigation;
 
     return (
-
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.thumbnailContainer}>
           <Thumbnail

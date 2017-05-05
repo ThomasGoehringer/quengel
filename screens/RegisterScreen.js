@@ -3,9 +3,10 @@ import {
   View,
   Button,
   TextInput,
-  AsyncStorage
+  Keyboard
 } from 'react-native';
 import databaseService from '../services/databaseService';
+import { setData } from '../services/storageService';
 
 
 export default class LoginScreen extends Component {
@@ -27,19 +28,18 @@ export default class LoginScreen extends Component {
       };
 
       databaseService.register(user).then((jwt) => {
-        // TODO move to a helper with async function
         const data = {
           email: this.state.email,
           jwt
         };
 
-        AsyncStorage.setItem('user', JSON.stringify(data)).then(() => {
+        setData('user', JSON.stringify(data)).then(() => {
+          Keyboard.dismiss();
           this.props.navigation.navigate('Main');
-        }).catch((err) => {
-          console.log('ERR', err);
         });
       });
     } else {
+      // TODO add error handling
       console.log('passwords dont match');
     }
   }
@@ -48,12 +48,15 @@ export default class LoginScreen extends Component {
     return (
       <View>
         <TextInput
+          placeholder="E-Mail"
           onChangeText={email => this.setState({ email })}
         />
         <TextInput
+          placeholder="Passwort"
           onChangeText={password => this.setState({ password })}
         />
         <TextInput
+          placeholder="Passwort wiederholen"
           onChangeText={passwordRepeat => this.setState({ passwordRepeat })}
         />
         <Button

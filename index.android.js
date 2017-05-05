@@ -24,6 +24,7 @@ import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import { getData } from './services/storageService';
 import logo from './assets/images/logo.png';
 
 
@@ -44,8 +45,17 @@ export default class MainScreen extends Component {
     super();
     this.renderActiveScreen = this.renderActiveScreen.bind(this);
     this.state = {
-      activeScreen: 'LogScreen'
+      activeScreen: 'LogScreen',
+      isLoggedIn: true
     };
+  }
+
+  componentWillMount() {
+    getData('user').then((data) => {
+      if (!data) {
+        this.setState({ isLoggedIn: false });
+      }
+    });
   }
 
   renderActiveScreen() {
@@ -84,7 +94,7 @@ export default class MainScreen extends Component {
   }
 
   render() {
-    if (false) {
+    if (!this.state.isLoggedIn) {
       return (
         <RegisterScreen navigation={this.props.navigation} />
       );
