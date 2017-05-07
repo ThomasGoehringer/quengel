@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Profil extends Component {
+export default class Profile extends Component {
   constructor() {
     super();
     this.state = {
@@ -70,7 +70,6 @@ export default class Profil extends Component {
   }
 
   handleModalSubmit(modalData) {
-    console.log('handler', modalData);
     this.setState({
       modalVisible: false,
       activeModal: ''

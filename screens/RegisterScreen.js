@@ -42,6 +42,7 @@ export default class LoginScreen extends Component {
       };
 
       databaseService.register(user).then((jwt) => {
+        console.log('BEEP1');
         const data = {
           email: this.state.email,
           jwt

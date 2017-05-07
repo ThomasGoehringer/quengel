@@ -13,8 +13,8 @@ async function getEntries(user) {
 
     const response = await fetch(`${serverAPI}/quengel/entries`, options);
     return response.json();
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return null;
   }
 }
@@ -32,23 +32,23 @@ async function createEntry(entry, user) {
 
     await fetch(`${serverAPI}/quengel/entry`, options);
     return null;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return null;
   }
 }
 
 async function register(user) {
   try {
-    const response = await fetch(`${serverAPI}/user/register`, {
+    const response = await fetch(`${serverAPI}/quengel/user/register`, {
       method: 'post',
       body: JSON.stringify(user)
     });
 
     const json = await response.json();
     return json.token;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return null;
   }
 }
