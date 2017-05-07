@@ -181,7 +181,7 @@ export default class EntryScreen extends Component {
     if (entry.text.length === 0 && entry.badges.length === 0) return;
 
     getData('user')
-      .then(user => databaseService.createEntry(entry, user))
+      .then(user => databaseService.createEntry(entry, user.jwt))
       .then(() => {
         // Callback to LogScreen
         this.props.navigation.state.params.handleEntry();

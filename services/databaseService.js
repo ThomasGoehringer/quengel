@@ -1,13 +1,12 @@
 import { serverAPI } from '../config/api';
 
 
-async function getEntries(user) {
+async function getEntries(jwt) {
   try {
     const options = {
       method: 'get',
       headers: {
-        Authorization: `JWT ${user.jwt}`,
-        email: user.email
+        Authorization: `JWT ${jwt}`
       }
     };
 
@@ -19,13 +18,12 @@ async function getEntries(user) {
   }
 }
 
-async function createEntry(entry, user) {
+async function createEntry(entry, jwt) {
   try {
     const options = {
       method: 'post',
       headers: {
-        Authorization: `JWT ${user.jwt}`,
-        email: user.email
+        Authorization: `JWT ${jwt}`
       },
       body: JSON.stringify(entry)
     };
