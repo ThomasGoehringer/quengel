@@ -58,14 +58,6 @@ export default class MainScreen extends Component {
     });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.activeScreen !== nextState.activeScreen) {
-      return true;
-    }
-
-    return false;
-  }
-
   renderActiveScreen() {
     switch (this.state.activeScreen) {
       case 'LogScreen':

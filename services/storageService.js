@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native';
 
 async function setData(key, data) {
   try {
-    console.log('BEEP2', data);
     await AsyncStorage.setItem(key, JSON.stringify(data));
   } catch (err) {
     // Error saving data

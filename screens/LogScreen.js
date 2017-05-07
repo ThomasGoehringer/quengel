@@ -30,10 +30,14 @@ export default class LogScreen extends Component {
 
   updateEntries() {
     getData('user')
-      .then(databaseService.getEntries)
-      .then((entries) => {
-        this.setState({ loading: false, entries: entries.reverse() });
-        this.logList.scrollToOffset({ x: 0, y: 0, animated: true });
+      .then((user) => {
+        if (user) {
+          databaseService.getEntries(user)
+            .then((entries) => {
+              this.setState({ loading: false, entries: entries.reverse() });
+              this.logList.scrollToOffset({ x: 0, y: 0, animated: true });
+            });
+        }
       });
   }
 
