@@ -83,7 +83,7 @@ export default class LogScreen extends Component {
     }
 
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <FlatList
           style={{ paddingHorizontal: 10 }}
           data={this.state.entries}
