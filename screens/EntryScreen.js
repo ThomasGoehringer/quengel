@@ -5,14 +5,61 @@ import {
   TouchableOpacity,
   Keyboard,
   TextInput,
-  Button
+  Button,
+  StyleSheet
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import databaseService from '../services/databaseService';
 import WeightModal from '../components/WeightModal';
 import HeightModal from '../components/HeightModal';
 import HeadCircumferenceModal from '../components/HeadCircumferenceModal';
+import NursingModal from '../components/NursingModal';
+import { COLOR } from '../config/globals';
 
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between'
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  componentContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  componentContainerHalf: {
+    flex: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  hydrationContainer: {
+    backgroundColor: COLOR.HYDRATION
+  },
+  diapersContainer: {
+    backgroundColor: COLOR.DIAPERS
+  },
+  nursingContainer: {
+    backgroundColor: COLOR.NURSING
+  },
+  measurementsContainer: {
+    backgroundColor: COLOR.MEASUREMENT
+  },
+  measurementContainer: {
+    alignItems: 'center'
+  },
+  emotionsContainer: {
+    backgroundColor: '#5363ab'
+  },
+  button: {
+    alignSelf: 'center'
+  }
+});
 
 export default class EntryScreen extends Component {
   constructor() {
@@ -204,6 +251,18 @@ export default class EntryScreen extends Component {
           })}
         />
       );
+    } else if (this.state.activeModal === 'nursingModal') {
+      return (
+        <NursingModal
+          data={this.state.badges.height}
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
     }
   }
 
@@ -211,9 +270,9 @@ export default class EntryScreen extends Component {
     const { goBack } = this.props.navigation;
 
     return (
-      <View style={{ flex: 1, justifyContent: 'space-between' }}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 0.5, backgroundColor: '#007bff', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.container}>
+        <View style={styles.row}>
+          <View style={[styles.componentContainerHalf, styles.hydrationContainer]}>
             <TouchableOpacity onPress={() => this.setHydration('down')}>
               <Icon
                 name="chevron-left"
@@ -234,7 +293,7 @@ export default class EntryScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 0.5, backgroundColor: '#ffac49', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={[styles.componentContainerHalf, styles.diapersContainer]}>
             <TouchableOpacity onPress={() => this.setDiapers('down')}>
               <Icon
                 name="chevron-left"
@@ -256,21 +315,38 @@ export default class EntryScreen extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 0.5, flexDirection: 'row', backgroundColor: '#5363ab', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.row}>
+          <View style={[styles.componentContainerHalf, styles.emotionsContainer]}>
             <TouchableOpacity onPress={() => this.setEmotion('previous')}>
-              <Icon name="chevron-left" size={40} color="#ffffff" />
+              <Icon
+                name="chevron-left"
+                size={40}
+                color="#ffffff"
+              />
             </TouchableOpacity>
-            <Icon name={this.state.emotion} size={90} color="#ffffff" />
+            <Icon
+              name={this.state.emotion}
+              size={90}
+              color="#ffffff"
+            />
             <TouchableOpacity onPress={() => this.setEmotion('next')}>
               <Icon name="chevron-right" size={40} color="#ffffff" />
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 0.5, backgroundColor: '#c557b4' }} />
+          <View style={[styles.componentContainerHalf, styles.nursingContainer]}>
+            <TouchableOpacity
+              onPress={() => this.setState({
+                modalVisible: true,
+                activeModal: 'nursingModal'
+              })}
+            >
+              <Icon name="timer" size={90} />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 0.5, flexDirection: 'row', backgroundColor: '#f44242', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ alignItems: 'center' }}>
+        <View style={styles.row}>
+          <View style={[styles.componentContainer, styles.measurementsContainer]}>
+            <View style={styles.measurementContainer}>
               <TouchableOpacity
                 onPress={() => this.setState({
                   modalVisible: true,
@@ -286,7 +362,7 @@ export default class EntryScreen extends Component {
                 <Text>{this.state.badges.weight}</Text>
               : null}
             </View>
-            <View style={{ alignItems: 'center' }}>
+            <View style={styles.measurementContainer}>
               <TouchableOpacity
                 onPress={() => this.setState({
                   modalVisible: true,
@@ -303,7 +379,7 @@ export default class EntryScreen extends Component {
                 <Text>{this.state.badges.height}</Text>
               : null}
             </View>
-            <View style={{ alignItems: 'center' }}>
+            <View style={styles.measurementContainer}>
               <TouchableOpacity
                 onPress={() => this.setState({
                   modalVisible: true,
@@ -329,7 +405,7 @@ export default class EntryScreen extends Component {
           />
           <Button
             title="Fertig"
-            style={{ alignSelf: 'center' }}
+            style={styles.button}
             onPress={() => {
               this.handleSubmit();
               goBack();
