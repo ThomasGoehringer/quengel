@@ -1,4 +1,4 @@
-package com.babyapp;
+package com.on.quengel;
 
 import com.facebook.react.ReactActivity;
 
