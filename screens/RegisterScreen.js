@@ -3,25 +3,49 @@ import {
   StyleSheet,
   StatusBar,
   View,
+  ScrollView,
   Text,
   Button,
   TextInput,
   Keyboard,
-  TouchableOpacity
+  TouchableOpacity,
+  ToastAndroid
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import databaseService from '../services/databaseService';
 import { setData } from '../services/storageService';
-import { COLOR } from '../config/globals';
+import { COLOR, FONTSIZE } from '../config/globals';
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 32,
+    paddingTop: 48,
     backgroundColor: COLOR.PRIMARY
   },
+  headline: {
+    color: '#FFFFFF',
+    fontFamily: 'sans-serif-light',
+    fontSize: FONTSIZE.HEADLINE,
+    textAlign: 'center',
+    marginBottom: 5
+  },
   text: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    fontFamily: 'sans-serif-light',
+    textAlign: 'center',
+    marginBottom: 20
+  },
+  textInput: {
+    backgroundColor: '#FFFFFF',
+    marginVertical: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10
+  },
+  button: {
+    marginTop: 10,
+    marginBottom: 20
   }
 });
 
@@ -47,6 +71,8 @@ export default class LoginScreen extends Component {
         password: this.state.password
       };
 
+      if (user.email.length === 0 || user.password.length === 0) return;
+
       databaseService.register(user).then((jwt) => {
         const data = {
           email: this.state.email,
@@ -67,8 +93,7 @@ export default class LoginScreen extends Component {
         });
       });
     } else {
-      // TODO add error handling
-      console.log('passwords dont match');
+      ToastAndroid.show('Passwörter stimmen nich überein!', ToastAndroid.SHORT);
     }
   }
 
@@ -76,36 +101,48 @@ export default class LoginScreen extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <StatusBar
           backgroundColor={COLOR.PRIMARY}
           barStyle="light-content"
         />
+        <Text style={styles.headline}>
+          Deine Registrierung
+        </Text>
         <Text style={styles.text}>
-          Deine Anmeldung
-          Melde dich einfach mit deiner E-Mail Adresse und einem Passwort bei quengel an.
+          Registriere dich einfach mit deiner E-Mail Adresse und einem Passwort bei quengel.
         </Text>
         <TextInput
+          style={styles.textInput}
+          underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="E-Mail"
           onChangeText={email => this.setState({ email })}
         />
         <TextInput
+          style={styles.textInput}
+          underlineColorAndroid="rgba(0,0,0,0)"
+          secureTextEntry
           placeholder="Passwort"
           onChangeText={password => this.setState({ password })}
         />
         <TextInput
+          style={styles.textInput}
+          underlineColorAndroid="rgba(0,0,0,0)"
+          secureTextEntry
           placeholder="Passwort wiederholen"
           onChangeText={passwordRepeat => this.setState({ passwordRepeat })}
         />
-        <Button
-          onPress={this.handleSubmit}
-          title="Registrieren"
-          color={COLOR.PRIMARY}
-        />
+        <View style={styles.button}>
+          <Button
+            onPress={this.handleSubmit}
+            title="Registrieren"
+            color={COLOR.EMOTION}
+          />
+        </View>
         <TouchableOpacity onPress={() => navigate('Login')}>
-          <Text>Ich habe bereits ein Konto</Text>
+          <Text style={styles.text}>Ich habe bereits ein Konto</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
   }
 }

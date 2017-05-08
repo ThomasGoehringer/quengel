@@ -3,6 +3,7 @@ import {
   StyleSheet,
   StatusBar,
   View,
+  ScrollView,
   Text,
   Button,
   TextInput,
@@ -11,16 +12,38 @@ import {
 import { NavigationActions } from 'react-navigation';
 import databaseService from '../services/databaseService';
 import { setData } from '../services/storageService';
-import { COLOR } from '../config/globals';
+import { COLOR, FONTSIZE } from '../config/globals';
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 32,
+    paddingTop: 48,
     backgroundColor: COLOR.PRIMARY
   },
+  headline: {
+    color: '#FFFFFF',
+    fontFamily: 'sans-serif-light',
+    fontSize: FONTSIZE.HEADLINE,
+    textAlign: 'center',
+    marginBottom: 5
+  },
   text: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    fontFamily: 'sans-serif-light',
+    textAlign: 'center',
+    marginBottom: 20
+  },
+  textInput: {
+    backgroundColor: '#FFFFFF',
+    marginVertical: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10
+  },
+  button: {
+    marginTop: 10,
+    marginBottom: 20
   }
 });
 
@@ -43,6 +66,8 @@ export default class LoginScreen extends Component {
       email: this.state.email,
       password: this.state.password
     };
+
+    if (user.email.length === 0 || user.password.length === 0) return;
 
     databaseService.login(user).then((jwt) => {
       const data = {
@@ -69,29 +94,38 @@ export default class LoginScreen extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <StatusBar
           backgroundColor={COLOR.PRIMARY}
           barStyle="light-content"
         />
-        <Text style={styles.text}>
+        <Text style={styles.headline}>
           Deine Anmeldung
+        </Text>
+        <Text style={styles.text}>
           Melde dich einfach mit deiner E-Mail Adresse und einem Passwort bei quengel an.
         </Text>
         <TextInput
+          style={styles.textInput}
+          underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="E-Mail"
           onChangeText={email => this.setState({ email })}
         />
         <TextInput
+          style={styles.textInput}
+          underlineColorAndroid="rgba(0,0,0,0)"
+          secureTextEntry
           placeholder="Passwort"
           onChangeText={password => this.setState({ password })}
         />
-        <Button
-          onPress={this.handleSubmit}
-          title="Login"
-          color={COLOR.PRIMARY}
-        />
-      </View>
+        <View style={styles.button}>
+          <Button
+            onPress={this.handleSubmit}
+            title="Anmelden"
+            color={COLOR.EMOTION}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
