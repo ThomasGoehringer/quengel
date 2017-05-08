@@ -51,9 +51,25 @@ async function register(user) {
   }
 }
 
+async function login(user) {
+  try {
+    const response = await fetch(`${serverAPI}/quengel/user/login`, {
+      method: 'post',
+      body: JSON.stringify(user)
+    });
+
+    const json = await response.json();
+    return json.token;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 
 module.exports = {
   getEntries,
   createEntry,
-  register
+  register,
+  login
 };

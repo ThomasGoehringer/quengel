@@ -14,7 +14,7 @@ import {
   Left,
   Icon
 } from 'native-base';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, NavigationActions } from 'react-navigation';
 import getTheme from './config/native-base-theme/components';
 import platform from './config/native-base-theme/variables/platform';
 import EntryScreen from './screens/EntryScreen';
@@ -24,6 +24,7 @@ import CalendarScreen from './screens/CalendarScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import LoginScreen from './screens/LoginScreen';
 import { getData } from './services/storageService';
 import logo from './assets/images/logo.png';
 
@@ -45,15 +46,22 @@ export default class MainScreen extends Component {
     super();
     this.renderActiveScreen = this.renderActiveScreen.bind(this);
     this.state = {
-      activeScreen: 'LogScreen',
-      isLoggedIn: true
+      activeScreen: 'LogScreen'
     };
   }
 
   componentWillMount() {
     getData('user').then((data) => {
+      console.log('DATA', data);
       if (!data) {
-        this.setState({ isLoggedIn: false });
+        // Reset the StackNavigator to RegisterScreen
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Register' })
+          ]
+        });
+        this.props.navigation.dispatch(resetAction);
       }
     });
   }
@@ -92,12 +100,6 @@ export default class MainScreen extends Component {
   }
 
   render() {
-    if (!this.state.isLoggedIn) {
-      return (
-        <RegisterScreen navigation={this.props.navigation} />
-      );
-    }
-
     return (
       <StyleProvider style={getTheme(platform)}>
         <View style={{ flex: 1 }}>
@@ -160,7 +162,8 @@ const BabyApp = StackNavigator({
   Main: { screen: MainScreen },
   Profile: { screen: ProfileScreen },
   Entry: { screen: EntryScreen },
-  Register: { screen: RegisterScreen }
+  Register: { screen: RegisterScreen },
+  Login: { screen: LoginScreen }
 }, { headerMode: 'screen' });
 
 AppRegistry.registerComponent('BabyApp', () => BabyApp);

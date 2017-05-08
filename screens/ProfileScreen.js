@@ -7,7 +7,9 @@ import {
   ScrollView
 } from 'react-native';
 import { Thumbnail } from 'native-base';
+import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { removeData } from '../services/storageService';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
 import BirthdayModal from '../components/BirthdayModal';
@@ -264,18 +266,21 @@ export default class Profile extends Component {
 
         <View style={styles.itemContainer}>
           <View style={styles.itemText_1}>
-            <Text style={styles.boldFont_left}>Konto löschen</Text>
-          </View>
-          <View style={styles.itemText_2}>
-            <Text style={styles.boldFont_right}>Passwort ändern</Text>
-          </View>
-          <View style={styles.itemIcon}>
-          </View>
-        </View>
-
-        <View style={styles.itemContainer}>
-          <View style={styles.itemText_1}>
-            <Text style={styles.boldFont_left}>Abmelden</Text>
+            <Text
+              style={styles.boldFont_left}
+              onPress={() => {
+                removeData('user');
+                const resetAction = NavigationActions.reset({
+                  index: 0,
+                  actions: [
+                    NavigationActions.navigate({ routeName: 'Register' })
+                  ]
+                });
+                this.props.navigation.dispatch(resetAction);
+              }}
+            >
+              Abmelden
+            </Text>
           </View>
           <View style={styles.itemText_2}>
             <Text style={styles.boldFont_right}>Impressum</Text>

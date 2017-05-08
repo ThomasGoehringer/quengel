@@ -6,8 +6,7 @@ import {
   Text,
   Button,
   TextInput,
-  Keyboard,
-  TouchableOpacity
+  Keyboard
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import databaseService from '../services/databaseService';
@@ -34,42 +33,36 @@ export default class LoginScreen extends Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      passwordRepeat: ''
+      password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit() {
-    if (this.state.password === this.state.passwordRepeat) {
-      const user = {
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    databaseService.login(user).then((jwt) => {
+      const data = {
         email: this.state.email,
-        password: this.state.password
+        jwt
       };
 
-      databaseService.register(user).then((jwt) => {
-        const data = {
-          email: this.state.email,
-          jwt
-        };
+      setData('user', data).then(() => {
+        Keyboard.dismiss();
 
-        setData('user', data).then(() => {
-          Keyboard.dismiss();
-
-          // Reset the StackNavigator to MainScreen
-          const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-              NavigationActions.navigate({ routeName: 'Main' })
-            ]
-          });
-          this.props.navigation.dispatch(resetAction);
+        // Reset the StackNavigator to MainScreen
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Main' })
+          ]
         });
+        this.props.navigation.dispatch(resetAction);
       });
-    } else {
-      // TODO add error handling
-      console.log('passwords dont match');
-    }
+    });
   }
 
   render() {
@@ -93,18 +86,11 @@ export default class LoginScreen extends Component {
           placeholder="Passwort"
           onChangeText={password => this.setState({ password })}
         />
-        <TextInput
-          placeholder="Passwort wiederholen"
-          onChangeText={passwordRepeat => this.setState({ passwordRepeat })}
-        />
         <Button
           onPress={this.handleSubmit}
-          title="Registrieren"
+          title="Login"
           color={COLOR.PRIMARY}
         />
-        <TouchableOpacity onPress={() => navigate('Login')}>
-          <Text>Ich habe bereits ein Konto</Text>
-        </TouchableOpacity>
       </View>
     );
   }
