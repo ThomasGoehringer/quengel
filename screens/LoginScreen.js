@@ -94,7 +94,7 @@ export default class LoginScreen extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
         <StatusBar
           backgroundColor={COLOR.PRIMARY}
           barStyle="light-content"
