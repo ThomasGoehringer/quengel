@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Modal, View, Text, Button, StyleSheet } from 'react-native';
 import { COLOR, FONTSIZE } from '../config/globals';
+import helperService from '../services/helperService';
 
 
 const styles = StyleSheet.create({
@@ -16,13 +17,29 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontSize: FONTSIZE.SUBHEADING,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 15
   },
   timeContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
-  sideButton: {
-    padding: 10
+  timerLeftContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  timerRightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  buttonWrapper: {
+    width: 35
+  },
+  timerLeft: {
+    marginLeft: 10
+  },
+  timerRight: {
+    marginRight: 10
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -37,17 +54,51 @@ const styles = StyleSheet.create({
 });
 
 export default class NursingModal extends Component {
+  static timerLeft;
+  static timerRight;
+
   constructor() {
     super();
     this.state = {
       visible: false,
       data: 0,
-      selectedSide: ''
+      timerLeftActive: false,
+      timerRightActive: false,
+      secondsLeft: 0,
+      secondsRight: 0
     };
   }
 
   componentWillMount() {
     this.setState({ visible: this.props.visible, data: this.props.data });
+  }
+
+  toggleLeftTimer() {
+    if (this.state.timerLeftActive) {
+      this.setState({ timerLeftActive: false });
+      clearInterval(this.timerLeft);
+    } else {
+      this.setState({ timerLeftActive: true });
+      this.timerLeft = setInterval(() => {
+        this.setState({
+          secondsLeft: this.state.secondsLeft + 1
+        });
+      }, 1000);
+    }
+  }
+
+  toggleRightTimer() {
+    if (this.state.timerRightActive) {
+      this.setState({ timerRightActive: false });
+      clearInterval(this.timerRight);
+    } else {
+      this.setState({ timerRightActive: true });
+      this.timerRight = setInterval(() => {
+        this.setState({
+          secondsRight: this.state.secondsRight + 1
+        });
+      }, 1000);
+    }
   }
 
   render() {
@@ -62,20 +113,33 @@ export default class NursingModal extends Component {
           <View style={styles.container} >
             <Text style={styles.headline}>Stillzeit messen</Text>
             <View style={styles.timeContainer}>
-              <View>
-                <Button
-                  color={this.state.selectedSide === 'left' ? '#0f0' : '#aaa'}
-                  onPress={() => this.setState({ selectedSide: 'left' })}
-                  style={styles.sideButton}
-                  title="L"
-                />
+              <View style={styles.timerLeftContainer}>
+                <View style={styles.buttonWrapper}>
+                  <Button
+                    color={this.state.timerLeftActive ? '#296474' : COLOR.PRIMARY}
+                    onPress={() => this.toggleLeftTimer()}
+                    title="L"
+                  />
+                </View>
+                <Text style={styles.timerLeft}>
+                  {helperService.pad(parseInt(this.state.secondsLeft / 60, 10))}
+                  :
+                  {helperService.pad(this.state.secondsLeft % 60)}
+                </Text>
               </View>
-              <View>
-                <Button
-                  color={this.state.selectedSide === 'right' ? '#0f0' : '#aaa'}
-                  onPress={() => this.setState({ selectedSide: 'right' })}
-                  title="R"
-                />
+              <View style={styles.timerRightContainer}>
+                <Text style={styles.timerRight}>
+                  {helperService.pad(parseInt(this.state.secondsRight / 60, 10))}
+                  :
+                  {helperService.pad(this.state.secondsRight % 60)}
+                </Text>
+                <View style={styles.buttonWrapper}>
+                  <Button
+                    color={this.state.timerRightActive ? '#296474' : COLOR.PRIMARY}
+                    onPress={() => this.toggleRightTimer()}
+                    title="R"
+                  />
+                </View>
               </View>
             </View>
             <View style={styles.buttonContainer}>
