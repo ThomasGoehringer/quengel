@@ -39,9 +39,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  hydrationContainer: {
-    backgroundColor: COLOR.HYDRATION
-  },
   diapersContainer: {
     backgroundColor: COLOR.DIAPERS
   },
@@ -51,14 +48,20 @@ const styles = StyleSheet.create({
   nursingTimesContainer: {
     flexDirection: 'row'
   },
+  mealsContainer: {
+    backgroundColor: COLOR.MEALS
+  },
+  hydrationContainer: {
+    backgroundColor: COLOR.HYDRATION
+  },
+  emotionsContainer: {
+    backgroundColor: COLOR.EMOTION
+  },
   measurementsContainer: {
     backgroundColor: COLOR.MEASUREMENT
   },
   measurementContainer: {
     alignItems: 'center'
-  },
-  emotionsContainer: {
-    backgroundColor: '#5363ab'
   },
   button: {
     alignSelf: 'center'
@@ -290,27 +293,6 @@ export default class EntryScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.row}>
-          <View style={[styles.componentContainerHalf, styles.hydrationContainer]}>
-            <TouchableOpacity onPress={() => this.setHydration('down')}>
-              <Icon
-                name="chevron-left"
-                size={40}
-              />
-            </TouchableOpacity>
-            <Icon
-              name="cup-water"
-              size={90}
-            />
-            <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
-              {this.state.badges.hydration}
-            </Text>
-            <TouchableOpacity onPress={() => this.setHydration('up')}>
-              <Icon
-                name="chevron-right"
-                size={40}
-              />
-            </TouchableOpacity>
-          </View>
           <View style={[styles.componentContainerHalf, styles.diapersContainer]}>
             <TouchableOpacity onPress={() => this.setDiapers('down')}>
               <Icon
@@ -332,25 +314,6 @@ export default class EntryScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-        </View>
-        <View style={styles.row}>
-          <View style={[styles.componentContainerHalf, styles.emotionsContainer]}>
-            <TouchableOpacity onPress={() => this.setEmotion('previous')}>
-              <Icon
-                name="chevron-left"
-                size={40}
-                color="#ffffff"
-              />
-            </TouchableOpacity>
-            <Icon
-              name={this.state.emotion}
-              size={90}
-              color="#ffffff"
-            />
-            <TouchableOpacity onPress={() => this.setEmotion('next')}>
-              <Icon name="chevron-right" size={40} color="#ffffff" />
-            </TouchableOpacity>
-          </View>
           <View style={[styles.componentContainerHalf, styles.nursingContainer]}>
             <View style={styles.measurementContainer}>
               <TouchableOpacity
@@ -370,6 +333,51 @@ export default class EntryScreen extends Component {
                 : null}
               </View>
             </View>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={[styles.componentContainerHalf, styles.mealsContainer]}>
+
+          </View>
+          <View style={[styles.componentContainerHalf, styles.hydrationContainer]}>
+            <TouchableOpacity onPress={() => this.setHydration('down')}>
+              <Icon
+                name="chevron-left"
+                size={40}
+              />
+            </TouchableOpacity>
+            <Icon
+              name="cup-water"
+              size={90}
+            />
+            <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
+              {this.state.badges.hydration}
+            </Text>
+            <TouchableOpacity onPress={() => this.setHydration('up')}>
+              <Icon
+                name="chevron-right"
+                size={40}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={[styles.componentContainer, styles.emotionsContainer]}>
+            <TouchableOpacity onPress={() => this.setEmotion('previous')}>
+              <Icon
+                name="chevron-left"
+                size={40}
+                color="#ffffff"
+              />
+            </TouchableOpacity>
+            <Icon
+              name={this.state.emotion}
+              size={90}
+              color="#ffffff"
+            />
+            <TouchableOpacity onPress={() => this.setEmotion('next')}>
+              <Icon name="chevron-right" size={40} color="#ffffff" />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.row}>

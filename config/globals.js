@@ -5,7 +5,8 @@ module.exports = {
     HYDRATION: '#6fa8dc',
     MEALS: '#93c47d',
     NURSING: '#fe7d55',
-    MEASUREMENT: '#ffac49'
+    MEASUREMENT: '#ffac49',
+    EMOTION: '#53737b'
   },
   FONTSIZE: {
     DISPLAY1: 34,
