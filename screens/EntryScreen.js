@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
   nursingContainer: {
     backgroundColor: COLOR.NURSING
   },
+  nursingTimesContainer: {
+    flexDirection: 'row'
+  },
   measurementsContainer: {
     backgroundColor: COLOR.MEASUREMENT
   },
@@ -72,7 +75,9 @@ export default class EntryScreen extends Component {
         diapers: 0,
         weight: 0,
         height: 0,
-        headCircumference: 0
+        headCircumference: 0,
+        nursingLeft: 0,
+        nursingRight: 0
       },
       emotion: 'help',
       modalVisible: false,
@@ -208,6 +213,16 @@ export default class EntryScreen extends Component {
         });
         break;
 
+      case 'nursingModal':
+        this.setState({
+          badges: {
+            ...this.state.badges,
+            nursingLeft: modalData.left,
+            nursingRight: modalData.right
+          }
+        });
+        break;
+
       default:
         break;
     }
@@ -257,7 +272,7 @@ export default class EntryScreen extends Component {
     } else if (this.state.activeModal === 'nursingModal') {
       return (
         <NursingModal
-          data={this.state.badges.height}
+          data={{ left: this.state.badges.nursingLeft, right: this.state.badges.nursingRight }}
           visible={this.state.modalVisible}
           onSubmit={this.handleModalSubmit}
           onCancel={() => this.setState({
@@ -337,14 +352,24 @@ export default class EntryScreen extends Component {
             </TouchableOpacity>
           </View>
           <View style={[styles.componentContainerHalf, styles.nursingContainer]}>
-            <TouchableOpacity
-              onPress={() => this.setState({
-                modalVisible: true,
-                activeModal: 'nursingModal'
-              })}
-            >
-              <Icon name="timer" size={90} />
-            </TouchableOpacity>
+            <View style={styles.measurementContainer}>
+              <TouchableOpacity
+                onPress={() => this.setState({
+                  modalVisible: true,
+                  activeModal: 'nursingModal'
+                })}
+              >
+                <Icon name="timer" size={90} />
+              </TouchableOpacity>
+              <View style={styles.nursingTimesContainer}>
+                {this.state.badges.nursingLeft !== 0 ?
+                  <Text>L: {this.state.badges.nursingLeft}</Text>
+                : null}
+                {this.state.badges.nursingRight !== 0 ?
+                  <Text>R: {this.state.badges.nursingRight}</Text>
+                : null}
+              </View>
+            </View>
           </View>
         </View>
         <View style={styles.row}>

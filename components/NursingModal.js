@@ -70,7 +70,11 @@ export default class NursingModal extends Component {
   }
 
   componentWillMount() {
-    this.setState({ visible: this.props.visible, data: this.props.data });
+    this.setState({
+      visible: this.props.visible,
+      secondsLeft: this.props.data.left,
+      secondsRight: this.props.data.right
+    });
   }
 
   toggleLeftTimer() {
@@ -150,7 +154,10 @@ export default class NursingModal extends Component {
                 ABBRECHEN
               </Text>
               <Text
-                onPress={() => this.props.onSubmit(this.state.data)}
+                onPress={() => this.props.onSubmit({
+                  left: this.state.secondsLeft,
+                  right: this.state.secondsRight
+                })}
                 style={styles.button}
               >
                 AKZEPTIEREN
@@ -165,7 +172,10 @@ export default class NursingModal extends Component {
 
 NursingModal.propTypes = {
   visible: PropTypes.bool.isRequired,
-  data: PropTypes.number.isRequired,
+  data: PropTypes.shape({
+    left: PropTypes.number,
+    right: PropTypes.number
+  }).isRequired,
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 };
