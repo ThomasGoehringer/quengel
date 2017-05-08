@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  Button,
   TouchableOpacity,
   StyleSheet,
   ScrollView
@@ -9,7 +10,7 @@ import {
 import { Thumbnail } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { removeData } from '../services/storageService';
+import { getData, removeData } from '../services/storageService';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
 import BirthdayModal from '../components/BirthdayModal';
@@ -21,22 +22,20 @@ const styles = StyleSheet.create({
   thumbnailContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 15
+    marginVertical: 15
   },
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 8,
-    paddingLeft: 15,
-    paddingRight: 15
+    padding: 8
   },
-  itemText_1: {
+  itemText1: {
     width: 130,
     padding: 8,
     borderBottomWidth: 1,
     borderBottomColor: COLOR.PRIMARY
   },
-  itemText_2: {
+  itemText2: {
     width: 150,
     padding: 8,
     borderBottomWidth: 1,
@@ -65,13 +64,20 @@ export default class Profile extends Component {
     super();
     this.state = {
       text: '',
+      email: '',
       modalVisible: false,
       activeModal: ''
     };
     this.handleModalSubmit = this.handleModalSubmit.bind(this);
   }
 
-  handleModalSubmit(modalData) {
+  componentWillMount() {
+    getData('user').then((data) => {
+      this.setState({ email: data.email });
+    });
+  }
+
+  handleModalSubmit() {
     this.setState({
       modalVisible: false,
       activeModal: ''
@@ -142,10 +148,10 @@ export default class Profile extends Component {
         </View>
 
         <View style={styles.itemContainer}>
-          <View style={styles.itemText_1}>
+          <View style={styles.itemText1}>
             <Text>Name</Text>
           </View>
-          <View style={styles.itemText_2}>
+          <View style={styles.itemText2}>
             <Text>Quengel</Text>
           </View>
           <View style={styles.itemIcon}>
@@ -165,10 +171,10 @@ export default class Profile extends Component {
         </View>
 
         <View style={styles.itemContainer}>
-          <View style={styles.itemText_1}>
+          <View style={styles.itemText1}>
             <Text>Geschlecht</Text>
           </View>
-          <View style={styles.itemText_2}>
+          <View style={styles.itemText2}>
             <Text>Junge</Text>
           </View>
           <View style={styles.itemIcon}>
@@ -188,10 +194,10 @@ export default class Profile extends Component {
         </View>
 
         <View style={styles.itemContainer}>
-          <View style={styles.itemText_1}>
+          <View style={styles.itemText1}>
             <Text>Geburtstag</Text>
           </View>
-          <View style={styles.itemText_2}>
+          <View style={styles.itemText2}>
             <Text>18.04.2017</Text>
           </View>
           <View style={styles.itemIcon}>
@@ -211,82 +217,65 @@ export default class Profile extends Component {
         </View>
 
         <View style={styles.itemContainer}>
-          <View
-
+          <TouchableOpacity
+            onPress={() => this.setState({
+              modalVisible: true
+            })}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end'
+            }}
           >
-
-            <TouchableOpacity
-              onPress={() => this.setState({
-                modalVisible: true
-              })}
+            <Text
               style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end'
+                paddingTop: 5
               }}
             >
-              <Text
-                style={{
-                  paddingTop: 5
-                }}
-              >
-                weiteres Kind
-              </Text>
-              <Icon
-                style={{
-                  color: COLOR.PRIMARY,
-                  marginLeft: 15
-                }}
-                name="plus-circle"
-                size={30}
-              />
-            </TouchableOpacity>
-          </View>
+              weiteres Kind
+            </Text>
+            <Icon
+              style={{
+                color: COLOR.PRIMARY,
+                marginLeft: 15
+              }}
+              name="plus-circle"
+              size={30}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.itemContainer}>
-          <View style={styles.itemText_1}>
+          <View style={styles.itemText1}>
             <Text>Kontodaten</Text>
           </View>
-          <View style={styles.itemText_2}>
-          </View>
-          <View style={styles.itemIcon}>
+          <View style={styles.itemText2}>
           </View>
         </View>
 
         <View style={styles.itemContainer}>
-          <View style={styles.itemText_1}>
+          <View style={styles.itemText1}>
             <Text>E-Mail Adresse</Text>
           </View>
-          <View style={styles.itemText_2}>
-            <Text>mybaby@guengel.de</Text>
-          </View>
-          <View style={styles.itemIcon}>
+          <View style={styles.itemText2}>
+            <Text style={styles.boldFont_right}>{this.state.email}</Text>
           </View>
         </View>
 
         <View style={styles.itemContainer}>
-          <View style={styles.itemText_1}>
-            <Text
-              style={styles.boldFont_left}
-              onPress={() => {
-                removeData('user');
-                const resetAction = NavigationActions.reset({
-                  index: 0,
-                  actions: [
-                    NavigationActions.navigate({ routeName: 'Register' })
-                  ]
-                });
-                this.props.navigation.dispatch(resetAction);
-              }}
-            >
-              Abmelden
-            </Text>
-          </View>
-          <View style={styles.itemText_2}>
-            <Text style={styles.boldFont_right}>Impressum</Text>
-          </View>
-          <View style={styles.itemIcon}>
-          </View>
+          <Button
+            title="Abmelden"
+            color={COLOR.SECONDARY}
+            onPress={() => {
+              removeData('user');
+              const resetAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                  NavigationActions.navigate({ routeName: 'Register' })
+                ]
+              });
+              this.props.navigation.dispatch(resetAction);
+            }}
+          />
         </View>
 
         {this.renderNameModal()}

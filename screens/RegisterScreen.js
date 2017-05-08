@@ -136,7 +136,7 @@ export default class LoginScreen extends Component {
           <Button
             onPress={this.handleSubmit}
             title="Registrieren"
-            color={COLOR.EMOTION}
+            color={COLOR.SECONDARY}
           />
         </View>
         <TouchableOpacity onPress={() => navigate('Login')}>

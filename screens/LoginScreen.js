@@ -122,7 +122,7 @@ export default class LoginScreen extends Component {
           <Button
             onPress={this.handleSubmit}
             title="Anmelden"
-            color={COLOR.EMOTION}
+            color={COLOR.SECONDARY}
           />
         </View>
       </ScrollView>
