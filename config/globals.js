@@ -7,7 +7,8 @@ module.exports = {
     MEALS: '#93c47d',
     NURSING: '#fe7d55',
     MEASUREMENT: '#ffac49',
-    EMOTION: '#53737b'
+    EMOTION: '#53737b',
+    TEXT: 'rgb(100,100,100)'
   },
   FONTSIZE: {
     DISPLAY1: 34,

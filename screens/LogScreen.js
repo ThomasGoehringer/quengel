@@ -32,7 +32,7 @@ export default class LogScreen extends Component {
   updateEntries() {
     getData('user')
       .then((user) => {
-        if (user) {
+        if (user && user.name) {
           databaseService.getEntries(user.jwt)
             .then((entries) => {
               this.setState({ loading: false, entries: entries.reverse() });

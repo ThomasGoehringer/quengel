@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Modal, View, Text, TextInput, StyleSheet } from 'react-native';
+import {
+  Modal,
+  View,
+  Text,
+  StyleSheet
+} from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 

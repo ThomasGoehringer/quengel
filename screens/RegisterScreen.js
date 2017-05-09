@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class LoginScreen extends Component {
+export default class RegisterScreen extends Component {
   static navigationOptions = {
     header: null
   };
@@ -81,15 +81,7 @@ export default class LoginScreen extends Component {
 
         setData('user', data).then(() => {
           Keyboard.dismiss();
-
-          // Reset the StackNavigator to MainScreen
-          const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-              NavigationActions.navigate({ routeName: 'Main' })
-            ]
-          });
-          this.props.navigation.dispatch(resetAction);
+          this.props.navigation.navigate('CreateProfile');
         });
       });
     } else {

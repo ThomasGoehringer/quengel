@@ -25,6 +25,7 @@ import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
+import CreateProfileScreen from './screens/CreateProfileScreen';
 import { getData } from './services/storageService';
 import logo from './assets/images/logo.png';
 
@@ -52,13 +53,21 @@ export default class MainScreen extends Component {
 
   componentWillMount() {
     getData('user').then((data) => {
-      console.log('DATA', data);
       if (!data) {
         // Reset the StackNavigator to RegisterScreen
         const resetAction = NavigationActions.reset({
           index: 0,
           actions: [
             NavigationActions.navigate({ routeName: 'Register' })
+          ]
+        });
+        this.props.navigation.dispatch(resetAction);
+      } else if (!data.name) {
+        // Does not have a profile yet, reset to CreateProfileScreen
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'CreateProfile' })
           ]
         });
         this.props.navigation.dispatch(resetAction);
@@ -163,7 +172,8 @@ const BabyApp = StackNavigator({
   Profile: { screen: ProfileScreen },
   Entry: { screen: EntryScreen },
   Register: { screen: RegisterScreen },
-  Login: { screen: LoginScreen }
+  Login: { screen: LoginScreen },
+  CreateProfile: { screen: CreateProfileScreen }
 }, { headerMode: 'screen' });
 
 AppRegistry.registerComponent('BabyApp', () => BabyApp);

@@ -73,7 +73,12 @@ export default class Profile extends Component {
 
   componentWillMount() {
     getData('user').then((data) => {
-      this.setState({ email: data.email });
+      this.setState({
+        name: data.name,
+        gender: data.gender,
+        dateOfBirth: data.dateOfBirth,
+        email: data.email
+      });
     });
   }
 
@@ -152,7 +157,7 @@ export default class Profile extends Component {
             <Text>Name</Text>
           </View>
           <View style={styles.itemText2}>
-            <Text>Quengel</Text>
+            <Text>{this.state.name}</Text>
           </View>
           <View style={styles.itemIcon}>
             <TouchableOpacity
@@ -175,7 +180,7 @@ export default class Profile extends Component {
             <Text>Geschlecht</Text>
           </View>
           <View style={styles.itemText2}>
-            <Text>Junge</Text>
+            <Text>{this.state.gender === 'male' ? 'männlich' : 'weiblich'}</Text>
           </View>
           <View style={styles.itemIcon}>
             <TouchableOpacity
@@ -198,7 +203,7 @@ export default class Profile extends Component {
             <Text>Geburtstag</Text>
           </View>
           <View style={styles.itemText2}>
-            <Text>18.04.2017</Text>
+            <Text>{this.state.dateOfBirth}</Text>
           </View>
           <View style={styles.itemIcon}>
             <TouchableOpacity
