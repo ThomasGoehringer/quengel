@@ -34,13 +34,24 @@ export default class LogEntry extends Component {
       return acc;
     }, {}));
 
-    return mergedBadges.map(badge =>
-      <Badge
-        key={badge.badgeType + badge.createdAt}
-        text={badge.unit ? badge.value + badge.unit : badge.value}
-        feature={badge.badgeType}
-      />
-    );
+    return mergedBadges.map((badge) => {
+      if (badge.type === 'nursingLeft' || badge.type === 'nursingRight') {
+        return (
+          <Badge
+            key={badge.badgeType + badge.createdAt}
+            text={badge.unit ? `${badge.value} ${badge.unit}` : badge.value}
+            feature={badge.badgeType}
+          />
+        );
+      }
+      return (
+        <Badge
+          key={badge.badgeType + badge.createdAt}
+          text={badge.unit ? `${badge.value} ${badge.unit}` : badge.value}
+          feature={badge.badgeType}
+        />
+      );
+    });
   }
 
   render() {

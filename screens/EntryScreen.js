@@ -9,13 +9,14 @@ import {
   StyleSheet
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import moment from 'moment';
 import databaseService from '../services/databaseService';
 import { getData } from '../services/storageService';
 import WeightModal from '../components/WeightModal';
 import HeightModal from '../components/HeightModal';
 import HeadCircumferenceModal from '../components/HeadCircumferenceModal';
 import NursingModal from '../components/NursingModal';
-import { COLOR } from '../config/globals';
+import { COLOR, FONTSIZE } from '../config/globals';
 
 
 const styles = StyleSheet.create({
@@ -29,18 +30,26 @@ const styles = StyleSheet.create({
   },
   componentContainer: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   componentContainerHalf: {
     flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  horizontalComponent: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
   diapersContainer: {
     backgroundColor: COLOR.DIAPERS
+  },
+  diapersAmountText: {
+    position: 'absolute',
+    color: COLOR.DIAPERS,
+    fontSize: FONTSIZE.DISPLAY1
   },
   nursingContainer: {
     backgroundColor: COLOR.NURSING
@@ -54,6 +63,11 @@ const styles = StyleSheet.create({
   hydrationContainer: {
     backgroundColor: COLOR.HYDRATION
   },
+  hydrationAmountText: {
+    position: 'absolute',
+    color: COLOR.HYDRATION,
+    fontSize: FONTSIZE.DISPLAY1
+  },
   emotionsContainer: {
     backgroundColor: COLOR.EMOTION
   },
@@ -62,6 +76,11 @@ const styles = StyleSheet.create({
   },
   measurementContainer: {
     alignItems: 'center'
+  },
+  componentText: {
+    color: '#fff',
+    paddingHorizontal: 4,
+    fontSize: FONTSIZE.CAPTION
   },
   button: {
     alignSelf: 'center'
@@ -145,7 +164,10 @@ export default class EntryScreen extends Component {
       let badgeUnit;
 
       switch (badgeKey) {
-        case 'nursing':
+        case 'nursingLeft':
+          badgeUnit = 'min';
+          break;
+        case 'nursingRight':
           badgeUnit = 'min';
           break;
         case 'weight':
@@ -290,29 +312,38 @@ export default class EntryScreen extends Component {
   render() {
     const { goBack } = this.props.navigation;
 
+    const nursingTimerLeftString = `L: ${moment.utc(this.state.badges.nursingLeft * 1000).format('mm:ss')}`;
+    const nursingTimerRightString = `R: ${moment.utc(this.state.badges.nursingRight * 1000).format('mm:ss')}`;
+
     return (
       <View style={styles.container}>
         <View style={styles.row}>
           <View style={[styles.componentContainerHalf, styles.diapersContainer]}>
-            <TouchableOpacity onPress={() => this.setDiapers('down')}>
+            <View style={styles.horizontalComponent}>
+              <TouchableOpacity onPress={() => this.setDiapers('down')}>
+                <Icon
+                  name="chevron-left"
+                  size={40}
+                  color="#fff"
+                />
+              </TouchableOpacity>
               <Icon
-                name="chevron-left"
-                size={40}
+                name="delete"
+                size={80}
+                color="#fff"
               />
-            </TouchableOpacity>
-            <Icon
-              name="delete"
-              size={90}
-            />
-            <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
-              {this.state.badges.diapers}
-            </Text>
-            <TouchableOpacity onPress={() => this.setDiapers('up')}>
-              <Icon
-                name="chevron-right"
-                size={40}
-              />
-            </TouchableOpacity>
+              <Text style={styles.diapersAmountText}>
+                {this.state.badges.diapers}
+              </Text>
+              <TouchableOpacity onPress={() => this.setDiapers('up')}>
+                <Icon
+                  name="chevron-right"
+                  size={40}
+                  color="#fff"
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.componentText}>Windeln</Text>
           </View>
           <View style={[styles.componentContainerHalf, styles.nursingContainer]}>
             <View style={styles.measurementContainer}>
@@ -322,66 +353,97 @@ export default class EntryScreen extends Component {
                   activeModal: 'nursingModal'
                 })}
               >
-                <Icon name="timer" size={90} />
+                <Icon
+                  name="timer"
+                  size={80}
+                  color="#ffffff"
+                />
               </TouchableOpacity>
-              <View style={styles.nursingTimesContainer}>
-                {this.state.badges.nursingLeft !== 0 ?
-                  <Text>L: {this.state.badges.nursingLeft}</Text>
-                : null}
-                {this.state.badges.nursingRight !== 0 ?
-                  <Text>R: {this.state.badges.nursingRight}</Text>
-                : null}
-              </View>
+              {this.state.badges.nursingLeft === 0 && this.state.badges.nursingRight === 0 ?
+                <Text style={styles.componentText}>Stillzeit</Text>
+                : <View style={styles.nursingTimesContainer}>
+                  {this.state.badges.nursingLeft !== 0 ?
+                    <Text style={styles.componentText}>{nursingTimerLeftString}</Text>
+                    : null}
+                  {this.state.badges.nursingRight !== 0 ?
+                    <Text style={styles.componentText}>{nursingTimerRightString}</Text>
+                    : null}
+                </View>
+              }
             </View>
           </View>
         </View>
         <View style={styles.row}>
           <View style={[styles.componentContainerHalf, styles.mealsContainer]}>
-
+            <View style={styles.measurementContainer}>
+              <TouchableOpacity>
+                <Icon
+                  name="food-variant"
+                  size={80}
+                  color="#ffffff"
+                />
+              </TouchableOpacity>
+              <Text style={styles.componentText}>Mahlzeit</Text>
+            </View>
           </View>
           <View style={[styles.componentContainerHalf, styles.hydrationContainer]}>
-            <TouchableOpacity onPress={() => this.setHydration('down')}>
+            <View style={styles.horizontalComponent}>
+              <TouchableOpacity onPress={() => this.setHydration('down')}>
+                <Icon
+                  name="chevron-left"
+                  size={40}
+                  color="#fff"
+                />
+              </TouchableOpacity>
               <Icon
-                name="chevron-left"
-                size={40}
+                name="cup-water"
+                size={80}
+                color="#fff"
               />
-            </TouchableOpacity>
-            <Icon
-              name="cup-water"
-              size={90}
-            />
-            <Text style={{ position: 'absolute', color: 'white', fontSize: 48 }}>
-              {this.state.badges.hydration}
-            </Text>
-            <TouchableOpacity onPress={() => this.setHydration('up')}>
-              <Icon
-                name="chevron-right"
-                size={40}
-              />
-            </TouchableOpacity>
+              <Text style={styles.hydrationAmountText}>
+                {this.state.badges.hydration}
+              </Text>
+              <TouchableOpacity onPress={() => this.setHydration('up')}>
+                <Icon
+                  name="chevron-right"
+                  size={40}
+                  color="#fff"
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.componentText}>Fläschchen</Text>
           </View>
         </View>
         <View style={styles.row}>
           <View style={[styles.componentContainer, styles.emotionsContainer]}>
-            <TouchableOpacity onPress={() => this.setEmotion('previous')}>
+            <View style={styles.horizontalComponent}>
+              <TouchableOpacity onPress={() => this.setEmotion('previous')}>
+                <Icon
+                  name="chevron-left"
+                  size={40}
+                  color="#ffffff"
+                />
+              </TouchableOpacity>
               <Icon
-                name="chevron-left"
-                size={40}
+                name={this.state.emotion}
+                size={80}
                 color="#ffffff"
               />
-            </TouchableOpacity>
-            <Icon
-              name={this.state.emotion}
-              size={90}
-              color="#ffffff"
-            />
-            <TouchableOpacity onPress={() => this.setEmotion('next')}>
-              <Icon name="chevron-right" size={40} color="#ffffff" />
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.setEmotion('next')}>
+                <Icon name="chevron-right" size={40} color="#ffffff" />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.componentText}>Emotion</Text>
           </View>
         </View>
         <View style={styles.row}>
-          <View style={[styles.componentContainer, styles.measurementsContainer]}>
+          <View
+            style={[
+              styles.componentContainer,
+              styles.measurementsContainer,
+              styles.horizontalComponent
+            ]}
+          >
             <View style={styles.measurementContainer}>
               <TouchableOpacity
                 onPress={() => this.setState({
@@ -390,13 +452,14 @@ export default class EntryScreen extends Component {
                 })}
               >
                 <Icon
-                  name="scale-bathroom"
-                  size={90}
+                  name="scale"
+                  size={80}
+                  color="#ffffff"
                 />
               </TouchableOpacity>
-              {this.state.badges.weight !== 0 ?
-                <Text>{this.state.badges.weight}</Text>
-              : null}
+              <Text style={styles.componentText}>
+                {this.state.badges.weight !== 0 ? `${this.state.badges.weight} g` : 'Gewicht'}
+              </Text>
             </View>
             <View style={styles.measurementContainer}>
               <TouchableOpacity
@@ -408,12 +471,13 @@ export default class EntryScreen extends Component {
                 <Icon
                   style={{ paddingHorizontal: 20 }}
                   name="ruler"
-                  size={90}
+                  size={80}
+                  color="#ffffff"
                 />
               </TouchableOpacity>
-              {this.state.badges.height !== 0 ?
-                <Text>{this.state.badges.height}</Text>
-              : null}
+              <Text style={styles.componentText}>
+                {this.state.badges.height !== 0 ? `${this.state.badges.height} cm` : 'Körpergröße'}
+              </Text>
             </View>
             <View style={styles.measurementContainer}>
               <TouchableOpacity
@@ -424,12 +488,13 @@ export default class EntryScreen extends Component {
               >
                 <Icon
                   name="face"
-                  size={90}
+                  size={80}
+                  color="#ffffff"
                 />
               </TouchableOpacity>
-              {this.state.badges.headCircumference !== 0 ?
-                <Text>{this.state.badges.headCircumference}</Text>
-              : null}
+              <Text style={styles.componentText}>
+                {this.state.badges.headCircumference !== 0 ? `${this.state.badges.headCircumference} cm` : 'Kopfumfang'}
+              </Text>
             </View>
           </View>
         </View>
