@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Keyboard,
   TextInput,
-  Button,
   StyleSheet,
   TouchableNativeFeedback,
   ScrollView
@@ -83,6 +82,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     paddingHorizontal: 4,
     fontSize: FONTSIZE.CAPTION
+  },
+  textInputContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF'
+  },
+  textInput: {
+    flex: 1,
+    marginHorizontal: 5
   },
   button: {
     color: COLOR.SECONDARY,
@@ -506,11 +513,16 @@ export default class EntryScreen extends Component {
             </View>
           </View>
         </ScrollView>
-        <View elevation={8} style={{ flexDirection: 'row', backgroundColor: '#FFFFFF' }}>
+        <View
+          elevation={8}
+          style={styles.textInputContainer}
+        >
           <TextInput
             onChangeText={text => this.setState({ text })}
             placeholder="Eintrag hinzufügen"
-            style={{ flex: 1, marginHorizontal: 5 }}
+            selectionColor={COLOR.PRIMARY}
+            style={styles.textInput}
+            underlineColorAndroid={COLOR.SECONDARY}
           />
           <TouchableNativeFeedback>
             <Text
