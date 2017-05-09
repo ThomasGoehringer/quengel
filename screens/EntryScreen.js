@@ -41,8 +41,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   horizontalComponent: {
+    paddingHorizontal: 30,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   diapersContainer: {
