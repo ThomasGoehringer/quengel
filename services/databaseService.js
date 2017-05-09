@@ -66,7 +66,7 @@ async function login(user) {
   }
 }
 
-async function profile(userProfile, jwt) {
+async function createProfile(userProfile, jwt) {
   try {
     const options = {
       method: 'post',
@@ -84,11 +84,29 @@ async function profile(userProfile, jwt) {
   }
 }
 
+async function getProfile(jwt) {
+  try {
+    const options = {
+      method: 'get',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      }
+    };
+
+    const response = await fetch(`${serverAPI}/quengel/user/profile`, options);
+    return response.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 
 module.exports = {
   getEntries,
   createEntry,
   register,
   login,
-  profile
+  createProfile,
+  getProfile
 };

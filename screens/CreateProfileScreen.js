@@ -91,7 +91,7 @@ export default class CreateProfileScreen extends Component {
         dateOfBirth: this.state.dateOfBirth
       };
 
-      databaseService.profile(profileData, data.jwt).then(() => {
+      databaseService.createProfile(profileData, data.jwt).then(() => {
         const mergedData = Object.assign(data, profileData);
         setData('user', mergedData).then(() => {
           Keyboard.dismiss();
