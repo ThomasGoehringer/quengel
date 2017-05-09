@@ -6,7 +6,9 @@ import {
   Keyboard,
   TextInput,
   Button,
-  StyleSheet
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
@@ -317,187 +319,189 @@ export default class EntryScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.row}>
-          <View style={[styles.componentContainerHalf, styles.diapersContainer]}>
-            <View style={styles.horizontalComponent}>
-              <TouchableOpacity onPress={() => this.setDiapers('down')}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={styles.row}>
+            <View style={[styles.componentContainerHalf, styles.diapersContainer]}>
+              <View style={styles.horizontalComponent}>
+                <TouchableOpacity onPress={() => this.setDiapers('down')}>
+                  <Icon
+                    name="chevron-left"
+                    size={40}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
                 <Icon
-                  name="chevron-left"
-                  size={40}
+                  name="delete"
+                  size={80}
                   color="#fff"
                 />
-              </TouchableOpacity>
-              <Icon
-                name="delete"
-                size={80}
-                color="#fff"
-              />
-              <Text style={styles.diapersAmountText}>
-                {this.state.badges.diapers}
-              </Text>
-              <TouchableOpacity onPress={() => this.setDiapers('up')}>
+                <Text style={styles.diapersAmountText}>
+                  {this.state.badges.diapers}
+                </Text>
+                <TouchableOpacity onPress={() => this.setDiapers('up')}>
+                  <Icon
+                    name="chevron-right"
+                    size={40}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.componentText}>Windeln</Text>
+            </View>
+            <View style={[styles.componentContainerHalf, styles.nursingContainer]}>
+              <View style={styles.measurementContainer}>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    modalVisible: true,
+                    activeModal: 'nursingModal'
+                  })}
+                >
+                  <Icon
+                    name="timer"
+                    size={80}
+                    color="#ffffff"
+                  />
+                </TouchableOpacity>
+                {this.state.badges.nursingLeft === 0 && this.state.badges.nursingRight === 0 ?
+                  <Text style={styles.componentText}>Stillzeit</Text>
+                  : <View style={styles.nursingTimesContainer}>
+                    {this.state.badges.nursingLeft !== 0 ?
+                      <Text style={styles.componentText}>{nursingTimerLeftString}</Text>
+                      : null}
+                    {this.state.badges.nursingRight !== 0 ?
+                      <Text style={styles.componentText}>{nursingTimerRightString}</Text>
+                      : null}
+                  </View>
+                }
+              </View>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <View style={[styles.componentContainerHalf, styles.mealsContainer]}>
+              <View style={styles.measurementContainer}>
+                <TouchableOpacity>
+                  <Icon
+                    name="food-variant"
+                    size={80}
+                    color="#ffffff"
+                  />
+                </TouchableOpacity>
+                <Text style={styles.componentText}>Mahlzeit</Text>
+              </View>
+            </View>
+            <View style={[styles.componentContainerHalf, styles.hydrationContainer]}>
+              <View style={styles.horizontalComponent}>
+                <TouchableOpacity onPress={() => this.setHydration('down')}>
+                  <Icon
+                    name="chevron-left"
+                    size={40}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
                 <Icon
-                  name="chevron-right"
-                  size={40}
+                  name="cup-water"
+                  size={80}
                   color="#fff"
                 />
-              </TouchableOpacity>
+                <Text style={styles.hydrationAmountText}>
+                  {this.state.badges.hydration}
+                </Text>
+                <TouchableOpacity onPress={() => this.setHydration('up')}>
+                  <Icon
+                    name="chevron-right"
+                    size={40}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.componentText}>Fläschchen</Text>
             </View>
-            <Text style={styles.componentText}>Windeln</Text>
           </View>
-          <View style={[styles.componentContainerHalf, styles.nursingContainer]}>
-            <View style={styles.measurementContainer}>
-              <TouchableOpacity
-                onPress={() => this.setState({
-                  modalVisible: true,
-                  activeModal: 'nursingModal'
-                })}
-              >
+          <View style={styles.row}>
+            <View style={[styles.componentContainer, styles.emotionsContainer]}>
+              <View style={styles.horizontalComponent}>
+                <TouchableOpacity onPress={() => this.setEmotion('previous')}>
+                  <Icon
+                    name="chevron-left"
+                    size={40}
+                    color="#ffffff"
+                  />
+                </TouchableOpacity>
                 <Icon
-                  name="timer"
+                  name={this.state.emotion}
                   size={80}
                   color="#ffffff"
                 />
-              </TouchableOpacity>
-              {this.state.badges.nursingLeft === 0 && this.state.badges.nursingRight === 0 ?
-                <Text style={styles.componentText}>Stillzeit</Text>
-                : <View style={styles.nursingTimesContainer}>
-                  {this.state.badges.nursingLeft !== 0 ?
-                    <Text style={styles.componentText}>{nursingTimerLeftString}</Text>
-                    : null}
-                  {this.state.badges.nursingRight !== 0 ?
-                    <Text style={styles.componentText}>{nursingTimerRightString}</Text>
-                    : null}
-                </View>
-              }
+                <TouchableOpacity onPress={() => this.setEmotion('next')}>
+                  <Icon name="chevron-right" size={40} color="#ffffff" />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.componentText}>Emotion</Text>
             </View>
           </View>
-        </View>
-        <View style={styles.row}>
-          <View style={[styles.componentContainerHalf, styles.mealsContainer]}>
-            <View style={styles.measurementContainer}>
-              <TouchableOpacity>
-                <Icon
-                  name="food-variant"
-                  size={80}
-                  color="#ffffff"
-                />
-              </TouchableOpacity>
-              <Text style={styles.componentText}>Mahlzeit</Text>
+          <View style={styles.row}>
+            <View
+              style={[
+                styles.componentContainer,
+                styles.measurementsContainer,
+                styles.horizontalComponent
+              ]}
+            >
+              <View style={styles.measurementContainer}>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    modalVisible: true,
+                    activeModal: 'weightModal'
+                  })}
+                >
+                  <Icon
+                    name="scale"
+                    size={80}
+                    color="#ffffff"
+                  />
+                </TouchableOpacity>
+                <Text style={styles.componentText}>
+                  {this.state.badges.weight !== 0 ? `${this.state.badges.weight} g` : 'Gewicht'}
+                </Text>
+              </View>
+              <View style={styles.measurementContainer}>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    modalVisible: true,
+                    activeModal: 'heightModal'
+                  })}
+                >
+                  <Icon
+                    style={{ paddingHorizontal: 20 }}
+                    name="ruler"
+                    size={80}
+                    color="#ffffff"
+                  />
+                </TouchableOpacity>
+                <Text style={styles.componentText}>
+                  {this.state.badges.height !== 0 ? `${this.state.badges.height} cm` : 'Körpergröße'}
+                </Text>
+              </View>
+              <View style={styles.measurementContainer}>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    modalVisible: true,
+                    activeModal: 'headCircumferenceModal'
+                  })}
+                >
+                  <Icon
+                    name="face"
+                    size={80}
+                    color="#ffffff"
+                  />
+                </TouchableOpacity>
+                <Text style={styles.componentText}>
+                  {this.state.badges.headCircumference !== 0 ? `${this.state.badges.headCircumference} cm` : 'Kopfumfang'}
+                </Text>
+              </View>
             </View>
           </View>
-          <View style={[styles.componentContainerHalf, styles.hydrationContainer]}>
-            <View style={styles.horizontalComponent}>
-              <TouchableOpacity onPress={() => this.setHydration('down')}>
-                <Icon
-                  name="chevron-left"
-                  size={40}
-                  color="#fff"
-                />
-              </TouchableOpacity>
-              <Icon
-                name="cup-water"
-                size={80}
-                color="#fff"
-              />
-              <Text style={styles.hydrationAmountText}>
-                {this.state.badges.hydration}
-              </Text>
-              <TouchableOpacity onPress={() => this.setHydration('up')}>
-                <Icon
-                  name="chevron-right"
-                  size={40}
-                  color="#fff"
-                />
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.componentText}>Fläschchen</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={[styles.componentContainer, styles.emotionsContainer]}>
-            <View style={styles.horizontalComponent}>
-              <TouchableOpacity onPress={() => this.setEmotion('previous')}>
-                <Icon
-                  name="chevron-left"
-                  size={40}
-                  color="#ffffff"
-                />
-              </TouchableOpacity>
-              <Icon
-                name={this.state.emotion}
-                size={80}
-                color="#ffffff"
-              />
-              <TouchableOpacity onPress={() => this.setEmotion('next')}>
-                <Icon name="chevron-right" size={40} color="#ffffff" />
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.componentText}>Emotion</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View
-            style={[
-              styles.componentContainer,
-              styles.measurementsContainer,
-              styles.horizontalComponent
-            ]}
-          >
-            <View style={styles.measurementContainer}>
-              <TouchableOpacity
-                onPress={() => this.setState({
-                  modalVisible: true,
-                  activeModal: 'weightModal'
-                })}
-              >
-                <Icon
-                  name="scale"
-                  size={80}
-                  color="#ffffff"
-                />
-              </TouchableOpacity>
-              <Text style={styles.componentText}>
-                {this.state.badges.weight !== 0 ? `${this.state.badges.weight} g` : 'Gewicht'}
-              </Text>
-            </View>
-            <View style={styles.measurementContainer}>
-              <TouchableOpacity
-                onPress={() => this.setState({
-                  modalVisible: true,
-                  activeModal: 'heightModal'
-                })}
-              >
-                <Icon
-                  style={{ paddingHorizontal: 20 }}
-                  name="ruler"
-                  size={80}
-                  color="#ffffff"
-                />
-              </TouchableOpacity>
-              <Text style={styles.componentText}>
-                {this.state.badges.height !== 0 ? `${this.state.badges.height} cm` : 'Körpergröße'}
-              </Text>
-            </View>
-            <View style={styles.measurementContainer}>
-              <TouchableOpacity
-                onPress={() => this.setState({
-                  modalVisible: true,
-                  activeModal: 'headCircumferenceModal'
-                })}
-              >
-                <Icon
-                  name="face"
-                  size={80}
-                  color="#ffffff"
-                />
-              </TouchableOpacity>
-              <Text style={styles.componentText}>
-                {this.state.badges.headCircumference !== 0 ? `${this.state.badges.headCircumference} cm` : 'Kopfumfang'}
-              </Text>
-            </View>
-          </View>
-        </View>
+        </ScrollView>
         <View elevation={8} style={{ flexDirection: 'row', backgroundColor: '#FFFFFF' }}>
           <TextInput
             style={{ flex: 1 }}
