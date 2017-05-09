@@ -66,10 +66,47 @@ async function login(user) {
   }
 }
 
+async function createProfile(userProfile, jwt) {
+  try {
+    const options = {
+      method: 'post',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      },
+      body: JSON.stringify(userProfile)
+    };
+
+    await fetch(`${serverAPI}/quengel/user/profile`, options);
+    return null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+async function getProfile(jwt) {
+  try {
+    const options = {
+      method: 'get',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      }
+    };
+
+    const response = await fetch(`${serverAPI}/quengel/user/profile`, options);
+    return response.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 
 module.exports = {
   getEntries,
   createEntry,
   register,
-  login
+  login,
+  createProfile,
+  getProfile
 };

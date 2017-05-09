@@ -70,22 +70,24 @@ export default class LoginScreen extends Component {
     if (user.email.length === 0 || user.password.length === 0) return;
 
     databaseService.login(user).then((jwt) => {
-      const data = {
-        email: this.state.email,
-        jwt
-      };
+      databaseService.getProfile(jwt).then((profileData) => {
+        const data = {
+          email: this.state.email,
+          jwt
+        };
+        const mergedData = Object.assign(data, profileData);
+        setData('user', mergedData).then(() => {
+          Keyboard.dismiss();
 
-      setData('user', data).then(() => {
-        Keyboard.dismiss();
-
-        // Reset the StackNavigator to MainScreen
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Main' })
-          ]
+          // Reset the StackNavigator to MainScreen
+          const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Main' })
+            ]
+          });
+          this.props.navigation.dispatch(resetAction);
         });
-        this.props.navigation.dispatch(resetAction);
       });
     });
   }
