@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 10
+    marginTop: 15
   },
   button: {
-    color: COLOR.PRIMARY,
+    color: COLOR.SECONDARY,
     fontWeight: 'bold',
     marginLeft: 10
   }
@@ -74,7 +74,7 @@ export default class WeightModal extends Component {
                 selectionColor={COLOR.PRIMARY}
                 selectTextOnFocus
                 style={styles.input}
-                underlineColorAndroid={COLOR.PRIMARY}
+                underlineColorAndroid={COLOR.SECONDARY}
               />
               <Text>Gramm</Text>
             </View>
