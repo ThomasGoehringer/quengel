@@ -77,6 +77,11 @@ export default class NursingModal extends Component {
     });
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timerLeft);
+    clearInterval(this.timerRight);
+  }
+
   toggleLeftTimer() {
     if (this.state.timerLeftActive) {
       this.setState({ timerLeftActive: false });
