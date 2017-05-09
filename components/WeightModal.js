@@ -67,7 +67,6 @@ export default class WeightModal extends Component {
                 defaultValue={`${this.state.data}`}
                 editable
                 keyboardType="numeric"
-                maxLength={5}
                 onChangeText={value => this.setState({ data: Number(value) })}
                 placeholder="Gewicht"
                 ref={(input) => { this.textInput = input; }}

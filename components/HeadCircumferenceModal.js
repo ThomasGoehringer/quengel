@@ -67,7 +67,6 @@ export default class HeadCircumferenceModal extends Component {
                 defaultValue={`${this.state.data}`}
                 editable
                 keyboardType="numeric"
-                maxLength={5}
                 onChangeText={value => this.setState({ data: Number(value) })}
                 placeholder="Kopfumfang"
                 ref={(input) => { this.textInput = input; }}

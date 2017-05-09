@@ -67,7 +67,6 @@ export default class HeightModal extends Component {
                 defaultValue={`${this.state.data}`}
                 editable
                 keyboardType="numeric"
-                maxLength={5}
                 onChangeText={value => this.setState({ data: Number(value) })}
                 placeholder="Größe"
                 ref={(input) => { this.textInput = input; }}
