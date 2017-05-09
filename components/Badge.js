@@ -39,11 +39,7 @@ const Badge = (props) => {
       backgroundColor = { backgroundColor: COLOR.MEALS };
       iconName = 'food-apple';
       break;
-    case 'nursingLeft':
-      backgroundColor = { backgroundColor: COLOR.NURSING };
-      iconName = 'timer';
-      break;
-    case 'nursingRight':
+    case 'nursing':
       backgroundColor = { backgroundColor: COLOR.NURSING };
       iconName = 'timer';
       break;

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 export default class LogEntry extends Component {
   renderBadges() {
     // Merge badges with same badgeType together
-    const mergedBadges = Object.values(this.props.badges.reduce((acc, item) => {
+    let mergedBadges = Object.values(this.props.badges.reduce((acc, item) => {
       const obj = acc[item.badgeType] ? {
         ...acc[item.badgeType],
         value: (Number(acc[item.badgeType].value) + Number(item.value)).toString()
@@ -34,12 +34,43 @@ export default class LogEntry extends Component {
       return acc;
     }, {}));
 
+    // Merge nursinLeft and nursingRight to nursing
+    mergedBadges = Object.values(mergedBadges.reduce((acc, item) => {
+      if (item.badgeType.indexOf('Left') > 0 || item.badgeType.indexOf('Right') > 0) {
+        const badgeType = item.badgeType.replace('Left', '').replace('Right', '');
+        const side = item.badgeType.replace(badgeType, '').toLowerCase();
+        let found = Object.values(acc).find(obj => obj.badgeType === badgeType);
+
+        if (found) {
+          found.value[side] = item.value;
+        } else {
+          found = {
+            badgeType,
+            unit: item.unit,
+            value: { [side]: item.value }
+          };
+        }
+
+        acc[badgeType] = found;
+        return acc;
+      }
+
+      acc[item.badgeType] = item;
+      return acc;
+    }, {}));
+
+    // Sort badges by badgeType
+    mergedBadges.sort((a, b) => a.badgeType.localeCompare(b.badgeType));
+
     return mergedBadges.map((badge) => {
-      if (badge.type === 'nursingLeft' || badge.type === 'nursingRight') {
+      if (badge.badgeType === 'nursing') {
+        const sum = Number(badge.value.left) + Number(badge.value.right);
+        const formattedSum = moment.utc(sum * 1000).format('m:ss');
+
         return (
           <Badge
             key={badge.badgeType + badge.createdAt}
-            text={badge.unit ? `${badge.value} ${badge.unit}` : badge.value}
+            text={`${formattedSum} min`}
             feature={badge.badgeType}
           />
         );

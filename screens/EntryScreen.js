@@ -40,9 +40,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   horizontalComponent: {
-    paddingHorizontal: 30,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   diapersContainer: {
@@ -74,7 +73,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.EMOTION
   },
   measurementsContainer: {
-    backgroundColor: COLOR.MEASUREMENT
+    backgroundColor: COLOR.MEASUREMENT,
+    justifyContent: 'space-between',
+    paddingHorizontal: 30
   },
   measurementContainer: {
     alignItems: 'center'
@@ -179,10 +180,10 @@ export default class EntryScreen extends Component {
 
       switch (badgeKey) {
         case 'nursingLeft':
-          badgeUnit = 'min';
+          badgeUnit = 's';
           break;
         case 'nursingRight':
-          badgeUnit = 'min';
+          badgeUnit = 's';
           break;
         case 'weight':
           badgeUnit = 'g';
@@ -455,8 +456,8 @@ export default class EntryScreen extends Component {
             <View
               style={[
                 styles.componentContainer,
-                styles.measurementsContainer,
-                styles.horizontalComponent
+                styles.horizontalComponent,
+                styles.measurementsContainer
               ]}
             >
               <View style={styles.measurementContainer}>

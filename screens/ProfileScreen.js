@@ -221,7 +221,7 @@ export default class Profile extends Component {
             <Text>E-Mail Adresse</Text>
           </View>
           <View style={styles.itemText2}>
-            <Text style={styles.boldFont_right}>{this.state.email}</Text>
+            <Text>{this.state.email}</Text>
           </View>
         </View>
 
