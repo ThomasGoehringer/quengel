@@ -7,7 +7,7 @@ import {
   TextInput,
   Button,
   StyleSheet,
-  KeyboardAvoidingView,
+  TouchableNativeFeedback,
   ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -85,7 +85,11 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.CAPTION
   },
   button: {
-    alignSelf: 'center'
+    color: COLOR.SECONDARY,
+    alignSelf: 'center',
+    marginRight: 10,
+    fontWeight: 'bold',
+    fontSize: FONTSIZE.BODY
   }
 });
 
@@ -504,21 +508,22 @@ export default class EntryScreen extends Component {
         </ScrollView>
         <View elevation={8} style={{ flexDirection: 'row', backgroundColor: '#FFFFFF' }}>
           <TextInput
-            style={{ flex: 1 }}
             onChangeText={text => this.setState({ text })}
             placeholder="Eintrag hinzufügen"
+            style={{ flex: 1, marginHorizontal: 5 }}
           />
-          <Button
-            title="Fertig"
-            style={styles.button}
-            onPress={() => {
-              this.handleSubmit();
-              goBack();
-              Keyboard.dismiss();
-            }}
-          >
-            <Icon name="send" />
-          </Button>
+          <TouchableNativeFeedback>
+            <Text
+              style={styles.button}
+              onPress={() => {
+                this.handleSubmit();
+                goBack();
+                Keyboard.dismiss();
+              }}
+            >
+              FERTIG
+            </Text>
+          </TouchableNativeFeedback>
         </View>
         {this.renderModal()}
       </View>

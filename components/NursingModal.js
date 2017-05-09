@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 10
+    marginTop: 15
   },
   button: {
-    color: COLOR.PRIMARY,
+    color: COLOR.SECONDARY,
     fontWeight: 'bold',
     marginLeft: 10
   }
@@ -120,7 +120,7 @@ export default class NursingModal extends Component {
               <View style={styles.timerLeftContainer}>
                 <View style={styles.buttonWrapper}>
                   <Button
-                    color={this.state.timerLeftActive ? '#296474' : COLOR.PRIMARY}
+                    color={this.state.timerLeftActive ? COLOR.SECONDARY : COLOR.PRIMARY}
                     onPress={() => this.toggleLeftTimer()}
                     title="L"
                   />
@@ -139,7 +139,7 @@ export default class NursingModal extends Component {
                 </Text>
                 <View style={styles.buttonWrapper}>
                   <Button
-                    color={this.state.timerRightActive ? '#296474' : COLOR.PRIMARY}
+                    color={this.state.timerRightActive ? COLOR.SECONDARY : COLOR.PRIMARY}
                     onPress={() => this.toggleRightTimer()}
                     title="R"
                   />
