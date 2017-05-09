@@ -321,33 +321,6 @@ export default class EntryScreen extends Component {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={styles.row}>
-            <View style={[styles.componentContainerHalf, styles.diapersContainer]}>
-              <View style={styles.horizontalComponent}>
-                <TouchableOpacity onPress={() => this.setDiapers('down')}>
-                  <Icon
-                    name="chevron-left"
-                    size={40}
-                    color="#fff"
-                  />
-                </TouchableOpacity>
-                <Icon
-                  name="delete"
-                  size={80}
-                  color="#fff"
-                />
-                <Text style={styles.diapersAmountText}>
-                  {this.state.badges.diapers}
-                </Text>
-                <TouchableOpacity onPress={() => this.setDiapers('up')}>
-                  <Icon
-                    name="chevron-right"
-                    size={40}
-                    color="#fff"
-                  />
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.componentText}>Windeln</Text>
-            </View>
             <View style={[styles.componentContainerHalf, styles.nursingContainer]}>
               <View style={styles.measurementContainer}>
                 <TouchableOpacity
@@ -374,6 +347,33 @@ export default class EntryScreen extends Component {
                   </View>
                 }
               </View>
+            </View>
+            <View style={[styles.componentContainerHalf, styles.diapersContainer]}>
+              <View style={styles.horizontalComponent}>
+                <TouchableOpacity onPress={() => this.setDiapers('down')}>
+                  <Icon
+                    name="chevron-left"
+                    size={40}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
+                <Icon
+                  name="delete"
+                  size={80}
+                  color="#fff"
+                />
+                <Text style={styles.diapersAmountText}>
+                  {this.state.badges.diapers}
+                </Text>
+                <TouchableOpacity onPress={() => this.setDiapers('up')}>
+                  <Icon
+                    name="chevron-right"
+                    size={40}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.componentText}>Windeln</Text>
             </View>
           </View>
           <View style={styles.row}>
