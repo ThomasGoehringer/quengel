@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
   thumbnailContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical: 15
+    marginTop: 20,
+    marginBottom: 10
   },
   itemContainer: {
     flexDirection: 'row',
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     padding: 8
   },
   itemText1: {
-    width: 130,
+    width: 150,
     padding: 8,
     borderBottomWidth: 1,
     borderBottomColor: COLOR.PRIMARY
@@ -159,20 +160,6 @@ export default class Profile extends Component {
           <View style={styles.itemText2}>
             <Text>{this.state.name}</Text>
           </View>
-          <View style={styles.itemIcon}>
-            <TouchableOpacity
-              onPress={() => this.setState({
-                modalVisible: true,
-                activeModal: 'NameModal'
-              })}
-            >
-              <Icon
-                style={{ color: COLOR.PRIMARY }}
-                name="lead-pencil"
-                size={20}
-              />
-            </TouchableOpacity>
-          </View>
         </View>
 
         <View style={styles.itemContainer}>
@@ -182,20 +169,6 @@ export default class Profile extends Component {
           <View style={styles.itemText2}>
             <Text>{this.state.gender === 'male' ? 'männlich' : 'weiblich'}</Text>
           </View>
-          <View style={styles.itemIcon}>
-            <TouchableOpacity
-              onPress={() => this.setState({
-                modalVisible: true,
-                activeModal: 'GenderModal'
-              })}
-            >
-              <Icon
-                style={{ color: COLOR.PRIMARY }}
-                name="lead-pencil"
-                size={20}
-              />
-            </TouchableOpacity>
-          </View>
         </View>
 
         <View style={styles.itemContainer}>
@@ -204,20 +177,6 @@ export default class Profile extends Component {
           </View>
           <View style={styles.itemText2}>
             <Text>{this.state.dateOfBirth}</Text>
-          </View>
-          <View style={styles.itemIcon}>
-            <TouchableOpacity
-              onPress={() => this.setState({
-                modalVisible: true,
-                activeModal: 'BirthdayModal'
-              })}
-            >
-              <Icon
-                style={{ color: COLOR.PRIMARY }}
-                name="lead-pencil"
-                size={20}
-              />
-            </TouchableOpacity>
           </View>
         </View>
 
