@@ -90,19 +90,21 @@ export default class CreateProfileScreen extends Component {
         gender: this.state.gender,
         dateOfBirth: this.state.dateOfBirth
       };
-      const mergedData = Object.assign(data, profileData);
 
-      setData('user', mergedData).then(() => {
-        Keyboard.dismiss();
+      databaseService.profile(profileData, data.jwt).then(() => {
+        const mergedData = Object.assign(data, profileData);
+        setData('user', mergedData).then(() => {
+          Keyboard.dismiss();
 
-        // Reset the StackNavigator to MainScreen
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Main' })
-          ]
+          // Reset the StackNavigator to MainScreen
+          const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Main' })
+            ]
+          });
+          this.props.navigation.dispatch(resetAction);
         });
-        this.props.navigation.dispatch(resetAction);
       });
     });
   }
@@ -128,7 +130,7 @@ export default class CreateProfileScreen extends Component {
           Dein kleiner quengel
         </Text>
         <Text style={styles.text}>
-          Registriere dich einfach mit deiner E-Mail Adresse und einem Passwort bei quengel.
+          Trage die wichtigsten Dinge deines quengels hier ein um danach direkt loslegen zu können.
         </Text>
         <SegmentedControlTab
           tabsContainerStyle={styles.tabs}
