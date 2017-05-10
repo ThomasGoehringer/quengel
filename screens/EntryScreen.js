@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   },
   diapersAmountText: {
     position: 'absolute',
+    top: 23,
     color: COLOR.DIAPERS,
     fontSize: FONTSIZE.DISPLAY1
   },
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
   },
   hydrationAmountText: {
     position: 'absolute',
+    top: 26,
     color: COLOR.HYDRATION,
     fontSize: FONTSIZE.DISPLAY1
   },
@@ -412,7 +414,7 @@ export default class EntryScreen extends Component {
                   />
                 </TouchableOpacity>
                 <Icon
-                  name="cup-water"
+                  name="cup"
                   size={80}
                   color="#fff"
                 />
