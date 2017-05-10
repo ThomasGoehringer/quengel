@@ -14,7 +14,7 @@ import { getData, removeData } from '../services/storageService';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
 import BirthdayModal from '../components/BirthdayModal';
-import profile from '../assets/images/test.png';
+import profile from '../assets/images/quengel_thumb.png';
 import { COLOR } from '../config/globals';
 
 
