@@ -20,7 +20,7 @@ import platform from './config/native-base-theme/variables/platform';
 import EntryScreen from './screens/EntryScreen';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
-import CalendarScreen from './screens/CalendarScreen';
+import CommunityScreen from './screens/CommunityScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -81,8 +81,8 @@ export default class MainScreen extends Component {
         return (<LogScreen navigation={this.props.navigation} />);
       case 'MilestoneScreen':
         return (<MilestoneScreen />);
-      case 'CalendarScreen':
-        return (<CalendarScreen />);
+      case 'CommunityScreen':
+        return (<CommunityScreen />);
       case 'StatisticScreen':
         return (<StatisticScreen />);
       default:
@@ -133,11 +133,11 @@ export default class MainScreen extends Component {
                 />
               </Button>
               <Button
-                active={this.state.activeScreen === 'CalendarScreen'}
-                onPress={() => this.setState({ activeScreen: 'CalendarScreen' })}
+                active={this.state.activeScreen === 'CommunityScreen'}
+                onPress={() => this.setState({ activeScreen: 'CommunityScreen' })}
               >
                 <Icon
-                  active={this.state.activeScreen === 'CalendarScreen'}
+                  active={this.state.activeScreen === 'CommunityScreen'}
                   name="calendar"
                 />
               </Button>

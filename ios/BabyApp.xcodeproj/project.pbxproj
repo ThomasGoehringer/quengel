@@ -81,6 +81,7 @@
 		A86BBCB4572D46DDA4AD1A5A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 887B302953BD4D11943168C5 /* SimpleLineIcons.ttf */; };
 		754E5F36FD084C88BF4F88C8 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD174AF762424D54877126EF /* Zocial.ttf */; };
 		559067B35F67445C85A4C372 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E003BB9E2CEC4113981DE821 /* libRNSVG.a */; };
+		23F994B42093484A9ECC9D3A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A501174463645DD9BE788B6 /* SimpleLineIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,6 +349,7 @@
 		DD174AF762424D54877126EF /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A648A28A7EEF485DA675A28F /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		E003BB9E2CEC4113981DE821 /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7A501174463645DD9BE788B6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -629,6 +631,7 @@
 				2C154BD4F1EE4DD5A787E2E6 /* Octicons.ttf */,
 				887B302953BD4D11943168C5 /* SimpleLineIcons.ttf */,
 				DD174AF762424D54877126EF /* Zocial.ttf */,
+				7A501174463645DD9BE788B6 /* SimpleLineIcons.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -1044,6 +1047,7 @@
 				D3BE5E3F2D1047929EACF1C1 /* Octicons.ttf in Resources */,
 				A86BBCB4572D46DDA4AD1A5A /* SimpleLineIcons.ttf in Resources */,
 				754E5F36FD084C88BF4F88C8 /* Zocial.ttf in Resources */,
+				23F994B42093484A9ECC9D3A /* SimpleLineIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
