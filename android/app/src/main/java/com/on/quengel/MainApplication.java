@@ -3,7 +3,11 @@ package com.on.quengel;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+<<<<<<< HEAD:android/app/src/main/java/com/on/quengel/MainApplication.java
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+=======
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
+>>>>>>> 208e2938abb06f3ab6ff21a6275b062dcdf0a42f:android/app/src/main/java/com/on/quengel/MainApplication.java
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
 import com.facebook.react.ReactNativeHost;
@@ -27,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new ReactNativePushNotificationPackage(),
+            new RCTCameraPackage(),
             new VectorIconsPackage(),
             new SvgPackage()
       );
