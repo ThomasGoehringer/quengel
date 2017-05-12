@@ -26,6 +26,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 import CreateProfileScreen from './screens/CreateProfileScreen';
+import CameraScreen from './screens/CameraScreen';
 import { getData } from './services/storageService';
 import logo from './assets/images/logo.png';
 
@@ -80,7 +81,7 @@ export default class MainScreen extends Component {
       case 'LogScreen':
         return (<LogScreen navigation={this.props.navigation} />);
       case 'MilestoneScreen':
-        return (<MilestoneScreen />);
+        return (<MilestoneScreen navigation={this.props.navigation} />);
       case 'CommunityScreen':
         return (<CommunityScreen />);
       case 'StatisticScreen':
@@ -173,7 +174,8 @@ const BabyApp = StackNavigator({
   Entry: { screen: EntryScreen },
   Register: { screen: RegisterScreen },
   Login: { screen: LoginScreen },
-  CreateProfile: { screen: CreateProfileScreen }
+  CreateProfile: { screen: CreateProfileScreen },
+  Camera: { screen: CameraScreen }
 }, { headerMode: 'screen' });
 
 AppRegistry.registerComponent('BabyApp', () => BabyApp);

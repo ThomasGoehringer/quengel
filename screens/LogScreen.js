@@ -69,7 +69,7 @@ export default class LogScreen extends Component {
     if (data.item.milestone) {
       return (
         <MilestoneEntry
-          uri={data.item.image}
+          uri={data.item.imagePath}
         />
       );
     }

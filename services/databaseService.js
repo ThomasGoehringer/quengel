@@ -36,6 +36,24 @@ async function createEntry(entry, jwt) {
   }
 }
 
+async function createMilestone(entry, jwt) {
+  try {
+    const options = {
+      method: 'post',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      },
+      body: JSON.stringify(entry)
+    };
+
+    await fetch(`${serverAPI}/quengel/milestone`, options);
+    return null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 async function register(user) {
   try {
     const response = await fetch(`${serverAPI}/quengel/user/register`, {
@@ -105,6 +123,7 @@ async function getProfile(jwt) {
 module.exports = {
   getEntries,
   createEntry,
+  createMilestone,
   register,
   login,
   createProfile,
