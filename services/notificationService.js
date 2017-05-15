@@ -13,9 +13,8 @@ PushNotification.configure({
   requestPermissions: true
 });
 
-function scheduleNotification() {
-  PushNotification.localNotificationSchedule({
-    date: new Date(Date.now() + (30 * 1000)), // in 60 secs
+function createNotification() {
+  PushNotification.localNotification({
     /* Android Only Properties */
     ticker: 'My Notification Ticker', // (optional)
     largeIcon: 'ic_launcher', // (optional) default: 'ic_launcher'
@@ -30,7 +29,15 @@ function scheduleNotification() {
   });
 }
 
+function scheduleNotification() {
+  PushNotification.localNotificationSchedule({
+    message: 'My Notification Message', // (required)
+    date: new Date(Date.now() + (10 * 1000)) // in 60 secs
+  });
+}
+
 
 module.exports = {
+  createNotification,
   scheduleNotification
 };
