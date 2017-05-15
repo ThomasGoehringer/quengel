@@ -30,8 +30,9 @@ function createNotification() {
 }
 
 function scheduleNotification() {
+  PushNotification.cancelAllLocalNotifications();
   PushNotification.localNotificationSchedule({
-    message: 'My Notification Message', // (required)
+    message: 'My scheduled Message', // (required)
     date: new Date(Date.now() + (10 * 1000)) // in 60 secs
   });
 }
