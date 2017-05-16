@@ -63,7 +63,8 @@ export default class MilestoneEntryScreen extends Component {
     this.state = {
       date: '',
       imagePath: '',
-      text: ''
+      text: '',
+      type: 'laugh'
     };
   }
 
@@ -79,7 +80,8 @@ export default class MilestoneEntryScreen extends Component {
     const entry = {
       text: [{ value: this.state.text }],
       imagePath: this.state.imagePath,
-      milestone: true
+      milestone: true,
+      milestoneType: this.state.type
     };
 
     getData('user').then((data) => {
@@ -94,8 +96,10 @@ export default class MilestoneEntryScreen extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Picker>
-            <Picker.Item label="Eigener Meilenstein" value="custom" />
+          <Picker
+            onValueChange={type => this.setState({ type })}
+            selectedValue={this.state.type}
+          >
             <Picker.Item label="Lächeln" value="laugh" />
             <Picker.Item label="Drehen" value="turn" />
             <Picker.Item label="Köpfchen halten" value="head" />
@@ -111,6 +115,7 @@ export default class MilestoneEntryScreen extends Component {
             <Picker.Item label="Wort" value="word" />
             <Picker.Item label="Babysitter" value="babysitter" />
             <Picker.Item label="Reise" value="trip" />
+            <Picker.Item label="Eigener Meilenstein" value="custom" />
           </Picker>
           <TouchableOpacity
             onPress={() => navigate('Camera', {
@@ -118,7 +123,7 @@ export default class MilestoneEntryScreen extends Component {
             })}
           >
             <Image
-              resizeMode="cover"
+              resizeMode={this.state.imagePath !== '' ? 'cover' : 'contain'}
               style={styles.image}
               source={this.state.imagePath !== '' ? { uri: this.state.imagePath } : placeholder}
             />
