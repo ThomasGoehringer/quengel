@@ -3,11 +3,9 @@ import {
   StyleSheet,
   View,
   Text,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
-import {
-  Button
-} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Swiper from 'react-native-swiper';
 import screen1 from '../assets/images/screen1.png';
@@ -64,7 +62,8 @@ const styles = StyleSheet.create({
   },
   navButton: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: 60
   },
   buttonIcon: {
     color: COLOR.NURSING,
@@ -132,7 +131,7 @@ export default class OnboardingScreen extends Component {
               quengel ein.
             </Text>
           </View>
-          <Button
+          <TouchableOpacity
             style={styles.navButton}
             transparent
           />
@@ -155,7 +154,7 @@ export default class OnboardingScreen extends Component {
               Gesundheitszustand des Kindes festzuhalten.
             </Text>
           </View>
-          <Button
+          <TouchableOpacity
             style={styles.navButton}
             transparent
           />
@@ -179,16 +178,15 @@ export default class OnboardingScreen extends Component {
             </Text>
           </View>
           <View style={styles.navButton} >
-            <Button
-              transparent
+            <TouchableOpacity
               onPress={() => navigate('Register')}
             >
               <Icon
                 style={styles.buttonIcon}
                 name="arrow-right-bold-circle"
-                size={45}
+                size={60}
               />
-            </Button>
+            </TouchableOpacity>
           </View>
         </View>
       </Swiper>
