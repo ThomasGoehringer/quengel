@@ -83,12 +83,23 @@ export default class MilestoneEntryScreen extends Component {
   handleSubmit() {
     const { goBack } = this.props.navigation;
 
+    const text = [];
+    if (this.state.text !== '') {
+      text.push({ value: this.state.text, createdAt: new Date() });
+    }
+
+    let customType = null;
+    if (this.state.customType !== '') {
+      customType = this.state.customType;
+    }
+
     const entry = {
-      text: [{ value: this.state.text }],
+      text,
       imagePath: this.state.imagePath,
       milestone: true,
       milestoneType: this.state.type,
-      customType: this.state.customType
+      customType,
+      date: moment(this.state.date, 'DD.MM.YYYY')
     };
 
     if (this.state.type === 'custom' && this.state.customType === '') {
