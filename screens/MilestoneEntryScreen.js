@@ -25,7 +25,8 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 10
+    paddingTop: 10,
+    paddingBottom: 15
   },
   scrollView: {
     paddingHorizontal: LAYOUT.PADDING
@@ -56,9 +57,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingHorizontal: LAYOUT.PADDING
-  },
-  button: {
-    marginBottom: 10
   }
 });
 

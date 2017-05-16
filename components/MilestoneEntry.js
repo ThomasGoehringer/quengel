@@ -4,12 +4,19 @@ import { Card } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
 import Separator from 'react-native-hr';
+import { COLOR } from '../config/globals';
 
 
 const styles = StyleSheet.create({
   img: {
     resizeMode: 'cover',
     height: 200
+  },
+  shareTextContainer: {
+    flexDirection: 'row'
+  },
+  textContainer: {
+    flex: 1
   },
   text: {
     paddingTop: 0,
@@ -25,6 +32,11 @@ const styles = StyleSheet.create({
   },
   separator: {
     marginVertical: 15
+  },
+  shareButton: {
+    alignSelf: 'flex-end',
+    marginRight: 10,
+    marginBottom: 10
   }
 });
 
@@ -88,16 +100,22 @@ export default class MilestoneEntry extends Component {
 
         {this.props.text.map(text =>
           <View key={text.value + text.createdAt + this.props.milestoneType + this.props.customType}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={styles.textTime}>{moment(this.props.createdAt).format('DD MMM YY')}</Text>
+            <View style={styles.shareTextContainer}>
+              <View style={styles.textContainer}>
+                <Text style={styles.textTime}>{moment(this.props.createdAt).format('DD MMM YY')}</Text>
+                <Text style={styles.text}>{text.value}</Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => Share.share({ title: 'BEEP', message: 'messageboop'})}
+                style={styles.shareButton}
+              >
+                <Icon
+                  color={COLOR.SECONDARY}
+                  name="share-variant"
+                  size={35}
+                />
+              </TouchableOpacity>
             </View>
-            <Text style={styles.text}>{text.value}</Text>
-            <TouchableOpacity onPress={() => Share.share({ title: 'BEEP', message: 'messageboop'})}>
-              <Icon
-                name="share-variant"
-                size={40}
-              />
-            </TouchableOpacity>
           </View>
         )}
       </Card>
