@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import {
   View,
-  Button,
-  Image,
-  TextInput
+  StyleSheet
 } from 'react-native';
+import { Icon } from 'native-base';
+import Fab from 'react-native-action-button';
+import { COLOR } from '../config/globals';
 import databaseService from '../services/databaseService';
 import { getData } from '../services/storageService';
 
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
 
 export default class MilestoneScreen extends Component {
   constructor() {
@@ -32,31 +39,30 @@ export default class MilestoneScreen extends Component {
     });
   }
 
+  renderFab() {
+    const { navigate } = this.props.navigation;
+
+    return (
+      <Fab
+        onPress={() => {
+          navigate('MilestoneEntry');
+        }}
+        degrees={0}
+        backgroundTappable
+        buttonColor={COLOR.PRIMARY}
+        useNativeFeedback
+      >
+        <Icon name="add" />
+      </Fab>
+    );
+  }
+
   render() {
     const { navigate } = this.props.navigation;
 
     return (
-      <View>
-        <Button
-          onPress={() => navigate('Camera', {
-            handlePhoto: path => this.setState({ imagePath: path })
-          })}
-          title="Foto"
-        />
-        { this.state.imagePath !== '' && (
-          <Image
-            style={{ width: 100, height: 100 }}
-            source={{ uri: this.state.imagePath }}
-          />)
-        }
-        <TextInput
-          multiline
-          onChangeText={text => this.setState({ text })}
-        />
-        <Button
-          onPress={() => this.handleSubmit()}
-          title="Fertig"
-        />
+      <View style={styles.container}>
+        { this.renderFab() }
       </View>
     );
   }

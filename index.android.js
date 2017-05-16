@@ -20,6 +20,7 @@ import platform from './config/native-base-theme/variables/platform';
 import EntryScreen from './screens/EntryScreen';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
+import MilestoneEntryScreen from './screens/MilestoneEntryScreen';
 import CommunityScreen from './screens/CommunityScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -175,7 +176,8 @@ const BabyApp = StackNavigator({
   Register: { screen: RegisterScreen },
   Login: { screen: LoginScreen },
   CreateProfile: { screen: CreateProfileScreen },
-  Camera: { screen: CameraScreen }
+  Camera: { screen: CameraScreen },
+  MilestoneEntry: { screen: MilestoneEntryScreen }
 }, { headerMode: 'screen' });
 
 AppRegistry.registerComponent('BabyApp', () => BabyApp);
