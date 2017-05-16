@@ -18,14 +18,14 @@ import placeholder from '../assets/images/placeholder.png';
 import { getData } from '../services/storageService';
 import databaseService from '../services/databaseService';
 
+
 const { width } = Dimensions.get('window');
-console.log('width', width);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: LAYOUT.PADDING,
-    paddingTop: 10
+    paddingVertical: 10
   },
   image: {
     height: 200,
@@ -48,7 +48,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
   textInput: {
-    height: 120
+    height: 120,
+    textAlignVertical: 'bottom',
+    marginBottom: 10
+  },
+  button: {
+    marginBottom: 10
   }
 });
 
@@ -87,75 +92,78 @@ export default class MilestoneEntryScreen extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <ScrollView style={styles.container}>
-        <Picker>
-          <Picker.Item label="Eigener Meilenstein" value="custom" />
-          <Picker.Item label="Lächeln" value="laugh" />
-          <Picker.Item label="Drehen" value="turn" />
-          <Picker.Item label="Köpfchen halten" value="head" />
-          <Picker.Item label="Greifen" value="grab" />
-          <Picker.Item label="Brei" value="babyFood" />
-          <Picker.Item label="Laute" value="sounds" />
-          <Picker.Item label="Zahn" value="tooth" />
-          <Picker.Item label="Krabbeln" value="crawl" />
-          <Picker.Item label="Stehen" value="stand" />
-          <Picker.Item label="Schritte" value="steps" />
-          <Picker.Item label="Sitzen" value="sit" />
-          <Picker.Item label="Durchschlafen" value="sleepThrough" />
-          <Picker.Item label="Wort" value="word" />
-          <Picker.Item label="Babysitter" value="babysitter" />
-          <Picker.Item label="Reise" value="trip" />
-        </Picker>
-        <TouchableOpacity
-          onPress={() => navigate('Camera', {
-            handlePhoto: path => this.setState({ imagePath: path })
-          })}
-        >
-          <Image
-            resizeMode="cover"
-            style={styles.image}
-            source={this.state.imagePath !== '' ? { uri: this.state.imagePath } : placeholder}
+      <View style={styles.container}>
+        <ScrollView>
+          <Picker>
+            <Picker.Item label="Eigener Meilenstein" value="custom" />
+            <Picker.Item label="Lächeln" value="laugh" />
+            <Picker.Item label="Drehen" value="turn" />
+            <Picker.Item label="Köpfchen halten" value="head" />
+            <Picker.Item label="Greifen" value="grab" />
+            <Picker.Item label="Brei" value="babyFood" />
+            <Picker.Item label="Laute" value="sounds" />
+            <Picker.Item label="Zahn" value="tooth" />
+            <Picker.Item label="Krabbeln" value="crawl" />
+            <Picker.Item label="Stehen" value="stand" />
+            <Picker.Item label="Schritte" value="steps" />
+            <Picker.Item label="Sitzen" value="sit" />
+            <Picker.Item label="Durchschlafen" value="sleepThrough" />
+            <Picker.Item label="Wort" value="word" />
+            <Picker.Item label="Babysitter" value="babysitter" />
+            <Picker.Item label="Reise" value="trip" />
+          </Picker>
+          <TouchableOpacity
+            onPress={() => navigate('Camera', {
+              handlePhoto: path => this.setState({ imagePath: path })
+            })}
+          >
+            <Image
+              resizeMode="cover"
+              style={styles.image}
+              source={this.state.imagePath !== '' ? { uri: this.state.imagePath } : placeholder}
+            />
+          </TouchableOpacity>
+          <View style={styles.datePickerContainer}>
+            <Icon
+              style={styles.datePickerIcon}
+              name="calendar"
+              size={30}
+            />
+            <DatePicker
+              style={styles.datePicker}
+              date={this.state.date}
+              mode="date"
+              androidMode="spinner"
+              placeholder="Datum auswählen"
+              format="DD.MM.YYYY"
+              showIcon={false}
+              customStyles={{
+                dateInput: {
+                  borderWidth: 0
+                },
+                placeholderText: {
+                  color: COLOR.TEXT
+                }
+              }}
+              onDateChange={date => this.setState({ date })}
+            />
+          </View>
+          <TextInput
+            multiline
+            onChangeText={value => this.setState({ text: value })}
+            placeholder="Notiere eure Erinnerungen"
+            selectionColor={COLOR.PRIMARY}
+            style={styles.textInput}
+            underlineColorAndroid={COLOR.SECONDARY}
           />
-        </TouchableOpacity>
-        <View style={styles.datePickerContainer}>
-          <Icon
-            style={styles.datePickerIcon}
-            name="calendar"
-            size={30}
-          />
-          <DatePicker
-            style={styles.datePicker}
-            date={this.state.date}
-            mode="date"
-            androidMode="spinner"
-            placeholder="Datum auswählen"
-            format="DD.MM.YYYY"
-            showIcon={false}
-            customStyles={{
-              dateInput: {
-                borderWidth: 0
-              },
-              placeholderText: {
-                color: COLOR.TEXT
-              }
-            }}
-            onDateChange={date => this.setState({ date })}
-          />
-        </View>
-        <TextInput
-          multiline
-          onChangeText={value => this.setState({ text: value })}
-          placeholder="Notiere eure Erinnerungen"
-          selectionColor={COLOR.PRIMARY}
-          style={styles.textInput}
-          underlineColorAndroid={COLOR.SECONDARY}
-        />
+        </ScrollView>
         <Button
           color={COLOR.SECONDARY}
           onPress={() => this.handleSubmit()}
+          style={styles.button}
           title="Bestätigen"
         />
-      </ScrollView>
+      </View>
     );
   }
 }
