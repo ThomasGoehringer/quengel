@@ -50,12 +50,13 @@ const styles = StyleSheet.create({
   },
   datePickerContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderColor: 'white'
   },
   datePickerIcon: {
-    marginVertical: 10,
     color: COLOR.SECONDARY,
-    marginRight: 5
+    marginLeft: 5
   },
   datePicker: {
     backgroundColor: 'white',
