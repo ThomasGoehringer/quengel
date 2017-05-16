@@ -37,7 +37,8 @@ export default class MilestoneScreen extends Component {
             .then((entries) => {
               this.setState({ loading: false, entries: entries.reverse() });
 
-              if (entries.length !== 0) {
+              const filteredEntries = this.state.entries.filter(entry => entry.milestone);
+              if (filteredEntries.length !== 0) {
                 this.logList.scrollToOffset({ x: 0, y: 0, animated: true });
               }
             });
@@ -76,6 +77,8 @@ export default class MilestoneScreen extends Component {
   }
 
   render() {
+    const filteredEntries = this.state.entries.filter(entry => entry.milestone);
+
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
@@ -84,7 +87,7 @@ export default class MilestoneScreen extends Component {
       );
     }
 
-    if (this.state.entries.length === 0) {
+    if (filteredEntries.length === 0) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10 }}>
           <Text>Keine Einträge vorhanden</Text>
