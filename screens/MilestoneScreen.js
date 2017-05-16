@@ -68,9 +68,7 @@ export default class MilestoneScreen extends Component {
   renderListItem(data) {
     if (data.item.milestone) {
       return (
-        <MilestoneEntry
-          uri={data.item.imagePath}
-        />
+        <MilestoneEntry {...data.item} />
       );
     }
   }
