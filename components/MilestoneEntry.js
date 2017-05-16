@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Image, View, Text } from 'react-native';
+import { StyleSheet, Image, View, Text, TouchableOpacity, Share } from 'react-native';
 import { Card } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
 import Separator from 'react-native-hr';
 
@@ -91,6 +92,12 @@ export default class MilestoneEntry extends Component {
               <Text style={styles.textTime}>{moment(this.props.createdAt).format('DD MMM YY')}</Text>
             </View>
             <Text style={styles.text}>{text.value}</Text>
+            <TouchableOpacity onPress={() => Share.share({ title: 'BEEP', message: 'messageboop'})}>
+              <Icon
+                name="share-variant"
+                size={40}
+              />
+            </TouchableOpacity>
           </View>
         )}
       </Card>
