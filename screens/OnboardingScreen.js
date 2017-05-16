@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     color: COLOR.NURSING
   },
   dot: {
-    backgroundColor: COLOR.TEXT,
+    backgroundColor: COLOR.SECONDARY,
     width: 12,
     height: 12,
     borderRadius: 12,
