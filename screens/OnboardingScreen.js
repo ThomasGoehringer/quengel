@@ -105,6 +105,7 @@ export default class OnboardingScreen extends Component {
     return (
       <Swiper
         style={styles.wrapper}
+        loop={false}
         showsButtons={false}
         dot={
           <View style={styles.dot} />
