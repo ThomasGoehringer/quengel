@@ -8,7 +8,8 @@ import {
   Image,
   Button,
   ScrollView,
-  Dimensions
+  Dimensions,
+  ToastAndroid
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DatePicker from 'react-native-datepicker';
@@ -24,33 +25,37 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: LAYOUT.PADDING,
     paddingVertical: 10
+  },
+  scrollView: {
+    paddingHorizontal: LAYOUT.PADDING
   },
   image: {
     height: 200,
-    width: width + 20,
+    width,
     alignSelf: 'center',
     marginBottom: 15
   },
   datePickerContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderColor: 'white'
   },
   datePickerIcon: {
-    marginVertical: 10,
     color: COLOR.SECONDARY,
-    marginRight: 5
+    marginLeft: 5
   },
   datePicker: {
-    backgroundColor: 'white',
-    borderColor: 'white',
     flex: 1
   },
   textInput: {
-    height: 120,
+    height: 80,
     textAlignVertical: 'bottom',
     marginBottom: 10
+  },
+  buttonContainer: {
+    paddingHorizontal: LAYOUT.PADDING
   },
   button: {
     marginBottom: 10
@@ -64,7 +69,8 @@ export default class MilestoneEntryScreen extends Component {
       date: '',
       imagePath: '',
       text: '',
-      type: 'laugh'
+      type: 'laugh',
+      customType: ''
     };
   }
 
@@ -81,13 +87,18 @@ export default class MilestoneEntryScreen extends Component {
       text: [{ value: this.state.text }],
       imagePath: this.state.imagePath,
       milestone: true,
-      milestoneType: this.state.type
+      milestoneType: this.state.type,
+      customType: this.state.customType
     };
 
-    getData('user').then((data) => {
-      databaseService.createMilestone(entry, data.jwt);
-      goBack();
-    });
+    if (this.state.type === 'custom' && this.state.customType === '') {
+      ToastAndroid.show('Meilensteinname fehlt', ToastAndroid.SHORT);
+    } else {
+      getData('user').then((data) => {
+        databaseService.createMilestone(entry, data.jwt);
+        goBack();
+      });
+    }
   }
 
   render() {
@@ -95,7 +106,7 @@ export default class MilestoneEntryScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView style={styles.scrollView}>
           <Picker
             onValueChange={type => this.setState({ type })}
             selectedValue={this.state.type}
@@ -117,6 +128,14 @@ export default class MilestoneEntryScreen extends Component {
             <Picker.Item label="Reise" value="trip" />
             <Picker.Item label="Eigener Meilenstein" value="custom" />
           </Picker>
+          {this.state.type === 'custom' && (
+            <TextInput
+              onChangeText={text => this.setState({ customType: text })}
+              placeholder="Meilensteinname"
+              selectionColor={COLOR.PRIMARY}
+              underlineColorAndroid={COLOR.SECONDARY}
+            />
+          )}
           <TouchableOpacity
             onPress={() => navigate('Camera', {
               handlePhoto: path => this.setState({ imagePath: path })
@@ -162,12 +181,14 @@ export default class MilestoneEntryScreen extends Component {
             underlineColorAndroid={COLOR.SECONDARY}
           />
         </ScrollView>
-        <Button
-          color={COLOR.SECONDARY}
-          onPress={() => this.handleSubmit()}
-          style={styles.button}
-          title="Bestätigen"
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            color={COLOR.SECONDARY}
+            onPress={() => this.handleSubmit()}
+            style={styles.button}
+            title="Bestätigen"
+          />
+        </View>
       </View>
     );
   }
