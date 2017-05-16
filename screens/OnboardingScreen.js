@@ -101,6 +101,8 @@ export default class OnboardingScreen extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <Swiper
         style={styles.wrapper}
@@ -179,6 +181,7 @@ export default class OnboardingScreen extends Component {
           <View style={styles.navButton} >
             <Button
               transparent
+              onPress={() => navigate('Register')}
             >
               <Icon
                 style={styles.buttonIcon}
