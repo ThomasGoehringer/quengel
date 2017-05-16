@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 3
+    marginBottom: 15
   },
   activeDot: {
     backgroundColor: COLOR.WHITE,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 3
+    marginBottom: 15
   }
 });
 
