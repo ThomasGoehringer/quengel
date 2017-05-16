@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     height: 60
   },
   buttonIcon: {
-    color: COLOR.NURSING,
+    color: COLOR.NURSING
   },
   dot: {
     backgroundColor: COLOR.TEXT,
