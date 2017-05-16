@@ -14,6 +14,7 @@ import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationActions } from 'react-navigation';
 import databaseService from '../services/databaseService';
+import { enableNotifications } from '../services/notificationService';
 import { getData, setData } from '../services/storageService';
 import { COLOR, FONTSIZE } from '../config/globals';
 
@@ -107,6 +108,9 @@ export default class CreateProfileScreen extends Component {
         });
       });
     });
+
+    // Enable Notifications by default
+    enableNotifications(true);
   }
 
   handleTabPress(i) {
