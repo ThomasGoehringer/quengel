@@ -5,12 +5,14 @@ import {
   Button,
   TouchableOpacity,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Switch
 } from 'react-native';
 import { Thumbnail } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getData, removeData } from '../services/storageService';
+import { enableNotifications } from '../services/notificationService';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
 import BirthdayModal from '../components/BirthdayModal';
@@ -67,8 +69,10 @@ export default class Profile extends Component {
       text: '',
       email: '',
       modalVisible: false,
-      activeModal: ''
+      activeModal: '',
+      notificationsEnabled: true
     };
+    this.handleNotificationSwitchChange = this.handleNotificationSwitchChange.bind(this);
     this.handleModalSubmit = this.handleModalSubmit.bind(this);
   }
 
@@ -81,6 +85,15 @@ export default class Profile extends Component {
         email: data.email
       });
     });
+
+    getData('notifications').then((enabled) => {
+      this.setState({ notificationsEnabled: enabled });
+    });
+  }
+
+  handleNotificationSwitchChange(value) {
+    this.setState({ notificationsEnabled: value });
+    enableNotifications(value);
   }
 
   handleModalSubmit() {
@@ -222,6 +235,20 @@ export default class Profile extends Component {
           </View>
           <View style={styles.itemText2}>
             <Text>{this.state.email}</Text>
+          </View>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <View style={styles.itemText1}>
+            <Text>Notifications</Text>
+          </View>
+          <View style={styles.itemText2}>
+            <Switch
+              onValueChange={this.handleNotificationSwitchChange}
+              value={this.state.notificationsEnabled}
+              onTintColor={COLOR.PRIMARY}
+              thumbTintColor={COLOR.SECONDARY}
+            />
           </View>
         </View>
 

@@ -6,7 +6,6 @@ import { scheduleNotification } from '../services/notificationService';
 
 export default class CalendarScreen extends Component {
   componentDidMount() {
-    scheduleNotification();
   }
 
   render() {

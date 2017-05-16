@@ -15,6 +15,7 @@ import {
   Icon
 } from 'native-base';
 import { StackNavigator, NavigationActions } from 'react-navigation';
+import moment from 'moment';
 import getTheme from './config/native-base-theme/components';
 import platform from './config/native-base-theme/variables/platform';
 import EntryScreen from './screens/EntryScreen';
@@ -24,11 +25,13 @@ import MilestoneEntryScreen from './screens/MilestoneEntryScreen';
 import CommunityScreen from './screens/CommunityScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import OnboardingScreen from './screens/OnboardingScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 import CreateProfileScreen from './screens/CreateProfileScreen';
 import CameraScreen from './screens/CameraScreen';
 import { getData } from './services/storageService';
+import { notificationsEnabled, scheduleNotification } from './services/notificationService';
 import logo from './assets/images/logo.png';
 
 
@@ -60,19 +63,38 @@ export default class MainScreen extends Component {
         const resetAction = NavigationActions.reset({
           index: 0,
           actions: [
-            NavigationActions.navigate({ routeName: 'Register' })
+            NavigationActions.navigate({ routeName: 'Onboarding' })
           ]
         });
+        // NavigationActions.navigate({ routeName: 'Register' })
         this.props.navigation.dispatch(resetAction);
       } else if (!data.name) {
         // Does not have a profile yet, reset to CreateProfileScreen
         const resetAction = NavigationActions.reset({
           index: 0,
           actions: [
-            NavigationActions.navigate({ routeName: 'CreateProfile' })
+            NavigationActions.navigate({ routeName: 'Onboarding' })
+
           ]
         });
+        // NavigationActions.navigate({ routeName: 'CreateProfile' })
         this.props.navigation.dispatch(resetAction);
+      }
+    });
+
+    // Schedule Notifications for the next 7 days if not disabled
+    notificationsEnabled().then((enabled) => {
+      if (enabled) {
+        const title = 'Heute schon alles erfasst?';
+        const message = 'Erfasse schnell die wichtigsten Angaben über deinen Tag und halte deine Auswertungen aktuell';
+
+        scheduleNotification(title, message, moment().day(0));
+        scheduleNotification(title, message, moment().day(1));
+        scheduleNotification(title, message, moment().day(2));
+        scheduleNotification(title, message, moment().day(3));
+        scheduleNotification(title, message, moment().day(4));
+        scheduleNotification(title, message, moment().day(5));
+        scheduleNotification(title, message, moment().day(6));
       }
     });
   }
@@ -174,6 +196,7 @@ const BabyApp = StackNavigator({
   Profile: { screen: ProfileScreen },
   Entry: { screen: EntryScreen },
   Register: { screen: RegisterScreen },
+  Onboarding: { screen: OnboardingScreen },
   Login: { screen: LoginScreen },
   CreateProfile: { screen: CreateProfileScreen },
   Camera: { screen: CameraScreen },

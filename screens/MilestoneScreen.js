@@ -1,42 +1,48 @@
 import React, { Component } from 'react';
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  ActivityIndicator,
+  FlatList,
+  Text
 } from 'react-native';
 import { Icon } from 'native-base';
 import Fab from 'react-native-action-button';
 import { COLOR } from '../config/globals';
 import databaseService from '../services/databaseService';
 import { getData } from '../services/storageService';
+import MilestoneEntry from '../components/MilestoneEntry';
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
 
 export default class MilestoneScreen extends Component {
   constructor() {
     super();
     this.state = {
+      loading: true,
+      entries: [],
       imagePath: '',
       text: ''
     };
   }
 
-  handleSubmit() {
-    const { goBack } = this.props.navigation;
+  componentDidMount() {
+    this.updateEntries();
+  }
 
-    const entry = {
-      text: this.state.text,
-      imagePath: this.state.imagePath,
-      milestone: true
-    };
+  updateEntries() {
+    getData('user')
+      .then((user) => {
+        if (user && user.name) {
+          databaseService.getEntries(user.jwt)
+            .then((entries) => {
+              this.setState({ loading: false, entries: entries.reverse() });
 
-    getData('user').then((data) => {
-      databaseService.createMilestone(entry, data.jwt);
-    });
+              if (entries.length !== 0) {
+                this.logList.scrollToOffset({ x: 0, y: 0, animated: true });
+              }
+            });
+        }
+      });
   }
 
   renderFab() {
@@ -45,7 +51,9 @@ export default class MilestoneScreen extends Component {
     return (
       <Fab
         onPress={() => {
-          navigate('MilestoneEntry');
+          navigate('MilestoneEntry', {
+            handleEntry: () => this.updateEntries()
+          });
         }}
         degrees={0}
         backgroundTappable
@@ -57,11 +65,45 @@ export default class MilestoneScreen extends Component {
     );
   }
 
+  renderListItem(data) {
+    if (data.item.milestone) {
+      return (
+        <MilestoneEntry
+          uri={data.item.imagePath}
+        />
+      );
+    }
+  }
+
   render() {
-    const { navigate } = this.props.navigation;
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+          <ActivityIndicator size={50} color={COLOR.PRIMARY} />
+        </View>
+      );
+    }
+
+    if (this.state.entries.length === 0) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10 }}>
+          <Text>Keine Einträge vorhanden</Text>
+          { this.renderFab() }
+        </View>
+      );
+    }
 
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          style={{ paddingHorizontal: 10 }}
+          data={this.state.entries}
+          keyExtractor={item => item.createdAt}
+          renderItem={this.renderListItem}
+          ListHeaderComponent={() => <View style={{ paddingTop: 10 }} />}
+          ListFooterComponent={() => <View style={{ paddingTop: 10 }} />}
+          ref={(list) => { this.logList = list; }}
+        />
         { this.renderFab() }
       </View>
     );

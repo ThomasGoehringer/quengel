@@ -94,10 +94,13 @@ export default class MilestoneEntryScreen extends Component {
     if (this.state.type === 'custom' && this.state.customType === '') {
       ToastAndroid.show('Meilensteinname fehlt', ToastAndroid.SHORT);
     } else {
-      getData('user').then((data) => {
-        databaseService.createMilestone(entry, data.jwt);
-        goBack();
-      });
+      getData('user')
+        .then(user => databaseService.createMilestone(entry, user.jwt))
+        .then(() => {
+          // Callback to LogScreen
+          this.props.navigation.state.params.handleEntry();
+          goBack();
+        });
     }
   }
 

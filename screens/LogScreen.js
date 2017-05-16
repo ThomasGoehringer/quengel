@@ -67,14 +67,14 @@ export default class LogScreen extends Component {
 
   renderListItem(data) {
     if (data.item.milestone) {
-      return (
-        <MilestoneEntry
-          uri={data.item.imagePath}
-        />
-      );
+      // return (
+      //   <MilestoneEntry
+      //     uri={data.item.imagePath}
+      //   />
+      // );
+    } else {
+      return <LogEntry {...data.item} />;
     }
-
-    return <LogEntry {...data.item} />;
   }
 
   render() {
