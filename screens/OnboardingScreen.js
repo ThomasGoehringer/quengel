@@ -8,13 +8,12 @@ import {
 import {
   Button
 } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Swiper from 'react-native-swiper';
-import { NavigationActions } from 'react-navigation';
 import screen1 from '../assets/images/screen1.png';
 import screen2 from '../assets/images/screen2.png';
 import screen3 from '../assets/images/screen3.png';
 import { COLOR, FONTSIZE } from '../config/globals';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const styles = StyleSheet.create({
   slide1: {
