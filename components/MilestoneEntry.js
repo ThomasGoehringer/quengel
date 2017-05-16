@@ -78,10 +78,12 @@ export default class MilestoneEntry extends Component {
           <Separator text={this.getMilestoneType()} lineColor="lightgray" />
         </View>
 
-        <Image
-          style={styles.img}
-          source={{ uri: this.props.imagePath }}
-        />
+        {this.props.imagePath !== '' && (
+          <Image
+            style={styles.img}
+            source={{ uri: this.props.imagePath }}
+          />
+        )}
 
         {this.props.text.map(text =>
           <View key={text.value + text.createdAt + this.props.milestoneType + this.props.customType}>

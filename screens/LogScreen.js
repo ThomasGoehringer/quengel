@@ -103,7 +103,7 @@ export default class LogScreen extends Component {
         <FlatList
           style={{ paddingHorizontal: 10 }}
           data={this.state.entries}
-          keyExtractor={item => item.createdAt}
+          keyExtractor={item => item.createdAt + item.milestoneType}
           renderItem={this.renderListItem}
           ListHeaderComponent={() => <View style={{ paddingTop: 10 }} />}
           ListFooterComponent={() => <View style={{ paddingTop: 10 }} />}
