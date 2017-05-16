@@ -8,7 +8,10 @@ module.exports = {
     NURSING: '#fe7d55',
     MEASUREMENT: '#ffac49',
     EMOTION: '#53737b',
-    TEXT: 'rgb(100,100,100)'
+    TEXT: 'rgb(100,100,100)',
+    WHITE: '#FFFFFF',
+    DARKYELLOW: '#FEEAA0',
+    HELLYELLOW: '#FED7AC'
   },
   FONTSIZE: {
     DISPLAY1: 34,

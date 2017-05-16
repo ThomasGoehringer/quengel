@@ -21,9 +21,11 @@ import platform from './config/native-base-theme/variables/platform';
 import EntryScreen from './screens/EntryScreen';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
+import MilestoneEntryScreen from './screens/MilestoneEntryScreen';
 import CommunityScreen from './screens/CommunityScreen';
 import StatisticScreen from './screens/StatisticScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import OnboardingScreen from './screens/OnboardingScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 import CreateProfileScreen from './screens/CreateProfileScreen';
@@ -61,18 +63,21 @@ export default class MainScreen extends Component {
         const resetAction = NavigationActions.reset({
           index: 0,
           actions: [
-            NavigationActions.navigate({ routeName: 'Register' })
+            NavigationActions.navigate({ routeName: 'Onboarding' })
           ]
         });
+        // NavigationActions.navigate({ routeName: 'Register' })
         this.props.navigation.dispatch(resetAction);
       } else if (!data.name) {
         // Does not have a profile yet, reset to CreateProfileScreen
         const resetAction = NavigationActions.reset({
           index: 0,
           actions: [
-            NavigationActions.navigate({ routeName: 'CreateProfile' })
+            NavigationActions.navigate({ routeName: 'Onboarding' })
+
           ]
         });
+        // NavigationActions.navigate({ routeName: 'CreateProfile' })
         this.props.navigation.dispatch(resetAction);
       }
     });
@@ -191,9 +196,11 @@ const BabyApp = StackNavigator({
   Profile: { screen: ProfileScreen },
   Entry: { screen: EntryScreen },
   Register: { screen: RegisterScreen },
+  Onboarding: { screen: OnboardingScreen },
   Login: { screen: LoginScreen },
   CreateProfile: { screen: CreateProfileScreen },
-  Camera: { screen: CameraScreen }
+  Camera: { screen: CameraScreen },
+  MilestoneEntry: { screen: MilestoneEntryScreen }
 }, { headerMode: 'screen' });
 
 AppRegistry.registerComponent('BabyApp', () => BabyApp);
