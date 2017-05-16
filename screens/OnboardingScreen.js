@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     height: 60
   },
   buttonIcon: {
-    color: COLOR.NURSING,
+    color: COLOR.NURSING
   },
   dot: {
     backgroundColor: COLOR.TEXT,
@@ -95,16 +95,11 @@ export default class OnboardingScreen extends Component {
     header: null
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { navigate } = this.props.navigation;
 
     return (
       <Swiper
-        style={styles.wrapper}
         loop={false}
         showsButtons={false}
         dot={
