@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
 import Separator from 'react-native-hr';
 import { COLOR } from '../config/globals';
+import { getData } from '../services/storageService';
 
 
 const styles = StyleSheet.create({
@@ -84,6 +85,56 @@ export default class MilestoneEntry extends Component {
     }
   }
 
+  getMilestoneMessage(babyName) {
+    if (this.props.customType) {
+      return this.props.customType.toUpperCase();
+    }
+
+    switch (this.props.milestoneType) {
+      case 'laugh':
+        return `Ein ganz besonderer Augenblick – ${babyName} hat heute zum ersten Mal gelächelt.`;
+      case 'turn':
+        return `Stark! ${babyName} hat sich heute zum ersten Mal aus eigener Kraft umgedreht.`;
+      case 'head':
+        return `${babyName} kann nun sein Köpfchen in Position halten, selbst drehen und beim Ziehen in die Sitzposition beugen – wichtige Voraussetzungen, um die Meilensteine Sitzen und Krabbeln zu erreichen.`;
+      case 'grab':
+        return `Die Welt spielend (be)greifen – ${babyName} beherrscht nun den präzisen Daumen-Zeigefinger-Griff.`;
+      case 'babyFood':
+        return `Yummy – ${babyName} hat heute seinen ersten Brei genossen.`;
+      case 'sounds':
+        return `Wow! ${babyName} gibt nun die ersten Laute von sich.`;
+      case 'tooth':
+        return `${babyName} hat nun sein erstes Zähnchen. Nur noch eine Frage der Zeit, bis die restlichen nachfolgen.`;
+      case 'crawl':
+        return `Von A nach B – noch etwas umständlich, aber ${babyName} bewegt sich selbstständig fort.`;
+      case 'stand':
+        return `Nicht mehr lange bis zum ersten Schritt – ${babyName} kann sich an Personen und Objekten  hochziehen und kurze Zeit stehen.`;
+      case 'steps':
+        return `Ein riesen Schritt: ${babyName} kann inzwischen ein kleines Stück gehen.`;
+      case 'sit':
+        return `Schluss mit unkontrolliertem Umkippen – ${babyName} kann nun ohne Hilfe sitzen. `;
+      case 'sleepThrough':
+        return `Endlich ruhige Nächte – ${babyName} hat seine erste Nacht komplett durchgeschlafen.`;
+      case 'word':
+        return `Hurra! Langsam aber sicher fängt ${babyName} an zu sprechen. Das erste Wort: [Freitext]`;
+      case 'babysitter':
+        return `Zeit für Mami und Papi – ${babyName} hat heute einige Stunden mit dem Babysitter verbracht.`;
+      case 'trip':
+        return `Urlaub! ${babyName} macht seine erste Reise.`;
+      case 'custom':
+        return 'EIGENER MEILENSTEIN';
+      default:
+        return 'MEILENSTEIN';
+    }
+  }
+
+  share() {
+    getData('user').then((data) => {
+      const message = this.getMilestoneMessage(data.name);
+      Share.share({ message });
+    });
+  }
+
   render() {
     return (
       <Card style={this.props.text.length === 0 ? { paddingBottom: 15 } : {}}>
@@ -106,7 +157,7 @@ export default class MilestoneEntry extends Component {
                 <Text style={styles.text}>{text.value}</Text>
               </View>
               <TouchableOpacity
-                onPress={() => Share.share({ title: 'BEEP', message: 'messageboop'})}
+                onPress={() => this.share()}
                 style={styles.shareButton}
               >
                 <Icon
