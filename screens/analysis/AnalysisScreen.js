@@ -3,6 +3,7 @@ import WeightAnalysisScreen from './WeightAnalysisScreen';
 import HeightAnalysisScreen from './HeightAnalysisScreen';
 import DiapersAnalysisScreen from './DiapersAnalysisScreen';
 import HeadCircumferenceAnalysisScreen from './HeadCircumferenceAnalysisScreen';
+import { COLOR } from '../../config/globals';
 
 
 const AnalysisScreen = TabNavigator({
@@ -12,8 +13,16 @@ const AnalysisScreen = TabNavigator({
   HeightAnalysis: { screen: HeightAnalysisScreen }
 }, {
   tabBarOptions: {
-    activeTintColor: '#e91e63',
-    scrollEnabled: true
+    activeTintColor: '#FFFFFF',
+    inactiveTintColor: COLOR.SECONDARY,
+    scrollEnabled: true,
+    lazy: false,
+    style: {
+      backgroundColor: COLOR.PRIMARY
+    },
+    indicatorStyle: {
+      backgroundColor: '#FFFFFF'
+    }
   }
 });
 
