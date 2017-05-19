@@ -10,7 +10,6 @@ import {
   VictoryGroup,
   VictoryScatter
 } from 'victory-native';
-import { theme } from '../../config/chartTheme';
 
 
 export default class HeadCircumferenceAnalysisScreen extends Component {
@@ -32,7 +31,7 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
     return (
       <ScrollView>
         <Text>Weight Statistics</Text>
-        <VictoryChart theme={theme}>
+        <VictoryChart>
           <VictoryGroup
             data={data}
             y={(d) => (d.lineY)}
@@ -44,7 +43,6 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
           </VictoryGroup>
           <VictoryArea
             data={data}
-            theme={theme.area}
           />
         </VictoryChart>
       </ScrollView>

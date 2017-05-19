@@ -11,7 +11,6 @@ import {
   VictoryScatter,
   VictoryAxis
 } from 'victory-native';
-import { theme } from '../../config/chartTheme';
 import { COLOR } from '../../config/globals';
 
 
