@@ -14,6 +14,8 @@ import {
   VictoryBar,
   VictoryScatter
 } from 'victory-native';
+import theme from '../config/chartTheme';
+
 
 export default class StatisticScreen extends Component {
   componentDidMount() {
@@ -34,21 +36,20 @@ export default class StatisticScreen extends Component {
     return (
       <ScrollView>
         <Text>Screen Statistics</Text>
-        <VictoryChart theme={VictoryTheme.material}>
+        <VictoryChart theme={theme}>
           <VictoryGroup
             data={data}
             y={(d) => (d.lineY)}
           >
-            <VictoryLine style={{ data: { stroke: "red" } }}/>
+            <VictoryLine />
             <VictoryScatter
               size={3}
-              style={{ data: { stroke: "navy", fill: "white", strokeWidth: 2 } }}
             />
           </VictoryGroup>
           <VictoryArea
-             data={data}
-             style={{ data: { fill: "navy", opacity: 0.4 } }}
-           />
+            data={data}
+            theme={theme}
+          />
         </VictoryChart>
       </ScrollView>
     );
