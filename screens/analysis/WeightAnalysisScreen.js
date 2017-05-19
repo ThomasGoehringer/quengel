@@ -24,7 +24,7 @@ const chartStyles = {
 
 export default class WeightAnalysisScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Notifications'
+    tabBarLabel: 'Gewicht'
   };
 
   render() {

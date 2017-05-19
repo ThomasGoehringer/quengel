@@ -13,9 +13,9 @@ import {
 import { theme } from '../../config/chartTheme';
 
 
-export default class WeightAnalysisScreen extends Component {
+export default class DiapersAnalysisScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Notifications'
+    tabBarLabel: 'Windeln'
   };
 
   render() {

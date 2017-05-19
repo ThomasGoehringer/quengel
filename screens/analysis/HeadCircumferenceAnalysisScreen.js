@@ -13,9 +13,9 @@ import {
 import { theme } from '../../config/chartTheme';
 
 
-export default class WeightAnalysisScreen extends Component {
+export default class HeadCircumferenceAnalysisScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Notifications'
+    tabBarLabel: 'Kopfumfang'
   };
 
   render() {

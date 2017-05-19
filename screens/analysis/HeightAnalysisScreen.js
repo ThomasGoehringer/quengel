@@ -15,7 +15,7 @@ import { theme } from '../../config/chartTheme';
 
 export default class HeightAnalysisScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Notifications'
+    tabBarLabel: 'Körpergröße'
   };
 
   render() {
