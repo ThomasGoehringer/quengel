@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
 import {
+  Text,
   ScrollView
 } from 'react-native';
 import {
-  Text
-} from 'native-base';
-import {
-  VictoryTheme,
   VictoryChart,
   VictoryLine,
   VictoryArea,
   VictoryGroup,
-  VictoryBar,
   VictoryScatter
 } from 'victory-native';
-import { theme } from '../config/chartTheme';
+import { theme } from '../../config/chartTheme';
 
 
-export default class StatisticScreen extends Component {
-  componentDidMount() {
-
-  }
+export default class HeightAnalysisScreen extends Component {
+  static navigationOptions = {
+    tabBarLabel: 'Notifications'
+  };
 
   render() {
     const data = [
@@ -35,7 +31,7 @@ export default class StatisticScreen extends Component {
 
     return (
       <ScrollView>
-        <Text>Screen Statistics</Text>
+        <Text>Height Statistics</Text>
         <VictoryChart theme={theme}>
           <VictoryGroup
             data={data}

@@ -23,7 +23,7 @@ import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
 import MilestoneEntryScreen from './screens/MilestoneEntryScreen';
 import CommunityScreen from './screens/CommunityScreen';
-import StatisticScreen from './screens/StatisticScreen';
+import AnalysisScreen from './screens/analysis/AnalysisScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import OnboardingScreen from './screens/OnboardingScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -52,7 +52,7 @@ export default class MainScreen extends Component {
     super();
     this.renderActiveScreen = this.renderActiveScreen.bind(this);
     this.state = {
-      activeScreen: 'StatisticScreen'
+      activeScreen: 'AnalysisScreen'
     };
   }
 
@@ -107,8 +107,8 @@ export default class MainScreen extends Component {
         return (<MilestoneScreen navigation={this.props.navigation} />);
       case 'CommunityScreen':
         return (<CommunityScreen />);
-      case 'StatisticScreen':
-        return (<StatisticScreen />);
+      case 'AnalysisScreen':
+        return (<AnalysisScreen />);
       default:
         return (<LogScreen />);
     }
@@ -175,11 +175,11 @@ export default class MainScreen extends Component {
                 />
               </Button>
               <Button
-                active={this.state.activeScreen === 'StatisticScreen'}
-                onPress={() => this.setState({ activeScreen: 'StatisticScreen' })}
+                active={this.state.activeScreen === 'AnalysisScreen'}
+                onPress={() => this.setState({ activeScreen: 'AnalysisScreen' })}
               >
                 <Icon
-                  active={this.state.activeScreen === 'StatisticScreen'}
+                  active={this.state.activeScreen === 'AnalysisScreen'}
                   name="stats"
                 />
               </Button>
