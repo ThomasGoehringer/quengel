@@ -11,7 +11,8 @@ module.exports = {
     TEXT: 'rgb(100,100,100)',
     WHITE: '#FFFFFF',
     DARKYELLOW: '#FEEAA0',
-    HELLYELLOW: '#FED7AC'
+    HELLYELLOW: '#FED7AC',
+    LAVENDEL: '#dfb3e2'
   },
   FONTSIZE: {
     DISPLAY1: 34,
