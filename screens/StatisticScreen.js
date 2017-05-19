@@ -14,7 +14,7 @@ import {
   VictoryBar,
   VictoryScatter
 } from 'victory-native';
-import theme from '../config/chartTheme';
+import { theme } from '../config/chartTheme';
 
 
 export default class StatisticScreen extends Component {
@@ -48,7 +48,7 @@ export default class StatisticScreen extends Component {
           </VictoryGroup>
           <VictoryArea
             data={data}
-            theme={theme}
+            theme={theme.area}
           />
         </VictoryChart>
       </ScrollView>
