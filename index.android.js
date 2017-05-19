@@ -52,7 +52,7 @@ export default class MainScreen extends Component {
     super();
     this.renderActiveScreen = this.renderActiveScreen.bind(this);
     this.state = {
-      activeScreen: 'LogScreen'
+      activeScreen: 'StatisticScreen'
     };
   }
 

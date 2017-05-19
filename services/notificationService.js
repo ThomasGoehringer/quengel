@@ -30,7 +30,7 @@ function scheduleNotification(title, message, date) {
   PushNotification.localNotificationSchedule({
     title,
     message,
-    date
+    date: new Date(date)
   });
 }
 

@@ -34,7 +34,7 @@ export default class StatisticScreen extends Component {
     return (
       <ScrollView>
         <Text>Screen Statistics</Text>
-        <VictoryChart>
+        <VictoryChart theme={VictoryTheme.material}>
           <VictoryGroup
             data={data}
             y={(d) => (d.lineY)}
