@@ -88,13 +88,13 @@ export default class MainScreen extends Component {
         const title = 'Heute schon alles erfasst?';
         const message = 'Erfasse schnell die wichtigsten Angaben über deinen Tag und halte deine Auswertungen aktuell';
 
-        scheduleNotification(title, message, moment().day(0));
-        scheduleNotification(title, message, moment().day(1));
-        scheduleNotification(title, message, moment().day(2));
-        scheduleNotification(title, message, moment().day(3));
-        scheduleNotification(title, message, moment().day(4));
-        scheduleNotification(title, message, moment().day(5));
-        scheduleNotification(title, message, moment().day(6));
+        // scheduleNotification(title, message, moment().day(0));
+        // scheduleNotification(title, message, moment().day(1));
+        // scheduleNotification(title, message, moment().day(2));
+        // scheduleNotification(title, message, moment().day(3));
+        // scheduleNotification(title, message, moment().day(4));
+        // scheduleNotification(title, message, moment().day(5));
+        // scheduleNotification(title, message, moment().day(6));
       }
     });
   }
