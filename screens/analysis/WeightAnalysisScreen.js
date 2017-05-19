@@ -11,7 +11,16 @@ import {
   VictoryScatter
 } from 'victory-native';
 import { theme } from '../../config/chartTheme';
+import { COLOR } from '../../config/globals';
 
+
+const chartStyles = {
+  area: {
+    data: {
+      fill: COLOR.LAVENDEL
+    }
+  }
+};
 
 export default class WeightAnalysisScreen extends Component {
   static navigationOptions = {
@@ -32,7 +41,11 @@ export default class WeightAnalysisScreen extends Component {
     return (
       <ScrollView>
         <Text>Weight Statistics</Text>
-        <VictoryChart theme={theme}>
+        <VictoryChart>
+          <VictoryArea
+            data={data}
+            style={chartStyles.area}
+          />
           <VictoryGroup
             data={data}
             y={(d) => (d.lineY)}
@@ -42,10 +55,6 @@ export default class WeightAnalysisScreen extends Component {
               size={3}
             />
           </VictoryGroup>
-          <VictoryArea
-            data={data}
-            theme={theme.area}
-          />
         </VictoryChart>
       </ScrollView>
     );
