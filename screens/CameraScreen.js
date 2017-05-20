@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NavigationActions } from 'react-navigation';
 
 
 const styles = StyleSheet.create({
@@ -45,9 +44,8 @@ export default class Profile extends Component {
 
     this.camera.capture({ metadata: options })
       .then((data) => {
-        this.props.navigation.state.params.handlePhoto(data.path);
         this.props.navigation.goBack();
-        console.log('captureData', data);
+        this.props.navigation.state.params.handlePhoto(data.path);
       })
       .catch(err => console.error(err));
   }
