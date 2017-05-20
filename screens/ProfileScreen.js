@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
   View,
   Text,
   Button,
@@ -75,12 +76,14 @@ export default class Profile extends Component {
   constructor() {
     super();
     this.state = {
+      loading: true,
       text: '',
       email: '',
       modalVisible: false,
       activeModal: '',
       notificationsEnabled: true
     };
+
     this.handleNotificationSwitchChange = this.handleNotificationSwitchChange.bind(this);
     this.handleModalSubmit = this.handleModalSubmit.bind(this);
   }
@@ -96,7 +99,7 @@ export default class Profile extends Component {
     });
 
     getData('notifications').then((enabled) => {
-      this.setState({ notificationsEnabled: enabled });
+      this.setState({ notificationsEnabled: enabled, loading: false });
     });
   }
 
@@ -160,6 +163,14 @@ export default class Profile extends Component {
 
   render() {
     const { goBack } = this.props.navigation;
+
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+          <ActivityIndicator size={50} color={COLOR.PRIMARY} />
+        </View>
+      );
+    }
 
     return (
       <ScrollView style={{ flex: 1 }}>
@@ -256,12 +267,12 @@ export default class Profile extends Component {
               onValueChange={this.handleNotificationSwitchChange}
               value={this.state.notificationsEnabled}
               onTintColor={COLOR.PRIMARY}
-              thumbTintColor={COLOR.SECONDARY}
+              thumbTintColor={this.state.notificationsEnabled ? COLOR.SECONDARY : '#FFFFFF'}
             />
           </View>
         </View>
 
-        <View style={styles.itemContainer}>
+        <View style={[styles.itemContainer, { paddingBottom: 20 }]}>
           <Button
             title="Abmelden"
             color={COLOR.SECONDARY}

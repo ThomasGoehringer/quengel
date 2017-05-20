@@ -99,6 +99,7 @@ const BottomBarNavigator = TabNavigator({
   Milestone: { screen: MilestoneScreen },
   Analysis: { screen: AnalysisScreen }
 }, {
+  backBehavior: 'none',
   tabBarComponent: NavigationComponent,
   tabBarPosition: 'bottom',
   swipeEnabled: false,
