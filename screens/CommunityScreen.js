@@ -6,10 +6,7 @@ import {
 } from 'react-native';
 import { scheduleNotification } from '../services/notificationService';
 
-export default class CalendarScreen extends Component {
-  componentDidMount() {
-  }
-
+export default class CommunityScreen extends Component {
   render() {
     return (
       <View>

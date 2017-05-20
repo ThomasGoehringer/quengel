@@ -24,6 +24,15 @@ const styles = StyleSheet.create({
 });
 
 export default class Profile extends Component {
+  static navigationOptions = {
+    headerTitle: null,
+    headerRight: null,
+    headerStyle: {
+      backgroundColor: '#FFFFFF'
+    },
+    headerTintColor: 'rgb(60,60,60)'
+  }
+
   constructor() {
     super();
     this.state = {

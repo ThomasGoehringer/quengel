@@ -5,13 +5,10 @@ import {
   ActivityIndicator,
   FlatList
 } from 'react-native';
-import {
-  Icon
-} from 'native-base';
+import { Icon } from 'native-base';
 import Fab from 'react-native-action-button';
 import { COLOR } from '../config/globals';
 import LogEntry from '../components/LogEntry';
-import MilestoneEntry from '../components/MilestoneEntry';
 import databaseService from '../services/databaseService';
 import { getData } from '../services/storageService';
 
@@ -67,13 +64,7 @@ export default class LogScreen extends Component {
   }
 
   renderListItem(data) {
-    if (data.item.milestone) {
-      // return (
-      //   <MilestoneEntry
-      //     uri={data.item.imagePath}
-      //   />
-      // );
-    } else {
+    if (!data.item.milestone) {
       return <LogEntry {...data.item} />;
     }
   }

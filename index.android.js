@@ -2,22 +2,18 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  StatusBar,
   View,
   Image
 } from 'react-native';
 import {
-  StyleProvider,
-  Footer,
-  FooterTab,
   Button,
-  Header,
-  Left,
   Icon
 } from 'native-base';
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
+import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import moment from 'moment';
-import getTheme from './config/native-base-theme/components';
-import platform from './config/native-base-theme/variables/platform';
+import { COLOR } from './config/globals';
 import EntryScreen from './screens/EntryScreen';
 import LogScreen from './screens/LogScreen';
 import MilestoneScreen from './screens/MilestoneScreen';
@@ -37,48 +33,26 @@ import logo from './assets/images/logo.png';
 
 const styles = StyleSheet.create({
   logo: {
-    marginLeft: 5,
+    marginLeft: 15,
+    justifyContent: 'center',
     width: 60,
     height: 60
   }
 });
 
-export default class MainScreen extends Component {
-  static navigationOptions = {
-    header: null
-  };
 
+class Quenqel extends Component {
   constructor() {
     super();
-    this.renderActiveScreen = this.renderActiveScreen.bind(this);
     this.state = {
-      activeScreen: 'AnalysisScreen'
+      onboarding: false
     };
   }
 
   componentWillMount() {
     getData('user').then((data) => {
       if (!data) {
-        // Reset the StackNavigator to RegisterScreen
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Onboarding' })
-          ]
-        });
-        // NavigationActions.navigate({ routeName: 'Register' })
-        this.props.navigation.dispatch(resetAction);
-      } else if (!data.name) {
-        // Does not have a profile yet, reset to CreateProfileScreen
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Onboarding' })
-
-          ]
-        });
-        // NavigationActions.navigate({ routeName: 'CreateProfile' })
-        this.props.navigation.dispatch(resetAction);
+        this.setState({ onboarding: true });
       }
     });
 
@@ -99,108 +73,137 @@ export default class MainScreen extends Component {
     });
   }
 
-  renderActiveScreen() {
-    switch (this.state.activeScreen) {
-      case 'LogScreen':
-        return (<LogScreen navigation={this.props.navigation} />);
-      case 'MilestoneScreen':
-        return (<MilestoneScreen navigation={this.props.navigation} />);
-      case 'CommunityScreen':
-        return (<CommunityScreen />);
-      case 'AnalysisScreen':
-        return (<AnalysisScreen />);
-      default:
-        return (<LogScreen />);
+  render() {
+    if (this.state.onboarding) {
+      return (
+        <View style={{ flex: 1 }}>
+          <StatusBar backgroundColor="#6d9eac" />
+          <OnboardingNavigator />
+        </View>
+      );
     }
-  }
-
-  renderProfile() {
-    const { navigate } = this.props.navigation;
 
     return (
+      <View style={{ flex: 1 }}>
+        <StatusBar backgroundColor="#6d9eac" />
+        <MainNavigator />
+      </View>
+    );
+  }
+}
+
+
+const BottomBarNavigator = TabNavigator({
+  Log: { screen: LogScreen },
+  Community: { screen: CommunityScreen },
+  Milestone: { screen: MilestoneScreen },
+  Analysis: { screen: AnalysisScreen }
+}, {
+  tabBarComponent: NavigationComponent,
+  tabBarPosition: 'bottom',
+  swipeEnabled: false,
+  tabBarOptions: {
+    bottomNavigationOptions: {
+      labelColor: COLOR.SECONDARY,
+      activeLabelColor: '#FFFFFF',
+      backgroundColor: COLOR.PRIMARY,
+      rippleColor: '#FFFFFF',
+      style: { borderTopWidth: 0, elevation: 8 },
+      innerStyle: { marginBottom: -15 },
+      shifting: false,
+      tabs: {
+        Log: {
+          label: ' ',
+          icon: <Icon style={{ color: COLOR.SECONDARY }} name="book" />,
+          activeIcon: <Icon style={{ color: '#FFFFFF' }} name="book" />
+        },
+        Community: {
+          label: ' ',
+          icon: <Icon style={{ color: COLOR.SECONDARY }} name="people" />,
+          activeIcon: <Icon style={{ color: '#FFFFFF' }} name="people" />
+        },
+        Milestone: {
+          label: ' ',
+          icon: <Icon style={{ color: COLOR.SECONDARY }} name="trophy" />,
+          activeIcon: <Icon style={{ color: '#FFFFFF' }} name="trophy" />
+        },
+        Analysis: {
+          label: ' ',
+          icon: <Icon style={{ color: COLOR.SECONDARY }} name="stats" />,
+          activeIcon: <Icon style={{ color: '#FFFFFF' }} name="stats" />
+        }
+      }
+    }
+  }
+});
+
+const OnboardingNavigator = StackNavigator({
+  Onboarding: { screen: OnboardingScreen },
+  Register: { screen: RegisterScreen },
+  CreateProfile: { screen: CreateProfileScreen },
+  Login: { screen: LoginScreen },
+  Main: { screen: BottomBarNavigator },
+  Profile: { screen: ProfileScreen },
+  Entry: { screen: EntryScreen },
+  Camera: { screen: CameraScreen },
+  MilestoneEntry: { screen: MilestoneEntryScreen }
+}, {
+  headerMode: 'screen',
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: COLOR.PRIMARY,
+      elevation: 3
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitle: <Image source={logo} style={styles.logo} />,
+    headerRight: (
       <Button
         transparent
         person
-        onPress={() => navigate('Profile')}
-        style={{ position: 'absolute', right: 15, height: 30 }}
+        style={{ marginRight: 5 }}
+        onPress={() => navigation.navigate('Profile')}
       >
         <Icon
           style={{ color: '#fff' }}
           name="person"
         />
       </Button>
-    );
-  }
+    )
+  })
+});
 
-  render() {
-    return (
-      <StyleProvider style={getTheme(platform)}>
-        <View style={{ flex: 1 }}>
-          <Header>
-            <Left>
-              <Image source={logo} style={styles.logo} />
-            </Left>
-            { this.renderProfile() }
-          </Header>
-          <View style={{ flex: 1 }}>
-            { this.renderActiveScreen() }
-          </View>
-          <Footer>
-            <FooterTab>
-              <Button
-                active={this.state.activeScreen === 'LogScreen'}
-                onPress={() => this.setState({ activeScreen: 'LogScreen' })}
-              >
-                <Icon
-                  active={this.state.activeScreen === 'LogScreen'}
-                  name="book"
-                />
-              </Button>
-              <Button
-                active={this.state.activeScreen === 'CommunityScreen'}
-                onPress={() => this.setState({ activeScreen: 'CommunityScreen' })}
-              >
-                <Icon
-                  active={this.state.activeScreen === 'CommunityScreen'}
-                  name="calendar"
-                />
-              </Button>
-              <Button
-                active={this.state.activeScreen === 'MilestoneScreen'}
-                onPress={() => this.setState({ activeScreen: 'MilestoneScreen' })}
-              >
-                <Icon
-                  active={this.state.activeScreen === 'MilestoneScreen'}
-                  name="trophy"
-                />
-              </Button>
-              <Button
-                active={this.state.activeScreen === 'AnalysisScreen'}
-                onPress={() => this.setState({ activeScreen: 'AnalysisScreen' })}
-              >
-                <Icon
-                  active={this.state.activeScreen === 'AnalysisScreen'}
-                  name="stats"
-                />
-              </Button>
-            </FooterTab>
-          </Footer>
-        </View>
-      </StyleProvider>
-    );
-  }
-}
-
-const BabyApp = StackNavigator({
-  Main: { screen: MainScreen },
+const MainNavigator = StackNavigator({
+  Main: { screen: BottomBarNavigator },
+  Register: { screen: RegisterScreen },
+  CreateProfile: { screen: CreateProfileScreen },
+  Login: { screen: LoginScreen },
   Profile: { screen: ProfileScreen },
   Entry: { screen: EntryScreen },
-  Register: { screen: RegisterScreen },
-  Onboarding: { screen: OnboardingScreen },
-  Login: { screen: LoginScreen },
-  CreateProfile: { screen: CreateProfileScreen },
   Camera: { screen: CameraScreen },
   MilestoneEntry: { screen: MilestoneEntryScreen }
-}, { headerMode: 'screen' });
+}, {
+  headerMode: 'screen',
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: COLOR.PRIMARY,
+      elevation: 3
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitle: <Image source={logo} style={styles.logo} />,
+    headerRight: (
+      <Button
+        transparent
+        person
+        style={{ marginRight: 5 }}
+        onPress={() => navigation.navigate('Profile')}
+      >
+        <Icon
+          style={{ color: '#fff' }}
+          name="person"
+        />
+      </Button>
+    )
+  })
+});
 
-AppRegistry.registerComponent('BabyApp', () => BabyApp);
+AppRegistry.registerComponent('BabyApp', () => Quenqel);
