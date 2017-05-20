@@ -102,6 +102,7 @@ const BottomBarNavigator = TabNavigator({
   tabBarComponent: NavigationComponent,
   tabBarPosition: 'bottom',
   swipeEnabled: false,
+  animationEnabled: false,
   tabBarOptions: {
     bottomNavigationOptions: {
       labelColor: COLOR.SECONDARY,
