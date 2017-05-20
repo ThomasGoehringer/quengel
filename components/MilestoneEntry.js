@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     marginVertical: 15
   },
   shareButton: {
-    alignSelf: 'flex-end',
-    marginRight: 10,
-    marginBottom: 10
+    alignSelf: 'flex-start',
+    marginTop: 10,
+    marginRight: 10
   }
 });
 
@@ -85,7 +85,7 @@ export default class MilestoneEntry extends Component {
     }
   }
 
-  getMilestoneMessage(babyName) {
+  getMilestoneMessage(babyName, gender) {
     if (this.props.customType) {
       return this.props.customType.toUpperCase();
     }
@@ -100,27 +100,39 @@ export default class MilestoneEntry extends Component {
       case 'grab':
         return `Die Welt spielend (be)greifen – ${babyName} beherrscht nun den präzisen Daumen-Zeigefinger-Griff.`;
       case 'babyFood':
-        return `Yummy – ${babyName} hat heute seinen ersten Brei genossen.`;
+        if (gender === 'male') {
+          return `Yummy – ${babyName} hat heute seinen ersten Brei genossen.`;
+        }
+        return `Yummy – ${babyName} hat heute ihren ersten Brei genossen.`;
       case 'sounds':
         return `Wow! ${babyName} gibt nun die ersten Laute von sich.`;
       case 'tooth':
-        return `${babyName} hat nun sein erstes Zähnchen. Nur noch eine Frage der Zeit, bis die restlichen nachfolgen.`;
+        if (gender === 'male') {
+          return `${babyName} hat nun sein erstes Zähnchen. Nur noch eine Frage der Zeit, bis die restlichen nachfolgen.`;
+        }
+        return `${babyName} hat nun ihr erstes Zähnchen. Nur noch eine Frage der Zeit, bis die restlichen nachfolgen.`;
       case 'crawl':
         return `Von A nach B – noch etwas umständlich, aber ${babyName} bewegt sich selbstständig fort.`;
       case 'stand':
-        return `Nicht mehr lange bis zum ersten Schritt – ${babyName} kann sich an Personen und Objekten  hochziehen und kurze Zeit stehen.`;
+        return `Nicht mehr lange bis zum ersten Schritt – ${babyName} kann sich an Personen und Objekten hochziehen und kurze Zeit stehen.`;
       case 'steps':
         return `Ein riesen Schritt: ${babyName} kann inzwischen ein kleines Stück gehen.`;
       case 'sit':
         return `Schluss mit unkontrolliertem Umkippen – ${babyName} kann nun ohne Hilfe sitzen. `;
       case 'sleepThrough':
-        return `Endlich ruhige Nächte – ${babyName} hat seine erste Nacht komplett durchgeschlafen.`;
+        if (gender === 'male') {
+          return `Endlich ruhige Nächte – ${babyName} hat seine erste Nacht komplett durchgeschlafen.`;
+        }
+        return `Endlich ruhige Nächte – ${babyName} hat ihre erste Nacht komplett durchgeschlafen.`;
       case 'word':
-        return `Hurra! Langsam aber sicher fängt ${babyName} an zu sprechen. Das erste Wort: [Freitext]`;
+        return `Hurra! Langsam aber sicher fängt ${babyName} an zu sprechen.`;
       case 'babysitter':
         return `Zeit für Mami und Papi – ${babyName} hat heute einige Stunden mit dem Babysitter verbracht.`;
       case 'trip':
-        return `Urlaub! ${babyName} macht seine erste Reise.`;
+        if (gender === 'male') {
+          return `Urlaub! ${babyName} macht seine erste Reise.`;
+        }
+        return `Urlaub! ${babyName} macht ihre erste Reise.`;
       case 'custom':
         return 'EIGENER MEILENSTEIN';
       default:
@@ -130,7 +142,7 @@ export default class MilestoneEntry extends Component {
 
   share() {
     getData('user').then((data) => {
-      const message = this.getMilestoneMessage(data.name);
+      const message = this.getMilestoneMessage(data.name, data.gender);
       Share.share({ message });
     });
   }
@@ -149,6 +161,24 @@ export default class MilestoneEntry extends Component {
           />
         )}
 
+        {this.props.text.length === 0 && (
+          <View style={styles.shareTextContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.textTime}>{moment(this.props.createdAt).format('DD MMM YY')}</Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => this.share()}
+              style={styles.shareButton}
+            >
+              <Icon
+                color={COLOR.TEXT}
+                name="share-variant"
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+
         {this.props.text.map(text =>
           <View key={text.value + text.createdAt + this.props.milestoneType + this.props.customType}>
             <View style={styles.shareTextContainer}>
@@ -161,9 +191,9 @@ export default class MilestoneEntry extends Component {
                 style={styles.shareButton}
               >
                 <Icon
-                  color={COLOR.SECONDARY}
+                  color={COLOR.TEXT}
                   name="share-variant"
-                  size={35}
+                  size={30}
                 />
               </TouchableOpacity>
             </View>

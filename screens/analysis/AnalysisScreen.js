@@ -13,15 +13,15 @@ const AnalysisScreen = TabNavigator({
   HeightAnalysis: { screen: HeightAnalysisScreen }
 }, {
   tabBarOptions: {
-    activeTintColor: '#FFFFFF',
+    activeTintColor: COLOR.SECONDARY,
     inactiveTintColor: COLOR.SECONDARY,
     scrollEnabled: true,
     lazy: false,
     style: {
-      backgroundColor: COLOR.PRIMARY
+      backgroundColor: '#FFFFFF'
     },
     indicatorStyle: {
-      backgroundColor: '#FFFFFF'
+      backgroundColor: COLOR.SECONDARY
     }
   }
 });

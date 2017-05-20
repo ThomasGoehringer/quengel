@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   ToastAndroid
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 import databaseService from '../services/databaseService';
 import { setData } from '../services/storageService';
 import { COLOR, FONTSIZE } from '../config/globals';

@@ -7,7 +7,8 @@ import {
   Text,
   Button,
   TextInput,
-  Keyboard
+  Keyboard,
+  ToastAndroid
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import databaseService from '../services/databaseService';
@@ -67,7 +68,10 @@ export default class LoginScreen extends Component {
       password: this.state.password
     };
 
-    if (user.email.length === 0 || user.password.length === 0) return;
+    if (user.email.length === 0 || user.password.length === 0) {
+      ToastAndroid.show('Bitte alle Felder ausfüllen!', ToastAndroid.SHORT);
+      return;
+    }
 
     databaseService.login(user).then((jwt) => {
       databaseService.getProfile(jwt).then((profileData) => {

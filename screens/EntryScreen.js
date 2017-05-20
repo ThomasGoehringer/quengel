@@ -135,7 +135,6 @@ export default class EntryScreen extends Component {
   }
 
   setHydration(direction) {
-    console.log('BEEEEEEP');
     if (direction === 'up') {
       this.setState({
         badges: { ...this.state.badges, hydration: this.state.badges.hydration + 1 }
