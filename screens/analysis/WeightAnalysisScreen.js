@@ -9,9 +9,12 @@ import {
   VictoryArea,
   VictoryGroup,
   VictoryScatter,
-  VictoryAxis
+  VictoryAxis,
+  VictoryContainer
 } from 'victory-native';
 import { COLOR } from '../../config/globals';
+import { WEIGHT } from '../../config/defaultData';
+import { getData } from '../../services/storageService';
 
 
 const chartStyles = {
@@ -62,31 +65,63 @@ export default class WeightAnalysisScreen extends Component {
     tabBarLabel: 'Gewicht'
   };
 
-  render() {
-    const data = [
-      {lineY: 4, x: 1, y: 4.2, _y0: 2.5},
-      {lineY: 4.3, x: 2, y: 5.4, _y0: 3.2},
-      {lineY: 6, x: 3, y: 7.4, _y0: 4.4},
-      {lineY: 7.1, x: 4, y: 9.5, _y0: 6.2},
-      {lineY: 10.1, x: 5, y: 10.9, _y0: 7.5},
-      {lineY: 11.9, x: 6, y: 12.0, _y0: 8.4},
-      {lineY: 12.0, x: 7, y: 13.4, _y0: 9.6},
-      {lineY: 13.0, x: 8, y: 14.7, _y0: 10.5},
-      {lineY: 14.0, x: 9, y: 15.2, _y0: 12.2},
-      {lineY: 15.0, x: 10, y: 19.5, _y0: 14.5}
-    ];
+  constructor() {
+    super();
+    this.state = {
+      data: [],
+      defaultData: [],
+      scrollEnabled: false
+    };
+  }
 
+  componentWillMount() {
+    getData('chartData').then((data) => {
+      if (!data) return;
+      
+      this.setState({ data: data.weight });
+
+      const lastElement = data.weight[data.weight.length - 1].x;
+      if (lastElement < 36) {
+        const defaultData = WEIGHT.filter(d => d.x < lastElement + 6);
+        this.setState({ defaultData });
+      } else {
+        this.setState({ defaultData: WEIGHT });
+      }
+    });
+  }
+
+  getTickValues() {
+    return this.state.defaultData.reduce((acc, val) => {
+      acc.push(val.x);
+      return acc;
+    }, []);
+  }
+
+  render() {
+    if (this.state.data.length === 0 || this.state.defaultData.length === 0) {
+      return (
+        <Text>a</Text>
+      );
+    }
     return (
       <ScrollView>
         <Text>Weight Statistics</Text>
-        <VictoryChart>
+        <VictoryChart
+          containerComponent={
+            <VictoryContainer
+              onTouchStart={() => this.setState({ scrollEnabled: false })}
+              onTouchEnd={() => this.setState({ scrollEnabled: false })}
+            />
+          }
+        >
           <VictoryArea
-            data={data}
+            data={this.state.defaultData}
             style={chartStyles.area}
           />
           <VictoryAxis
             style={chartStyles.xAxis}
             tickCount={10}
+            tickValues={this.getTickValues()}
           />
           <VictoryAxis
             dependentAxis
@@ -94,8 +129,8 @@ export default class WeightAnalysisScreen extends Component {
             tickCount={10}
           />
           <VictoryGroup
-            data={data}
-            y={(d) => (d.lineY)}
+            data={this.state.data}
+            y={d => (d.y)}
           >
             <VictoryLine
               style={chartStyles.line}
@@ -106,6 +141,7 @@ export default class WeightAnalysisScreen extends Component {
             />
           </VictoryGroup>
         </VictoryChart>
+        <Text>Weight Statistics</Text>
       </ScrollView>
     );
   }

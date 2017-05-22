@@ -278,6 +278,8 @@ export default class Profile extends Component {
             color={COLOR.SECONDARY}
             onPress={() => {
               removeData('user');
+              removeData('notifications');
+              removeData('chartData');
               const resetAction = NavigationActions.reset({
                 index: 0,
                 actions: [
