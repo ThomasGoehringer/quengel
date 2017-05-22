@@ -56,7 +56,6 @@ export default class NameModal extends Component {
             <View style={styles.inputContainer}>
               <TextInput
                 editable
-                keyboardType="numeric"
                 maxLength={5}
                 placeholder="Name"
                 style={styles.input}
