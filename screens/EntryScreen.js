@@ -17,6 +17,7 @@ import WeightModal from '../components/WeightModal';
 import HeightModal from '../components/HeightModal';
 import HeadCircumferenceModal from '../components/HeadCircumferenceModal';
 import NursingModal from '../components/NursingModal';
+import MealsModal from '../components/MealsModal';
 import { COLOR, FONTSIZE } from '../config/globals';
 
 
@@ -125,7 +126,8 @@ export default class EntryScreen extends Component {
         height: 0,
         headCircumference: 0,
         nursingLeft: 0,
-        nursingRight: 0
+        nursingRight: 0,
+        meals: ''
       },
       emotion: 'help',
       modalVisible: false,
@@ -274,6 +276,12 @@ export default class EntryScreen extends Component {
         });
         break;
 
+      case 'mealsModal':
+        this.setState({
+          badges: { ...this.state.badges, meals: modalData }
+        });
+        break;
+
       default:
         break;
     }
@@ -324,6 +332,18 @@ export default class EntryScreen extends Component {
       return (
         <NursingModal
           data={{ left: this.state.badges.nursingLeft, right: this.state.badges.nursingRight }}
+          visible={this.state.modalVisible}
+          onSubmit={this.handleModalSubmit}
+          onCancel={() => this.setState({
+            modalVisible: false,
+            activeModal: ''
+          })}
+        />
+      );
+    } else if (this.state.activeModal === 'mealsModal') {
+      return (
+        <MealsModal
+          data={this.state.badges.meals}
           visible={this.state.modalVisible}
           onSubmit={this.handleModalSubmit}
           onCancel={() => this.setState({
@@ -403,14 +423,21 @@ export default class EntryScreen extends Component {
           <View style={styles.row}>
             <View style={[styles.componentContainerHalf, styles.mealsContainer]}>
               <View style={styles.measurementContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    modalVisible: true,
+                    activeModal: 'mealsModal'
+                  })}
+                >
                   <Icon
                     name="food-variant"
                     size={80}
                     color="#ffffff"
                   />
                 </TouchableOpacity>
-                <Text style={styles.componentText}>Mahlzeit</Text>
+                <Text style={styles.componentText}>
+                  {this.state.badges.meals !== '' ? `${this.state.badges.meals}` : 'Mahlzeit'}
+                </Text>
               </View>
             </View>
             <View style={[styles.componentContainerHalf, styles.hydrationContainer]}>
