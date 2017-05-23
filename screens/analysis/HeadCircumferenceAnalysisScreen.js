@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
   Text,
   ScrollView,
-  View,
-  ActivityIndicator
+  View
 } from 'react-native';
 import {
   VictoryChart,
@@ -17,6 +16,9 @@ import {
 import Table from '../../components/Table';
 import { COLOR } from '../../config/globals';
 import { HEADCIRCUMFERENCE } from '../../config/defaultData';
+import { getCharts } from '../../services/databaseService';
+import { getData } from '../../services/storageService';
+import { transformCharts } from '../../services/helperService';
 
 
 const chartStyles = {
@@ -88,6 +90,16 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
     } else {
       this.setState({ defaultData: headCircumferenceData });
     }
+  }
+
+  updateCharts() {
+    getData('user').then((user) => {
+      getCharts(user.jwt).then((charts) => {
+        const gender = { gender: user.gender };
+        const chartData = transformCharts(user, charts);
+        this.setState({ data: Object.assign(chartData.headCircumference, gender) });
+      });
+    });
   }
 
   getTickValues() {

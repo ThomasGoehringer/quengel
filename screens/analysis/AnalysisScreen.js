@@ -10,8 +10,8 @@ import HeightAnalysisScreen from './HeightAnalysisScreen';
 import DiapersAnalysisScreen from './DiapersAnalysisScreen';
 import HeadCircumferenceAnalysisScreen from './HeadCircumferenceAnalysisScreen';
 import { COLOR } from '../../config/globals';
-import { getData, setData } from '../../services/storageService';
 import { getCharts } from '../../services/databaseService';
+import { getData } from '../../services/storageService';
 import { transformCharts } from '../../services/helperService';
 
 

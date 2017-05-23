@@ -279,7 +279,7 @@ export default class Profile extends Component {
             onPress={() => {
               removeData('user');
               removeData('notifications');
-              removeData('chartData');
+              removeData('charts');
               const resetAction = NavigationActions.reset({
                 index: 0,
                 actions: [

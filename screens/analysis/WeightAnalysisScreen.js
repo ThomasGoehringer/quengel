@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   ScrollView,
   View,
-  ActivityIndicator,
+  RefreshControl,
   Text
 } from 'react-native';
 import {
@@ -17,6 +17,9 @@ import {
 import Table from '../../components/Table';
 import { COLOR } from '../../config/globals';
 import { WEIGHT } from '../../config/defaultData';
+import { getCharts } from '../../services/databaseService';
+import { getData } from '../../services/storageService';
+import { transformCharts } from '../../services/helperService';
 
 
 const chartStyles = {
@@ -90,6 +93,16 @@ export default class WeightAnalysisScreen extends Component {
     }
   }
 
+  updateCharts() {
+    getData('user').then((user) => {
+      getCharts(user.jwt).then((charts) => {
+        const gender = { gender: user.gender };
+        const chartData = transformCharts(user, charts);
+        this.setState({ data: Object.assign(chartData.weight, gender) });
+      });
+    });
+  }
+
   getTickValues() {
     return this.state.defaultData.reduce((acc, val) => {
       acc.push(val.x);
@@ -107,7 +120,14 @@ export default class WeightAnalysisScreen extends Component {
     }
 
     return (
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={() => this.updateCharts()}
+          />
+        }
+      >
         <VictoryChart
           containerComponent={
             <VictoryContainer
