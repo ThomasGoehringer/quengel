@@ -26,13 +26,21 @@ const styles = StyleSheet.create({
 export default class Table extends Component {
   constructor() {
     super();
+    this.state = {
+      tableData: []
+    };
+  }
+
+  componentWillMount() {
+    const tableData = this.props.data.reverse();
+    this.setState({ tableData });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.props.data.reverse().map(badge =>
-          <View style={styles.row}>
+        {this.state.tableData.map(badge =>
+          <View style={styles.row} key={badge.createdAt}>
             <Text style={styles.column}>{moment(badge.createdAt).format('DD MMM YYYY')}</Text>
             <Text style={styles.column}>{`${badge.y} ${badge.unit}`}</Text>
           </View>
