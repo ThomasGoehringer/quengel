@@ -116,9 +116,19 @@ export default class WeightAnalysisScreen extends Component {
   render() {
     if (this.state.data.length < 2) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10 }}>
-          <Text>Nicht genügend Einträge vorhanden</Text>
-        </View>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              colors={[COLOR.SECONDARY]}
+              refreshing={false}
+              onRefresh={() => this.updateCharts()}
+            />
+          }
+        >
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 190 }}>
+            <Text>Nicht genügend Einträge vorhanden</Text>
+          </View>
+        </ScrollView>
       );
     }
 
@@ -126,6 +136,7 @@ export default class WeightAnalysisScreen extends Component {
       <ScrollView
         refreshControl={
           <RefreshControl
+            colors={[COLOR.SECONDARY]}
             refreshing={false}
             onRefresh={() => this.updateCharts()}
           />

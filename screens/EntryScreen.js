@@ -187,7 +187,7 @@ export default class EntryScreen extends Component {
 
     Object.keys(this.state.badges).forEach((badgeKey) => {
       const badgeValue = this.state.badges[badgeKey];
-      if (badgeValue === 0) return;
+      if (badgeValue === 0 || badgeValue === '') return;
 
       let badgeUnit;
 

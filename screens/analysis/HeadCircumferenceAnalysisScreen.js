@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   Text,
   ScrollView,
-  View
+  View,
+  RefreshControl
 } from 'react-native';
 import {
   VictoryChart,
@@ -115,15 +116,32 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
   render() {
     if (this.state.data.length < 2) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10 }}>
-          <Text>Nicht genügend Einträge vorhanden</Text>
-        </View>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              colors={[COLOR.SECONDARY]}
+              refreshing={false}
+              onRefresh={() => this.updateCharts()}
+            />
+          }
+        >
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 190 }}>
+            <Text>Nicht genügend Einträge vorhanden</Text>
+          </View>
+        </ScrollView>
       );
     }
 
     return (
-      <ScrollView>
-        <Text>Height Statistics</Text>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            colors={[COLOR.SECONDARY]}
+            refreshing={false}
+            onRefresh={() => this.updateCharts()}
+          />
+        }
+      >
         <VictoryChart
           containerComponent={
             <VictoryContainer
