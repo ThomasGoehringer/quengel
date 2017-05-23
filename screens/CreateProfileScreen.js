@@ -13,6 +13,7 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationActions } from 'react-navigation';
+import moment from 'moment';
 import databaseService from '../services/databaseService';
 import { enableNotifications } from '../services/notificationService';
 import { getData, setData } from '../services/storageService';
@@ -41,6 +42,12 @@ const styles = StyleSheet.create({
     fontFamily: 'sans-serif-light',
     textAlign: 'center',
     marginBottom: 20
+  },
+  labelText: {
+    color: '#FFFFFF',
+    fontFamily: 'sans-serif-light',
+    marginBottom: 8,
+    marginTop: 8
   },
   textInput: {
     backgroundColor: '#FFFFFF',
@@ -79,7 +86,7 @@ export default class CreateProfileScreen extends Component {
     this.state = {
       name: '',
       gender: 'male',
-      dateOfBirth: '01.01.2016'
+      dateOfBirth: moment().format('DD.MM.YYYY')
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTabPress = this.handleTabPress.bind(this);
@@ -152,6 +159,7 @@ export default class CreateProfileScreen extends Component {
           placeholder="Name"
           onChangeText={name => this.setState({ name })}
         />
+        <Text style={styles.labelText}>Geburtsdatum</Text>
         <View style={styles.datePickerContainer}>
           <Icon
             style={styles.datePickerIcon}
