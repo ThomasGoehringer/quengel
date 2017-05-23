@@ -83,12 +83,15 @@ export default class WeightAnalysisScreen extends Component {
       this.setState({ data: data.weight });
 
       const lastElement = data.weight[data.weight.length - 1].x;
-      if (lastElement < 36) {
-        const defaultData = WEIGHT.filter(d => d.x < lastElement + 6);
-        this.setState({ defaultData });
-      } else {
-        this.setState({ defaultData: WEIGHT });
-      }
+      getData('user').then((user) => {
+        const weightData = user.gender === 'male' ? WEIGHT.MALE : WEIGHT.FEMALE;
+        if (lastElement < 36) {
+          const defaultData = weightData.filter(d => d.x < lastElement + 6);
+          this.setState({ defaultData });
+        } else {
+          this.setState({ defaultData: weightData });
+        }
+      });
     });
   }
 
