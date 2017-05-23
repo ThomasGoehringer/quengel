@@ -12,10 +12,12 @@ import {
   VictoryGroup,
   VictoryScatter,
   VictoryAxis,
+  VictoryLegend,
+  VictoryLabel,
   VictoryContainer
 } from 'victory-native';
 import Table from '../../components/Table';
-import { COLOR } from '../../config/globals';
+import { COLOR, FONTSIZE } from '../../config/globals';
 import { WEIGHT } from '../../config/defaultData';
 import { getCharts } from '../../services/databaseService';
 import { getData } from '../../services/storageService';
@@ -26,41 +28,48 @@ const chartStyles = {
   xAxis: {
     axis: {
       fill: 'transparent',
-      stroke: COLOR.SECONDARY,
-      strokeWidth: 2,
+      stroke: COLOR.DARKGRAY,
+      strokeWidth: 1,
       strokeLinecap: 'round',
       strokeLinejoin: 'round'
+    },
+    tickLabels: {
+      fill: COLOR.TEXT,
+      fontSize: FONTSIZE.CAPTION
     }
   },
   yAxis: {
     axis: {
       fill: 'transparent',
-      stroke: COLOR.SECONDARY,
-      strokeWidth: 2,
+      stroke: null,
+      strokeWidth: 0,
       strokeLinecap: 'round',
       strokeLinejoin: 'round'
     },
     grid: {
-      fill: COLOR.PRIMARY,
-      stroke: COLOR.PRIMARY,
-      opacity: 0.7
+      stroke: COLOR.DARKGRAY,
+      opacity: 0.1
+    },
+    tickLabels: {
+      fill: COLOR.TEXT,
+      fontSize: FONTSIZE.CAPTION
     }
   },
   area: {
     data: {
-      fill: COLOR.LAVENDEL,
+      fill: COLOR.MEASUREMENT,
       opacity: 0.5
     }
   },
   line: {
     data: {
-      stroke: COLOR.SECONDARY,
+      stroke: COLOR.DARKGRAY,
       strokeWidth: 2
     }
   },
   scatter: {
     data: {
-      fill: COLOR.SECONDARY
+      fill: COLOR.DARKGRAY
     }
   }
 };
@@ -143,6 +152,7 @@ export default class WeightAnalysisScreen extends Component {
         }
       >
         <VictoryChart
+          padding={{ left: 60, top: 20, bottom: 45, right: 20 }}
           containerComponent={
             <VictoryContainer
               onTouchStart={() => this.setState({ scrollEnabled: false })}
@@ -150,6 +160,7 @@ export default class WeightAnalysisScreen extends Component {
             />
           }
         >
+          <VictoryLabel style={{ color: 'red' }} />
           <VictoryArea
             data={this.state.defaultData}
             style={chartStyles.area}
@@ -160,6 +171,7 @@ export default class WeightAnalysisScreen extends Component {
             tickValues={this.getTickValues()}
           />
           <VictoryAxis
+            offsetX={55}
             dependentAxis
             style={chartStyles.yAxis}
             tickCount={10}
@@ -170,6 +182,7 @@ export default class WeightAnalysisScreen extends Component {
           >
             <VictoryLine
               style={chartStyles.line}
+              interpolation="cardinal"
             />
             <VictoryScatter
               size={3}

@@ -115,7 +115,7 @@ export default class LogEntry extends Component {
           {this.renderBadges()}
         </View>
 
-        <Separator text={moment(this.props.createdAt).format('DD MMM YY')} lineColor="lightgray" />
+        <Separator text={moment(this.props.createdAt).format('DD MMMM YY')} lineColor="lightgray" />
 
         {this.props.text.map(text =>
           <View key={text.value + text.createdAt}>
