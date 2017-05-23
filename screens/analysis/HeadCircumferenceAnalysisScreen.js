@@ -76,22 +76,24 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
   }
 
   componentWillMount() {
-    getData('chartData').then((data) => {
-      if (!data) return;
+    setTimeout(() => {
+      getData('chartData').then((data) => {
+        if (!data) return;
 
-      this.setState({ data: data.headCircumference });
+        this.setState({ data: data.headCircumference });
 
-      const lastElement = data.headCircumference[data.headCircumference.length - 1].x;
-      getData('user').then((user) => {
-        const headCircumferenceData = user.gender === 'male' ? HEADCIRCUMFERENCE.MALE : HEADCIRCUMFERENCE.FEMALE;
-        if (lastElement < 36) {
-          const defaultData = headCircumferenceData.filter(d => d.x < lastElement + 2);
-          this.setState({ defaultData });
-        } else {
-          this.setState({ defaultData: headCircumferenceData });
-        }
+        const lastElement = data.headCircumference[data.headCircumference.length - 1].x;
+        getData('user').then((user) => {
+          const headCircumferenceData = user.gender === 'male' ? HEADCIRCUMFERENCE.MALE : HEADCIRCUMFERENCE.FEMALE;
+          if (lastElement < 36) {
+            const defaultData = headCircumferenceData.filter(d => d.x < lastElement + 2);
+            this.setState({ defaultData });
+          } else {
+            this.setState({ defaultData: headCircumferenceData });
+          }
+        });
       });
-    });
+    }, 800);
   }
 
   getTickValues() {

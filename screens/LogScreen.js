@@ -10,7 +10,8 @@ import Fab from 'react-native-action-button';
 import { COLOR } from '../config/globals';
 import LogEntry from '../components/LogEntry';
 import databaseService from '../services/databaseService';
-import { getData } from '../services/storageService';
+import { getData, setData } from '../services/storageService';
+import { transformCharts } from '../services/helperService';
 
 
 export default class LogScreen extends Component {
@@ -39,6 +40,10 @@ export default class LogScreen extends Component {
                 this.logList.scrollToOffset({ x: 0, y: 0, animated: true });
               }
             });
+          databaseService.getCharts(user.jwt).then((charts) => {
+            const chartData = transformCharts(user, charts);
+            setData('chartData', chartData);
+          });
         }
       });
   }
