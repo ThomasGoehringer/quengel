@@ -148,7 +148,7 @@ export default class WeightAnalysisScreen extends Component {
             />
           </VictoryGroup>
         </VictoryChart>
-        <Table data={this.state.data.reverse()} />
+        <Table data={this.state.data} />
       </ScrollView>
     );
   }

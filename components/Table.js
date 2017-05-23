@@ -31,7 +31,7 @@ export default class Table extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.props.data.map(badge =>
+        {this.props.data.reverse().map(badge =>
           <View style={styles.row}>
             <Text style={styles.column}>{moment(badge.createdAt).format('DD MMM YYYY')}</Text>
             <Text style={styles.column}>{`${badge.y} ${badge.unit}`}</Text>

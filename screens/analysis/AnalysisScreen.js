@@ -45,7 +45,9 @@ export default class AnalysisScreen extends Component {
           const dateDiff = moment(heightBadge.createdAt).diff(dateOfBirth, 'days') / 30;
           const data = {
             x: dateDiff,
-            y: Number(heightBadge.value)
+            y: Number(heightBadge.value),
+            unit: heightBadge.unit,
+            createdAt: heightBadge.createdAt
           };
 
           acc.push(data);
@@ -58,7 +60,9 @@ export default class AnalysisScreen extends Component {
           const dateDiff = moment(headCircumferenceBadge.createdAt).diff(dateOfBirth, 'days') / 30;
           const data = {
             x: dateDiff,
-            y: Number(headCircumferenceBadge.value)
+            y: Number(headCircumferenceBadge.value),
+            unit: headCircumferenceBadge.unit,
+            createdAt: headCircumferenceBadge.createdAt
           };
 
           acc.push(data);

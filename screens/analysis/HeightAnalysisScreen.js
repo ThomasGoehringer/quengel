@@ -12,6 +12,7 @@ import {
   VictoryAxis,
   VictoryContainer
 } from 'victory-native';
+import Table from '../../components/Table';
 import { COLOR } from '../../config/globals';
 import { HEIGHT } from '../../config/defaultData';
 import { getData } from '../../services/storageService';
@@ -144,7 +145,7 @@ export default class HeightAnalysisScreen extends Component {
             />
           </VictoryGroup>
         </VictoryChart>
-        <Text>Height Statistics</Text>
+        <Table data={this.state.data} />
       </ScrollView>
     );
   }
