@@ -23,6 +23,17 @@ const styles = StyleSheet.create({
 });
 
 export default class LogEntry extends Component {
+  mealsCount() {
+    return this.props.badges.map((badge) => {
+      let meals = 0;
+      if (badge.badgeType === 'meals') {
+        meals = +1;
+        return meals;
+      }
+      return meals;
+    });
+  }
+
   renderBadges() {
     // Merge badges with same badgeType together
     let mergedBadges = Object.values(this.props.badges.reduce((acc, item) => {
@@ -34,6 +45,8 @@ export default class LogEntry extends Component {
       acc[item.badgeType] = obj;
       return acc;
     }, {}));
+
+    const mealsAmount = this.mealsCount().reduce((acc, cur) => acc + cur, 0);
 
     // Merge nursinLeft and nursingRight to nursing
     mergedBadges = Object.values(mergedBadges.reduce((acc, item) => {
@@ -72,6 +85,15 @@ export default class LogEntry extends Component {
           <Badge
             key={badge.badgeType + badge.createdAt}
             text={`${formattedSum} min`}
+            feature={badge.badgeType}
+          />
+        );
+      }
+      if (badge.badgeType === 'meals') {
+        return (
+          <Badge
+            key={badge.badgeType + badge.createdAt}
+            text={`${mealsAmount}`}
             feature={badge.badgeType}
           />
         );
