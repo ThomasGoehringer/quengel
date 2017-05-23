@@ -102,6 +102,7 @@ const BottomBarNavigator = TabNavigator({
   backBehavior: 'none',
   tabBarComponent: NavigationComponent,
   tabBarPosition: 'bottom',
+  lazy: true,
   swipeEnabled: false,
   animationEnabled: false,
   tabBarOptions: {
@@ -153,8 +154,7 @@ const OnboardingNavigator = StackNavigator({
   headerMode: 'screen',
   navigationOptions: ({ navigation }) => ({
     headerStyle: {
-      backgroundColor: COLOR.PRIMARY,
-      elevation: 3
+      backgroundColor: COLOR.PRIMARY
     },
     headerTintColor: '#FFFFFF',
     headerTitle: <Image source={logo} style={styles.logo} />,
@@ -187,8 +187,7 @@ const MainNavigator = StackNavigator({
   headerMode: 'screen',
   navigationOptions: ({ navigation }) => ({
     headerStyle: {
-      backgroundColor: COLOR.PRIMARY,
-      elevation: 3
+      backgroundColor: COLOR.PRIMARY
     },
     headerTintColor: '#FFFFFF',
     headerTitle: <Image source={logo} style={styles.logo} />,

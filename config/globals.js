@@ -10,6 +10,7 @@ module.exports = {
     EMOTION: '#53737b',
     TEXT: 'rgb(100,100,100)',
     WHITE: '#FFFFFF',
+    LIGHTGRAY: 'rgb(200,200,200)',
     DARKYELLOW: '#FEEAA0',
     HELLYELLOW: '#FED7AC',
     LAVENDEL: '#dfb3e2'

@@ -28,7 +28,9 @@ export default class AnalysisScreen extends Component {
           const dateDiff = moment(weightBadge.createdAt).diff(dateOfBirth, 'days') / 30;
           const data = {
             x: dateDiff,
-            y: Number(weightBadge.value)
+            y: Number(weightBadge.value),
+            unit: weightBadge.unit,
+            createdAt: weightBadge.createdAt
           };
 
           acc.push(data);

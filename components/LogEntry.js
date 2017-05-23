@@ -6,6 +6,7 @@ import Separator from 'react-native-hr';
 import Badge from '../components/Badge';
 import FeelingStatus from '../components/FeelingStatus';
 
+
 const styles = StyleSheet.create({
   text: {
     paddingTop: 0,

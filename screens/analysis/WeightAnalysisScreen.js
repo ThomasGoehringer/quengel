@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Text,
-  ScrollView
+  ScrollView,
+  View,
+  ActivityIndicator
 } from 'react-native';
 import {
   VictoryChart,
@@ -12,6 +13,7 @@ import {
   VictoryAxis,
   VictoryContainer
 } from 'victory-native';
+import Table from '../../components/Table';
 import { COLOR } from '../../config/globals';
 import { WEIGHT } from '../../config/defaultData';
 import { getData } from '../../services/storageService';
@@ -77,7 +79,7 @@ export default class WeightAnalysisScreen extends Component {
   componentWillMount() {
     getData('chartData').then((data) => {
       if (!data) return;
-      
+
       this.setState({ data: data.weight });
 
       const lastElement = data.weight[data.weight.length - 1].x;
@@ -100,12 +102,14 @@ export default class WeightAnalysisScreen extends Component {
   render() {
     if (this.state.data.length === 0 || this.state.defaultData.length === 0) {
       return (
-        <Text>a</Text>
+        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+          <ActivityIndicator size={50} color={COLOR.PRIMARY} />
+        </View>
       );
     }
+
     return (
       <ScrollView>
-        <Text>Weight Statistics</Text>
         <VictoryChart
           containerComponent={
             <VictoryContainer
@@ -141,7 +145,7 @@ export default class WeightAnalysisScreen extends Component {
             />
           </VictoryGroup>
         </VictoryChart>
-        <Text>Weight Statistics</Text>
+        <Table data={this.state.data.reverse()} />
       </ScrollView>
     );
   }
