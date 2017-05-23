@@ -50,9 +50,23 @@ export default class AnalysisScreen extends Component {
           return acc;
         }, []);
 
+        // Head circumference data
+        const headCircumferenceBadges = charts.filter(badge => badge.badgeType === 'headCircumference');
+        const chartDataHeadCircumference = headCircumferenceBadges.reduce((acc, headCircumferenceBadge) => {
+          const dateDiff = moment(headCircumferenceBadge.createdAt).diff(dateOfBirth, 'days') / 30;
+          const data = {
+            x: dateDiff,
+            y: Number(headCircumferenceBadge.value)
+          };
+
+          acc.push(data);
+          return acc;
+        }, []);
+
         const chartData = {
           weight: chartDataWeight,
-          height: chartDataHeight
+          height: chartDataHeight,
+          headCircumference: chartDataHeadCircumference
         };
 
         setData('chartData', chartData);
