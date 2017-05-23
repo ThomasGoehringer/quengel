@@ -78,7 +78,10 @@ export default class DiapersAnalysisScreen extends Component {
     this.setState({ data: this.props.screenProps.weight });
 
     const gender = this.props.screenProps.gender;
-    const lastElement = this.props.screenProps.weight[this.props.screenProps.weight.length - 1].x;
+    let lastElement = 0;
+    if (this.props.screenProps.weight.length >= 2) {
+      lastElement = this.props.screenProps.weight[this.props.screenProps.weight.length - 1].x;
+    }
     const weightData = gender === 'male' ? HEADCIRCUMFERENCE.MALE : HEADCIRCUMFERENCE.FEMALE;
     if (lastElement < 36) {
       const defaultData = weightData.filter(d => d.x < lastElement + 2);
@@ -99,42 +102,6 @@ export default class DiapersAnalysisScreen extends Component {
     return (
       <ScrollView>
         <Text>Diapers Statistics</Text>
-        <VictoryChart
-          containerComponent={
-            <VictoryContainer
-              onTouchStart={() => this.setState({ scrollEnabled: false })}
-              onTouchEnd={() => this.setState({ scrollEnabled: false })}
-            />
-          }
-        >
-          <VictoryArea
-            data={this.state.defaultData}
-            style={chartStyles.area}
-          />
-          <VictoryAxis
-            style={chartStyles.xAxis}
-            tickCount={10}
-            tickValues={this.getTickValues()}
-          />
-          <VictoryAxis
-            dependentAxis
-            style={chartStyles.yAxis}
-            tickCount={10}
-          />
-          <VictoryGroup
-            data={this.state.data}
-            y={d => (d.y)}
-          >
-            <VictoryLine
-              style={chartStyles.line}
-            />
-            <VictoryScatter
-              size={3}
-              style={chartStyles.scatter}
-            />
-          </VictoryGroup>
-        </VictoryChart>
-        <Table data={this.state.data} />
       </ScrollView>
     );
   }

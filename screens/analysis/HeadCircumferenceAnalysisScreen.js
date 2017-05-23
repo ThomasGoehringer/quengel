@@ -80,7 +80,10 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
     this.setState({ data: this.props.screenProps.headCircumference });
 
     const gender = this.props.screenProps.gender;
-    const lastElement = this.props.screenProps.headCircumference[this.props.screenProps.headCircumference.length - 1].x;
+    let lastElement = 0;
+    if (this.props.screenProps.headCircumference.length >= 2) {
+      lastElement = this.props.screenProps.headCircumference[this.props.screenProps.headCircumference.length - 1].x;
+    }
     const headCircumferenceData = gender === 'male' ? HEADCIRCUMFERENCE.MALE : HEADCIRCUMFERENCE.FEMALE;
     if (lastElement < 36) {
       const defaultData = headCircumferenceData.filter(d => d.x < lastElement + 2);
