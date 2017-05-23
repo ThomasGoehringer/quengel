@@ -76,22 +76,24 @@ export default class HeightAnalysisScreen extends Component {
   }
 
   componentWillMount() {
-    getData('chartData').then((data) => {
-      if (!data) return;
+    setTimeout(() => {
+      getData('chartData').then((data) => {
+        if (!data) return;
 
-      this.setState({ data: data.height });
+        this.setState({ data: data.height });
 
-      const lastElement = data.height[data.height.length - 1].x;
-      getData('user').then((user) => {
-        const heightData = user.gender === 'male' ? HEIGHT.MALE : HEIGHT.FEMALE;
-        if (lastElement < 36) {
-          const defaultData = heightData.filter(d => d.x < lastElement + 6);
-          this.setState({ defaultData });
-        } else {
-          this.setState({ defaultData: heightData });
-        }
+        const lastElement = data.height[data.height.length - 1].x;
+        getData('user').then((user) => {
+          const heightData = user.gender === 'male' ? HEIGHT.MALE : HEIGHT.FEMALE;
+          if (lastElement < 36) {
+            const defaultData = heightData.filter(d => d.x < lastElement + 6);
+            this.setState({ defaultData });
+          } else {
+            this.setState({ defaultData: heightData });
+          }
+        });
       });
-    });
+    }, 800);
   }
 
   getTickValues() {

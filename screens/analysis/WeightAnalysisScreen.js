@@ -77,22 +77,24 @@ export default class WeightAnalysisScreen extends Component {
   }
 
   componentWillMount() {
-    getData('chartData').then((data) => {
-      if (!data) return;
+    setTimeout(() => {
+      getData('chartData').then((data) => {
+        if (!data) return;
 
-      this.setState({ data: data.weight });
+        this.setState({ data: data.weight });
 
-      const lastElement = data.weight[data.weight.length - 1].x;
-      getData('user').then((user) => {
-        const weightData = user.gender === 'male' ? WEIGHT.MALE : WEIGHT.FEMALE;
-        if (lastElement < 36) {
-          const defaultData = weightData.filter(d => d.x < lastElement + 6);
-          this.setState({ defaultData });
-        } else {
-          this.setState({ defaultData: weightData });
-        }
+        const lastElement = data.weight[data.weight.length - 1].x;
+        getData('user').then((user) => {
+          const weightData = user.gender === 'male' ? WEIGHT.MALE : WEIGHT.FEMALE;
+          if (lastElement < 36) {
+            const defaultData = weightData.filter(d => d.x < lastElement + 6);
+            this.setState({ defaultData });
+          } else {
+            this.setState({ defaultData: weightData });
+          }
+        });
       });
-    });
+    }, 800);
   }
 
   getTickValues() {
