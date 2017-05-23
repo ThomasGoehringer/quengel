@@ -13,6 +13,7 @@ import {
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import moment from 'moment';
+import 'moment/locale/de';
 import { COLOR } from './config/globals';
 import EntryScreen from './screens/EntryScreen';
 import LogScreen from './screens/LogScreen';
@@ -30,6 +31,7 @@ import { getData } from './services/storageService';
 import { notificationsEnabled, scheduleNotification } from './services/notificationService';
 import logo from './assets/images/logo.png';
 
+moment.locale('de');
 
 const styles = StyleSheet.create({
   logo: {
