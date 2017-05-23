@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class BabyApp extends Component {
+export default class Quenqel extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('BabyApp', () => BabyApp);
+AppRegistry.registerComponent('Quenqel', () => Quenqel);

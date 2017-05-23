@@ -15,7 +15,6 @@ import {
 import Table from '../../components/Table';
 import { COLOR } from '../../config/globals';
 import { HEADCIRCUMFERENCE } from '../../config/defaultData';
-import { getData } from '../../services/storageService';
 
 
 const chartStyles = {
@@ -76,24 +75,17 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
   }
 
   componentWillMount() {
-    setTimeout(() => {
-      getData('chartData').then((data) => {
-        if (!data) return;
+    this.setState({ data: this.props.screenProps.headCircumference });
 
-        this.setState({ data: data.headCircumference });
-
-        const lastElement = data.headCircumference[data.headCircumference.length - 1].x;
-        getData('user').then((user) => {
-          const headCircumferenceData = user.gender === 'male' ? HEADCIRCUMFERENCE.MALE : HEADCIRCUMFERENCE.FEMALE;
-          if (lastElement < 36) {
-            const defaultData = headCircumferenceData.filter(d => d.x < lastElement + 2);
-            this.setState({ defaultData });
-          } else {
-            this.setState({ defaultData: headCircumferenceData });
-          }
-        });
-      });
-    }, 800);
+    const gender = this.props.screenProps.gender;
+    const lastElement = this.props.screenProps.headCircumference[this.props.screenProps.headCircumference.length - 1].x;
+    const headCircumferenceData = gender === 'male' ? HEADCIRCUMFERENCE.MALE : HEADCIRCUMFERENCE.FEMALE;
+    if (lastElement < 36) {
+      const defaultData = headCircumferenceData.filter(d => d.x < lastElement + 2);
+      this.setState({ defaultData });
+    } else {
+      this.setState({ defaultData: headCircumferenceData });
+    }
   }
 
   getTickValues() {
@@ -104,11 +96,6 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
   }
 
   render() {
-    if (this.state.data.length === 0 || this.state.defaultData.length === 0) {
-      return (
-        <Text>a</Text>
-      );
-    }
     return (
       <ScrollView>
         <Text>Height Statistics</Text>

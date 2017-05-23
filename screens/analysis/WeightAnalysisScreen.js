@@ -16,7 +16,6 @@ import {
 import Table from '../../components/Table';
 import { COLOR } from '../../config/globals';
 import { WEIGHT } from '../../config/defaultData';
-import { getData } from '../../services/storageService';
 
 
 const chartStyles = {
@@ -77,24 +76,17 @@ export default class WeightAnalysisScreen extends Component {
   }
 
   componentWillMount() {
-    setTimeout(() => {
-      getData('chartData').then((data) => {
-        if (!data) return;
+    this.setState({ data: this.props.screenProps.weight });
 
-        this.setState({ data: data.weight });
-
-        const lastElement = data.weight[data.weight.length - 1].x;
-        getData('user').then((user) => {
-          const weightData = user.gender === 'male' ? WEIGHT.MALE : WEIGHT.FEMALE;
-          if (lastElement < 36) {
-            const defaultData = weightData.filter(d => d.x < lastElement + 6);
-            this.setState({ defaultData });
-          } else {
-            this.setState({ defaultData: weightData });
-          }
-        });
-      });
-    }, 800);
+    const gender = this.props.screenProps.gender;
+    const lastElement =  this.props.screenProps.weight[ this.props.screenProps.weight.length - 1].x;
+    const weightData = gender === 'male' ? WEIGHT.MALE : WEIGHT.FEMALE;
+    if (lastElement < 36) {
+      const defaultData = weightData.filter(d => d.x < lastElement + 6);
+      this.setState({ defaultData });
+    } else {
+      this.setState({ defaultData: weightData });
+    }
   }
 
   getTickValues() {
@@ -105,14 +97,6 @@ export default class WeightAnalysisScreen extends Component {
   }
 
   render() {
-    if (this.state.data.length === 0 || this.state.defaultData.length === 0) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
-          <ActivityIndicator size={50} color={COLOR.PRIMARY} />
-        </View>
-      );
-    }
-
     return (
       <ScrollView>
         <VictoryChart

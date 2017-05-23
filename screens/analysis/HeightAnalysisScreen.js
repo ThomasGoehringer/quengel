@@ -76,24 +76,17 @@ export default class HeightAnalysisScreen extends Component {
   }
 
   componentWillMount() {
-    setTimeout(() => {
-      getData('chartData').then((data) => {
-        if (!data) return;
+    this.setState({ data: this.props.screenProps.height });
 
-        this.setState({ data: data.height });
-
-        const lastElement = data.height[data.height.length - 1].x;
-        getData('user').then((user) => {
-          const heightData = user.gender === 'male' ? HEIGHT.MALE : HEIGHT.FEMALE;
-          if (lastElement < 36) {
-            const defaultData = heightData.filter(d => d.x < lastElement + 6);
-            this.setState({ defaultData });
-          } else {
-            this.setState({ defaultData: heightData });
-          }
-        });
-      });
-    }, 800);
+    const gender = this.props.screenProps.gender;
+    const lastElement = this.props.screenProps.height[this.props.screenProps.height.length - 1].x;
+    const heightData = gender === 'male' ? HEIGHT.MALE : HEIGHT.FEMALE;
+    if (lastElement < 36) {
+      const defaultData = heightData.filter(d => d.x < lastElement + 6);
+      this.setState({ defaultData });
+    } else {
+      this.setState({ defaultData: heightData });
+    }
   }
 
   getTickValues() {
@@ -104,11 +97,6 @@ export default class HeightAnalysisScreen extends Component {
   }
 
   render() {
-    if (this.state.data.length === 0 || this.state.defaultData.length === 0) {
-      return (
-        <Text>a</Text>
-      );
-    }
     return (
       <ScrollView>
         <Text>Height Statistics</Text>

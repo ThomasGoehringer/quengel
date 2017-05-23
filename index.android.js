@@ -11,7 +11,7 @@ import {
   Icon
 } from 'native-base';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import { NavigationComponent } from 'react-native-material-bottom-navigation'
+import { NavigationComponent } from 'react-native-material-bottom-navigation';
 import moment from 'moment';
 import 'moment/locale/de';
 import { COLOR } from './config/globals';

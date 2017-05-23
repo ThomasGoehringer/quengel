@@ -8,43 +8,133 @@ import {
   VictoryLine,
   VictoryArea,
   VictoryGroup,
-  VictoryScatter
+  VictoryScatter,
+  VictoryAxis,
+  VictoryContainer
 } from 'victory-native';
+import Table from '../../components/Table';
+import { COLOR } from '../../config/globals';
+import { HEADCIRCUMFERENCE } from '../../config/defaultData';
 
+
+const chartStyles = {
+  xAxis: {
+    axis: {
+      fill: 'transparent',
+      stroke: COLOR.SECONDARY,
+      strokeWidth: 2,
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round'
+    }
+  },
+  yAxis: {
+    axis: {
+      fill: 'transparent',
+      stroke: COLOR.SECONDARY,
+      strokeWidth: 2,
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round'
+    },
+    grid: {
+      fill: COLOR.PRIMARY,
+      stroke: COLOR.PRIMARY,
+      opacity: 0.7
+    }
+  },
+  area: {
+    data: {
+      fill: COLOR.LAVENDEL,
+      opacity: 0.5
+    }
+  },
+  line: {
+    data: {
+      stroke: COLOR.SECONDARY,
+      strokeWidth: 2
+    }
+  },
+  scatter: {
+    data: {
+      fill: COLOR.SECONDARY
+    }
+  }
+};
 
 export default class DiapersAnalysisScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Windeln'
+    tabBarLabel: 'Kopfumfang'
   };
 
-  render() {
-    const data = [
-      {lineY: 4, x: 1, y: 10, _y0: 3},
-      {lineY: 4, x: 2, y: 5, _y0: 2},
-      {lineY: 4, x: 3, y: 3, _y0: 1},
-      {lineY: 4, x: 4, y: 5, _y0: 2},
-      {lineY: 4, x: 5, y: 2, _y0: 1},
-      {lineY: 4, x: 6, y: 4, _y0: 2},
-      {lineY: 4, x: 7, y: 5, _y0: 2}
-    ];
+  constructor() {
+    super();
+    this.state = {
+      data: [],
+      defaultData: [],
+      scrollEnabled: false
+    };
+  }
 
+  componentWillMount() {
+    this.setState({ data: this.props.screenProps.weight });
+
+    const gender = this.props.screenProps.gender;
+    const lastElement = this.props.screenProps.weight[this.props.screenProps.weight.length - 1].x;
+    const weightData = gender === 'male' ? HEADCIRCUMFERENCE.MALE : HEADCIRCUMFERENCE.FEMALE;
+    if (lastElement < 36) {
+      const defaultData = weightData.filter(d => d.x < lastElement + 2);
+      this.setState({ defaultData });
+    } else {
+      this.setState({ defaultData: weightData });
+    }
+  }
+
+  getTickValues() {
+    return this.state.defaultData.reduce((acc, val) => {
+      acc.push(val.x);
+      return acc;
+    }, []);
+  }
+
+  render() {
     return (
       <ScrollView>
-        <Text>Weight Statistics</Text>
-        <VictoryChart>
+        <Text>Diapers Statistics</Text>
+        <VictoryChart
+          containerComponent={
+            <VictoryContainer
+              onTouchStart={() => this.setState({ scrollEnabled: false })}
+              onTouchEnd={() => this.setState({ scrollEnabled: false })}
+            />
+          }
+        >
+          <VictoryArea
+            data={this.state.defaultData}
+            style={chartStyles.area}
+          />
+          <VictoryAxis
+            style={chartStyles.xAxis}
+            tickCount={10}
+            tickValues={this.getTickValues()}
+          />
+          <VictoryAxis
+            dependentAxis
+            style={chartStyles.yAxis}
+            tickCount={10}
+          />
           <VictoryGroup
-            data={data}
-            y={(d) => (d.lineY)}
+            data={this.state.data}
+            y={d => (d.y)}
           >
-            <VictoryLine />
+            <VictoryLine
+              style={chartStyles.line}
+            />
             <VictoryScatter
               size={3}
+              style={chartStyles.scatter}
             />
           </VictoryGroup>
-          <VictoryArea
-            data={data}
-          />
         </VictoryChart>
+        <Table data={this.state.data} />
       </ScrollView>
     );
   }
