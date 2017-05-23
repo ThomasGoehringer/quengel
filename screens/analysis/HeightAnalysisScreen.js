@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
   Text,
-  ScrollView
+  ScrollView,
+  View,
+  ActivityIndicator
 } from 'react-native';
 import {
   VictoryChart,
@@ -97,6 +99,14 @@ export default class HeightAnalysisScreen extends Component {
   }
 
   render() {
+    if (this.state.data.length < 2) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10 }}>
+          <Text>Nicht genügend Einträge vorhanden</Text>
+        </View>
+      );
+    }
+
     return (
       <ScrollView>
         <Text>Height Statistics</Text>
