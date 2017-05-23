@@ -22,9 +22,11 @@ export default class AnalysisScreen extends Component {
   componentWillMount() {
     getData('user').then((user) => {
       getCharts(user.jwt).then((charts) => {
+        const dateOfBirth = moment(user.dateOfBirth, 'DD.MM.YYYY').format();
+
+        // Weight data
         const weightBadges = charts.filter(badge => badge.badgeType === 'weight');
         const chartDataWeight = weightBadges.reduce((acc, weightBadge) => {
-          const dateOfBirth = moment(user.dateOfBirth, 'DD.MM.YYYY').format();
           const dateDiff = moment(weightBadge.createdAt).diff(dateOfBirth, 'days') / 30;
           const data = {
             x: dateDiff,
@@ -35,8 +37,22 @@ export default class AnalysisScreen extends Component {
           return acc;
         }, []);
 
+        // Height data
+        const heightBadges = charts.filter(badge => badge.badgeType === 'height');
+        const chartDataHeight = heightBadges.reduce((acc, heightBadge) => {
+          const dateDiff = moment(heightBadge.createdAt).diff(dateOfBirth, 'days') / 30;
+          const data = {
+            x: dateDiff,
+            y: Number(heightBadge.value)
+          };
+
+          acc.push(data);
+          return acc;
+        }, []);
+
         const chartData = {
-          weight: chartDataWeight
+          weight: chartDataWeight,
+          height: chartDataHeight
         };
 
         setData('chartData', chartData);
@@ -57,9 +73,9 @@ export default class AnalysisScreen extends Component {
 
 const AnalysisNavigator = TabNavigator({
   WeightAnalysis: { screen: WeightAnalysisScreen },
-  DiapersAnalysis: { screen: DiapersAnalysisScreen },
+  HeightAnalysis: { screen: HeightAnalysisScreen },
   HeadCircumferenceAnalysis: { screen: HeadCircumferenceAnalysisScreen },
-  HeightAnalysis: { screen: HeightAnalysisScreen }
+  DiapersAnalysis: { screen: DiapersAnalysisScreen }
 }, {
   tabBarOptions: {
     activeTintColor: COLOR.SECONDARY,
