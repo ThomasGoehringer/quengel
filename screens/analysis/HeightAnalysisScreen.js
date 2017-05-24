@@ -9,13 +9,11 @@ import {
   VictoryChart,
   VictoryLine,
   VictoryArea,
-  VictoryGroup,
-  VictoryScatter,
   VictoryAxis,
   VictoryContainer
 } from 'victory-native';
 import Table from '../../components/Table';
-import { COLOR } from '../../config/globals';
+import { COLOR, FONTSIZE } from '../../config/globals';
 import { HEIGHT } from '../../config/defaultData';
 import { getData } from '../../services/storageService';
 import { getCharts } from '../../services/databaseService';
@@ -26,41 +24,48 @@ const chartStyles = {
   xAxis: {
     axis: {
       fill: 'transparent',
-      stroke: COLOR.SECONDARY,
-      strokeWidth: 2,
+      stroke: COLOR.DARKGRAY,
+      strokeWidth: 1,
       strokeLinecap: 'round',
       strokeLinejoin: 'round'
+    },
+    tickLabels: {
+      fill: COLOR.TEXT,
+      fontSize: FONTSIZE.CAPTION
+    },
+    axisLabel: {
+      padding: 30,
+      fontSize: FONTSIZE.CAPTION,
+      fill: COLOR.TEXT
     }
   },
   yAxis: {
     axis: {
       fill: 'transparent',
-      stroke: COLOR.SECONDARY,
-      strokeWidth: 2,
+      stroke: null,
+      strokeWidth: 0,
       strokeLinecap: 'round',
       strokeLinejoin: 'round'
     },
     grid: {
-      fill: COLOR.PRIMARY,
-      stroke: COLOR.PRIMARY,
-      opacity: 0.7
+      stroke: COLOR.DARKGRAY,
+      opacity: 0.1
+    },
+    tickLabels: {
+      fill: COLOR.TEXT,
+      fontSize: FONTSIZE.CAPTION
     }
   },
   area: {
     data: {
-      fill: COLOR.LAVENDEL,
+      fill: COLOR.MEASUREMENT,
       opacity: 0.5
     }
   },
   line: {
     data: {
-      stroke: COLOR.SECONDARY,
+      stroke: COLOR.DARKGRAY,
       strokeWidth: 2
-    }
-  },
-  scatter: {
-    data: {
-      fill: COLOR.SECONDARY
     }
   }
 };
@@ -143,6 +148,7 @@ export default class HeightAnalysisScreen extends Component {
         }
       >
         <VictoryChart
+          padding={{ left: 40, top: 20, bottom: 65, right: 20 }}
           containerComponent={
             <VictoryContainer
               onTouchStart={() => this.setState({ scrollEnabled: false })}
@@ -155,27 +161,23 @@ export default class HeightAnalysisScreen extends Component {
             style={chartStyles.area}
           />
           <VictoryAxis
+            label="Monat"
             style={chartStyles.xAxis}
             tickCount={10}
             tickValues={this.getTickValues()}
           />
           <VictoryAxis
+            offsetX={35}
             dependentAxis
             style={chartStyles.yAxis}
             tickCount={10}
           />
-          <VictoryGroup
+          <VictoryLine
             data={this.state.data}
             y={d => (d.y)}
-          >
-            <VictoryLine
-              style={chartStyles.line}
-            />
-            <VictoryScatter
-              size={3}
-              style={chartStyles.scatter}
-            />
-          </VictoryGroup>
+            style={chartStyles.line}
+            interpolation="cardinal"
+          />
         </VictoryChart>
         <Table data={this.state.data} />
       </ScrollView>

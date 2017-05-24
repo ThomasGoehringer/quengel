@@ -9,11 +9,7 @@ import {
   VictoryChart,
   VictoryLine,
   VictoryArea,
-  VictoryGroup,
-  VictoryScatter,
   VictoryAxis,
-  VictoryLegend,
-  VictoryLabel,
   VictoryContainer
 } from 'victory-native';
 import Table from '../../components/Table';
@@ -70,11 +66,6 @@ const chartStyles = {
     data: {
       stroke: COLOR.DARKGRAY,
       strokeWidth: 2
-    }
-  },
-  scatter: {
-    data: {
-      fill: COLOR.DARKGRAY
     }
   }
 };
@@ -165,7 +156,6 @@ export default class WeightAnalysisScreen extends Component {
             />
           }
         >
-          <VictoryLabel style={{ color: 'red' }} />
           <VictoryArea
             data={this.state.defaultData}
             style={chartStyles.area}
