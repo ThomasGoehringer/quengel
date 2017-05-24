@@ -6,8 +6,10 @@ import {
   ScrollView,
   Text,
   Button,
+  Image,
   TextInput,
-  Keyboard
+  Keyboard,
+  TouchableOpacity
 } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import DatePicker from 'react-native-datepicker';
@@ -18,7 +20,7 @@ import databaseService from '../services/databaseService';
 import { enableNotifications } from '../services/notificationService';
 import { getData, setData } from '../services/storageService';
 import { COLOR, FONTSIZE } from '../config/globals';
-
+import profile from '../assets/images/quengel_thumb.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -73,6 +75,15 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     marginBottom: 20
+  },
+  imageContainer: {
+    alignItems: 'center',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    marginBottom: 20
   }
 });
 
@@ -86,7 +97,8 @@ export default class CreateProfileScreen extends Component {
     this.state = {
       name: '',
       gender: 'male',
-      dateOfBirth: moment().format('DD.MM.YYYY')
+      dateOfBirth: moment().format('DD.MM.YYYY'),
+      avatar: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTabPress = this.handleTabPress.bind(this);
@@ -99,7 +111,8 @@ export default class CreateProfileScreen extends Component {
       const profileData = {
         name: this.state.name,
         gender: this.state.gender,
-        dateOfBirth: this.state.dateOfBirth
+        dateOfBirth: this.state.dateOfBirth,
+        avatar: this.state.avatar
       };
 
       databaseService.createProfile(profileData, data.jwt).then(() => {
@@ -146,6 +159,20 @@ export default class CreateProfileScreen extends Component {
         <Text style={styles.text}>
           Trage die wichtigsten Dinge deines quengels hier ein um danach direkt loslegen zu können.
         </Text>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity
+            style={styles.image}
+            onPress={() => navigate('Camera', {
+              handlePhoto: path => this.setState({ avatar: path })
+            })}
+          >
+            <Image
+              resizeMode={this.state.imagePath !== '' ? 'cover' : 'contain'}
+              style={styles.image}
+              source={this.state.avatar !== '' ? { uri: this.state.avatar } : profile}
+            />
+          </TouchableOpacity>
+        </View>
         <SegmentedControlTab
           tabsContainerStyle={styles.tabs}
           tabStyle={{ borderColor: COLOR.SECONDARY }}
