@@ -63,6 +63,11 @@ const styles = StyleSheet.create({
   boldFont_right: {
     justifyContent: 'flex-end',
     textAlign: 'right'
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 100
   }
 });
 
@@ -298,8 +303,7 @@ export default class Profile extends Component {
             />
           </View>
         </View>
-
-        <View style={[styles.itemContainer, { paddingBottom: 20 }]}>
+        <View style={[styles.itemContainer, { paddingLeft: 35, paddingRight: 35, paddingBottom: 20, justifyContent: 'space-between' }]}>
           <Button
             color={COLOR.SECONDARY}
             onPress={() => this.handleSubmit()}
