@@ -17,6 +17,7 @@ module.exports = {
     LAVENDEL: '#dfb3e2'
   },
   FONTSIZE: {
+    DISPLAY2: 45,
     DISPLAY1: 34,
     HEADLINE: 24,
     SUBHEADING: 16,

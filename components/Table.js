@@ -34,24 +34,12 @@ const styles = StyleSheet.create({
 });
 
 export default class Table extends Component {
-  constructor() {
-    super();
-    this.state = {
-      tableData: []
-    };
-  }
-
-  componentWillMount() {
-    const tableData = this.props.data.reverse();
-    this.setState({ tableData });
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        {this.state.tableData.map((badge, i) =>
+        {this.props.data.map((badge, i) =>
           <View
-            style={i === this.state.tableData.length - 1 ? styles.rowLast : styles.row}
+            style={i === this.props.data.length - 1 ? styles.rowLast : styles.row}
             key={badge.createdAt}
           >
             <Text style={styles.column}>{moment(badge.createdAt).format('DD MMMM YYYY')}</Text>

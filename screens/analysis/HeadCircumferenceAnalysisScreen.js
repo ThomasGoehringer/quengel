@@ -59,7 +59,7 @@ const chartStyles = {
   area: {
     data: {
       fill: COLOR.MEASUREMENT,
-      opacity: 0.5
+      opacity: 0.7
     }
   },
   line: {
@@ -79,6 +79,7 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
     super();
     this.state = {
       data: [],
+      tableData: [],
       defaultData: [],
       scrollEnabled: false
     };
@@ -106,7 +107,8 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
       getCharts(user.jwt).then((charts) => {
         const gender = { gender: user.gender };
         const chartData = transformCharts(user, charts);
-        this.setState({ data: Object.assign(chartData.headCircumference, gender) });
+        const mergedData = Object.assign(chartData.weight, gender);
+        this.setState({ data: mergedData, tableData: mergedData.reverse() });
       });
     });
   }
@@ -178,7 +180,7 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
             interpolation="cardinal"
           />
         </VictoryChart>
-        <Table data={this.state.data} />
+        <Table data={this.state.tableData} />
       </ScrollView>
     );
   }
