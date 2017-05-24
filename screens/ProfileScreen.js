@@ -14,7 +14,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getData, removeData, setData } from '../services/storageService';
-import { createProfile } from '../services/databaseService';
+import { createProfile, getProfile } from '../services/databaseService';
 import { enableNotifications } from '../services/notificationService';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
@@ -89,7 +89,7 @@ export default class Profile extends Component {
       modalVisible: false,
       activeModal: '',
       notificationsEnabled: true,
-      avatar: ''
+      avatar: 'Profile'
     };
 
     this.handleNotificationSwitchChange = this.handleNotificationSwitchChange.bind(this);
@@ -104,8 +104,13 @@ export default class Profile extends Component {
         name: user.name,
         gender: user.gender,
         dateOfBirth: user.dateOfBirth,
-        email: user.email,
-        avatar: user.avatar
+        email: user.email
+      });
+
+      getProfile(user.jwt).then((profileData) => {
+        this.setState({
+          avatar: profileData.avatar
+        });
       });
     });
 
