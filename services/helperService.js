@@ -60,9 +60,7 @@ function transformCharts(user, charts) {
   // Diapers data
   const diapersBadges = charts.filter(badge => badge.badgeType === 'diapers');
   const chartDataDiapers = diapersBadges.reduce((acc, diapersBadge) => {
-    const date = moment(diapersBadge.createdAt);
     const data = {
-      x: date,
       y: Number(diapersBadge.value),
       unit: diapersBadge.unit,
       createdAt: diapersBadge.createdAt
@@ -72,11 +70,57 @@ function transformCharts(user, charts) {
     return acc;
   }, []);
 
+  const chartDataDiapersMerged = [];
+  chartDataDiapers.forEach((sourceRow) => {
+    if (!chartDataDiapersMerged.some(row => (
+      moment(row.createdAt).format('DD MMMM YYYY') === moment(sourceRow.createdAt).format('DD MMMM YYYY')
+    ))) {
+      chartDataDiapersMerged.push({
+        y: sourceRow.y,
+        unit: sourceRow.unit,
+        createdAt: sourceRow.createdAt
+      });
+    } else {
+      const targetRow = chartDataDiapersMerged.filter(tRow => (moment(tRow.createdAt).format('DD MMMM YYYY') === moment(sourceRow.createdAt).format('DD MMMM YYYY')))[0];
+      targetRow.y += sourceRow.y;
+    }
+  });
+
+  // Hydration data
+  const hydrationBadges = charts.filter(badge => badge.badgeType === 'hydration');
+  const chartDataHydration = hydrationBadges.reduce((acc, hydrationBadge) => {
+    const data = {
+      y: Number(hydrationBadge.value),
+      unit: hydrationBadge.unit,
+      createdAt: hydrationBadge.createdAt
+    };
+
+    acc.push(data);
+    return acc;
+  }, []);
+
+  const chartDataHydrationMerged = [];
+  chartDataHydration.forEach((sourceRow) => {
+    if (!chartDataHydrationMerged.some(row => (
+      moment(row.createdAt).format('DD MMMM YYYY') === moment(sourceRow.createdAt).format('DD MMMM YYYY')
+    ))) {
+      chartDataHydrationMerged.push({
+        y: sourceRow.y,
+        unit: sourceRow.unit,
+        createdAt: sourceRow.createdAt
+      });
+    } else {
+      const targetRow = chartDataHydrationMerged.filter(tRow => (moment(tRow.createdAt).format('DD MMMM YYYY') === moment(sourceRow.createdAt).format('DD MMMM YYYY')))[0];
+      targetRow.y += sourceRow.y;
+    }
+  });
+
   return {
     weight: chartDataWeight,
     height: chartDataHeight,
     headCircumference: chartDataHeadCircumference,
-    diapers: chartDataDiapers
+    diapers: chartDataDiapersMerged,
+    hydration: chartDataHydrationMerged
   };
 }
 

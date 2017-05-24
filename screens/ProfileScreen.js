@@ -11,7 +11,6 @@ import {
   Image,
   ToastAndroid
 } from 'react-native';
-import { Thumbnail } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getData, removeData, setData } from '../services/storageService';

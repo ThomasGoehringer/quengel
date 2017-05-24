@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 120,
-    backgroundColor: 'rgba(194, 123, 160, 0.7)'
+    backgroundColor: 'rgba(111, 168, 221, 0.7)'
   },
   column: {
     flex: 1
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class DiapersAnalysisScreen extends Component {
+export default class HydrationAnalysisScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Windeln'
+    tabBarLabel: 'Fläschchen'
   };
 
   constructor() {
@@ -53,8 +53,8 @@ export default class DiapersAnalysisScreen extends Component {
 
   componentWillMount() {
     this.setState({
-      data: this.props.screenProps.diapers,
-      tableData: this.props.screenProps.diapers.reverse()
+      data: this.props.screenProps.hydration,
+      tableData: this.props.screenProps.hydration.reverse()
     });
   }
 
@@ -63,7 +63,7 @@ export default class DiapersAnalysisScreen extends Component {
       getCharts(user.jwt).then((charts) => {
         const gender = { gender: user.gender };
         const chartData = transformCharts(user, charts);
-        const mergedData = Object.assign(chartData.diapers, gender);
+        const mergedData = Object.assign(chartData.hydration, gender);
         this.setState({ data: mergedData, tableData: mergedData.reverse() });
       });
     });
@@ -107,7 +107,7 @@ export default class DiapersAnalysisScreen extends Component {
         </ScrollView>
       );
     }
-
+    
     return (
       <ScrollView
         refreshControl={
