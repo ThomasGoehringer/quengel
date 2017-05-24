@@ -214,8 +214,9 @@ export default class Profile extends Component {
             <Image
               resizeMode={this.state.avatar !== '' ? 'cover' : 'contain'}
               style={styles.image}
-              source={this.state.imagePath !== '' ? { uri: this.state.avatar } : profile}
+              source={this.state.avatar !== '' ? { uri: this.state.avatar } : profile}
             />
+            {this.handleSubmit()}
           </TouchableOpacity>
         </View>
 
