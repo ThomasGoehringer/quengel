@@ -307,13 +307,7 @@ export default class Profile extends Component {
             />
           </View>
         </View>
-        <View style={[styles.itemContainer, { paddingLeft: 35, paddingRight: 35, paddingBottom: 20, justifyContent: 'space-between' }]}>
-          <Button
-            color={COLOR.SECONDARY}
-            onPress={() => this.handleSubmit()}
-            style={styles.button}
-            title="Bestätigen"
-          />
+        <View style={[styles.itemContainer, {  paddingBottom: 20 }]}>
           <Button
             title="Abmelden"
             color={COLOR.SECONDARY}
