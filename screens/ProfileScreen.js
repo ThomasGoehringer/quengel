@@ -8,8 +8,7 @@ import {
   StyleSheet,
   ScrollView,
   Switch,
-  Image,
-  ToastAndroid
+  Image
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -179,19 +178,17 @@ export default class Profile extends Component {
   handleSubmit() {
     getData('user').then((data) => {
       const profileData = {
+        name: this.state.name,
+        gender: this.state.gender,
+        dateOfBirth: this.state.dateOfBirth,
         avatar: this.state.avatar
       };
 
       createProfile(profileData, data.jwt).then(() => {
         const mergedData = Object.assign(data, profileData);
-        setData('user', mergedData).then(() => {
-          ToastAndroid.show('Die Änderungen sind gespeichert.', ToastAndroid.SHORT);
-        });
+        setData('user', mergedData);
       });
     });
-
-    // Enable Notifications by default
-    enableNotifications(true);
   }
 
   render() {
