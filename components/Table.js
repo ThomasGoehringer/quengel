@@ -55,7 +55,7 @@ export default class Table extends Component {
             key={badge.createdAt}
           >
             <Text style={styles.column}>{moment(badge.createdAt).format('DD MMMM YYYY')}</Text>
-            <Text style={[styles.column, { textAlign: 'right' }]}>{`${badge.y} ${badge.unit}`}</Text>
+            <Text style={[styles.column, { textAlign: 'right' }]}>{`${badge.y} ${badge.unit ? badge.unit : ''}`}</Text>
           </View>
         )}
       </View>

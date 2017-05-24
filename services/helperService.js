@@ -57,10 +57,26 @@ function transformCharts(user, charts) {
     return acc;
   }, []);
 
+  // Diapers data
+  const diapersBadges = charts.filter(badge => badge.badgeType === 'diapers');
+  const chartDataDiapers = diapersBadges.reduce((acc, diapersBadge) => {
+    const date = moment(diapersBadge.createdAt);
+    const data = {
+      x: date,
+      y: Number(diapersBadge.value),
+      unit: diapersBadge.unit,
+      createdAt: diapersBadge.createdAt
+    };
+
+    acc.push(data);
+    return acc;
+  }, []);
+
   return {
     weight: chartDataWeight,
     height: chartDataHeight,
-    headCircumference: chartDataHeadCircumference
+    headCircumference: chartDataHeadCircumference,
+    diapers: chartDataDiapers
   };
 }
 
