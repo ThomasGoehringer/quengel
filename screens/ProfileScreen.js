@@ -7,12 +7,15 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Switch
+  Switch,
+  Image,
+  ToastAndroid
 } from 'react-native';
 import { Thumbnail } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getData, removeData } from '../services/storageService';
+import { getData, removeData, setData } from '../services/storageService';
+import { createProfile } from '../services/databaseService';
 import { enableNotifications } from '../services/notificationService';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
@@ -60,6 +63,11 @@ const styles = StyleSheet.create({
   boldFont_right: {
     justifyContent: 'flex-end',
     textAlign: 'right'
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 100
   }
 });
 
@@ -81,20 +89,24 @@ export default class Profile extends Component {
       email: '',
       modalVisible: false,
       activeModal: '',
-      notificationsEnabled: true
+      notificationsEnabled: true,
+      avatar: ''
     };
 
     this.handleNotificationSwitchChange = this.handleNotificationSwitchChange.bind(this);
     this.handleModalSubmit = this.handleModalSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   componentWillMount() {
-    getData('user').then((data) => {
+    getData('user').then((user) => {
       this.setState({
-        name: data.name,
-        gender: data.gender,
-        dateOfBirth: data.dateOfBirth,
-        email: data.email
+        name: user.name,
+        gender: user.gender,
+        dateOfBirth: user.dateOfBirth,
+        email: user.email,
+        avatar: user.avatar
       });
     });
 
@@ -160,9 +172,26 @@ export default class Profile extends Component {
     }
   }
 
+  handleSubmit() {
+    getData('user').then((data) => {
+      const profileData = {
+        avatar: this.state.avatar
+      };
+
+      createProfile(profileData, data.jwt).then(() => {
+        const mergedData = Object.assign(data, profileData);
+        setData('user', mergedData).then(() => {
+          ToastAndroid.show('Die Änderungen sind gespeichert.', ToastAndroid.SHORT);
+        });
+      });
+    });
+
+    // Enable Notifications by default
+    enableNotifications(true);
+  }
 
   render() {
-    const { goBack } = this.props.navigation;
+    const { navigate } = this.props.navigation;
 
     if (this.state.loading) {
       return (
@@ -175,15 +204,18 @@ export default class Profile extends Component {
     return (
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.thumbnailContainer}>
-          <Thumbnail
-            size={100}
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 100
-            }}
-            source={profile}
-          />
+          <TouchableOpacity
+            style={styles.image}
+            onPress={() => navigate('Camera', {
+              handlePhoto: path => this.setState({ avatar: path })
+            })}
+          >
+            <Image
+              resizeMode={this.state.avatar !== '' ? 'cover' : 'contain'}
+              style={styles.image}
+              source={this.state.imagePath !== '' ? { uri: this.state.avatar } : profile}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.itemContainer}>
@@ -271,8 +303,13 @@ export default class Profile extends Component {
             />
           </View>
         </View>
-
-        <View style={[styles.itemContainer, { paddingBottom: 20 }]}>
+        <View style={[styles.itemContainer, { paddingLeft: 35, paddingRight: 35, paddingBottom: 20, justifyContent: 'space-between' }]}>
+          <Button
+            color={COLOR.SECONDARY}
+            onPress={() => this.handleSubmit()}
+            style={styles.button}
+            title="Bestätigen"
+          />
           <Button
             title="Abmelden"
             color={COLOR.SECONDARY}
