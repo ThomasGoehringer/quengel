@@ -36,6 +36,11 @@ const chartStyles = {
     tickLabels: {
       fill: COLOR.TEXT,
       fontSize: FONTSIZE.CAPTION
+    },
+    axisLabel: {
+      padding: 30,
+      fontSize: FONTSIZE.CAPTION,
+      fill: COLOR.TEXT
     }
   },
   yAxis: {
@@ -152,7 +157,7 @@ export default class WeightAnalysisScreen extends Component {
         }
       >
         <VictoryChart
-          padding={{ left: 60, top: 20, bottom: 45, right: 20 }}
+          padding={{ left: 60, top: 20, bottom: 65, right: 20 }}
           containerComponent={
             <VictoryContainer
               onTouchStart={() => this.setState({ scrollEnabled: false })}
@@ -166,6 +171,7 @@ export default class WeightAnalysisScreen extends Component {
             style={chartStyles.area}
           />
           <VictoryAxis
+            label="Monat"
             style={chartStyles.xAxis}
             tickCount={10}
             tickValues={this.getTickValues()}
@@ -176,19 +182,12 @@ export default class WeightAnalysisScreen extends Component {
             style={chartStyles.yAxis}
             tickCount={10}
           />
-          <VictoryGroup
+          <VictoryLine
             data={this.state.data}
             y={d => (d.y)}
-          >
-            <VictoryLine
-              style={chartStyles.line}
-              interpolation="cardinal"
-            />
-            <VictoryScatter
-              size={3}
-              style={chartStyles.scatter}
-            />
-          </VictoryGroup>
+            style={chartStyles.line}
+            interpolation="cardinal"
+          />
         </VictoryChart>
         <Table data={this.state.data} />
       </ScrollView>
