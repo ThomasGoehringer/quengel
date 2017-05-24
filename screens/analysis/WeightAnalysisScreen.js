@@ -86,7 +86,10 @@ export default class WeightAnalysisScreen extends Component {
   }
 
   componentWillMount() {
-    this.setState({ data: this.props.screenProps.weight });
+    this.setState({
+      data: this.props.screenProps.weight,
+      tableData: this.props.screenProps.weight.reverse()
+    });
 
     const gender = this.props.screenProps.gender;
     let lastElement = 0;

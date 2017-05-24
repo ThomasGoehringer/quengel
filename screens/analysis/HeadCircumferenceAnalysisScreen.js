@@ -86,7 +86,10 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
   }
 
   componentWillMount() {
-    this.setState({ data: this.props.screenProps.headCircumference });
+    this.setState({
+      data: this.props.screenProps.headCircumference,
+      tableData: this.props.screenProps.headCircumference.reverse()
+    });
 
     const gender = this.props.screenProps.gender;
     let lastElement = 0;
@@ -107,7 +110,7 @@ export default class HeadCircumferenceAnalysisScreen extends Component {
       getCharts(user.jwt).then((charts) => {
         const gender = { gender: user.gender };
         const chartData = transformCharts(user, charts);
-        const mergedData = Object.assign(chartData.weight, gender);
+        const mergedData = Object.assign(chartData.headCircumference, gender);
         this.setState({ data: mergedData, tableData: mergedData.reverse() });
       });
     });
