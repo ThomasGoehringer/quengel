@@ -93,6 +93,8 @@ export default class CreateProfileScreen extends Component {
   }
 
   handleSubmit() {
+    if (this.state.name === '') return;
+
     getData('user').then((data) => {
       const profileData = {
         name: this.state.name,
