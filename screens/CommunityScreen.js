@@ -2,11 +2,37 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Button
+  StyleSheet,
+  Button,
+  Image
 } from 'react-native';
 import { scheduleNotification } from '../services/notificationService';
+import logo from '../assets/images/logo.png';
+
+const styles = StyleSheet.create({
+  logo: {
+    marginLeft: 15,
+    justifyContent: 'center',
+    width: 60,
+    height: 60
+  }
+});
 
 export default class CommunityScreen extends Component {
+  static navigationOptions = {
+    headerTitle: 'Community',
+    headerLeft: <Image source={logo} style={styles.logo} />,
+    headerRight: null,
+    headerTitleStyle: {
+      fontWeight: 'normal',
+      marginLeft: 40
+    },
+    headerStyle: {
+      backgroundColor: '#FFFFFF'
+    },
+    headerTintColor: 'rgb(60,60,60)'
+  }
+
   render() {
     return (
       <View>

@@ -62,8 +62,12 @@ const styles = StyleSheet.create({
 
 export default class MilestoneEntryScreen extends Component {
   static navigationOptions = {
-    headerTitle: null,
+    headerTitle: 'Meilenstein hinzufügen',
     headerRight: null,
+    headerTitleStyle: {
+      color: COLOR.DARKGRAY,
+      fontWeight: 'normal'
+    },
     headerStyle: {
       backgroundColor: '#FFFFFF'
     },

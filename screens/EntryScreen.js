@@ -20,7 +20,6 @@ import NursingModal from '../components/NursingModal';
 import MealsModal from '../components/MealsModal';
 import { COLOR, FONTSIZE } from '../config/globals';
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5
   },
   button: {
-    color: COLOR.SECONDARY,
+    color: COLOR.DARKGRAY,
     alignSelf: 'center',
     marginRight: 10,
     fontWeight: 'bold',
@@ -107,8 +106,12 @@ const styles = StyleSheet.create({
 
 export default class EntryScreen extends Component {
   static navigationOptions = {
-    headerTitle: null,
+    headerTitle: 'Tagebuch hinzufügen',
     headerRight: null,
+    headerTitleStyle: {
+      color: COLOR.DARKGRAY,
+      fontWeight: 'normal'
+    },
     headerStyle: {
       backgroundColor: '#FFFFFF'
     },

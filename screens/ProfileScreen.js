@@ -71,8 +71,12 @@ const styles = StyleSheet.create({
 
 export default class Profile extends Component {
   static navigationOptions = {
-    headerTitle: null,
+    headerTitle: 'Profil',
     headerRight: null,
+    headerTitleStyle: {
+      color: COLOR.DARKGRAY,
+      fontWeight: 'normal'
+    },
     headerStyle: {
       backgroundColor: '#FFFFFF'
     },

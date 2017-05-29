@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   StatusBar,
   View,
+  StyleSheet,
+  Image,
   ActivityIndicator
 } from 'react-native';
 import { TabNavigator } from 'react-navigation';
@@ -14,7 +16,16 @@ import { COLOR } from '../../config/globals';
 import { getCharts } from '../../services/databaseService';
 import { getData } from '../../services/storageService';
 import { transformCharts } from '../../services/helperService';
+import logo from '../../assets/images/logo.png';
 
+const styles = StyleSheet.create({
+  logo: {
+    marginLeft: 15,
+    justifyContent: 'center',
+    width: 60,
+    height: 60
+  }
+});
 
 export default class AnalysisScreen extends Component {
   constructor() {
@@ -22,6 +33,20 @@ export default class AnalysisScreen extends Component {
     this.state = {
       data: null
     };
+  }
+
+  static navigationOptions = {
+    headerTitle: 'Analyse',
+    headerLeft: <Image source={logo} style={styles.logo} />,
+    headerRight: null,
+    headerTitleStyle: {
+      fontWeight: 'normal',
+      marginLeft: 40
+    },
+    headerStyle: {
+      backgroundColor: '#FFFFFF',
+    },
+    headerTintColor: 'rgb(60,60,60)'
   }
 
   componentWillMount() {

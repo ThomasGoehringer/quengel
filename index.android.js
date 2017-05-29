@@ -195,7 +195,7 @@ const MainNavigator = StackNavigator({
       backgroundColor: COLOR.PRIMARY
     },
     headerTintColor: '#FFFFFF',
-    headerTitle: <Image source={logo} style={styles.logo} />,
+    // headerLeft: <Image source={logo} style={styles.logo} />,
     headerRight: (
       <Button
         transparent
