@@ -10,6 +10,8 @@ import {
   Button,
   Icon
 } from 'native-base';
+import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconFN from 'react-native-vector-icons/Foundation';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { NavigationComponent } from 'react-native-material-bottom-navigation';
 import moment from 'moment';
@@ -30,6 +32,7 @@ import CameraScreen from './screens/CameraScreen';
 import { getData } from './services/storageService';
 import { notificationsEnabled, scheduleNotification } from './services/notificationService';
 import logo from './assets/images/logo.png';
+import IconCM from './assets/icons/feet.png';
 
 moment.locale('de');
 
@@ -97,8 +100,8 @@ class Quenqel extends Component {
 
 const BottomBarNavigator = TabNavigator({
   Log: { screen: LogScreen },
-  Community: { screen: CommunityScreen },
   Milestone: { screen: MilestoneScreen },
+  Community: { screen: CommunityScreen },
   Analysis: { screen: AnalysisScreen }
 }, {
   backBehavior: 'none',
@@ -119,23 +122,23 @@ const BottomBarNavigator = TabNavigator({
       tabs: {
         Log: {
           label: ' ',
-          icon: <Icon style={{ color: COLOR.SECONDARY }} name="book" />,
-          activeIcon: <Icon style={{ color: '#FFFFFF' }} name="book" />
-        },
-        Community: {
-          label: ' ',
-          icon: <Icon style={{ color: COLOR.SECONDARY }} name="people" />,
-          activeIcon: <Icon style={{ color: '#FFFFFF' }} name="people" />
+          icon: <IconMC size={25} style={{ color: COLOR.SECONDARY }} name="calendar-today" />,
+          activeIcon: <IconMC size={25} style={{ color: '#FFFFFF' }} name="calendar-today" />
         },
         Milestone: {
           label: ' ',
-          icon: <Icon style={{ color: COLOR.SECONDARY }} name="trophy" />,
-          activeIcon: <Icon style={{ color: '#FFFFFF' }} name="trophy" />
+          icon: <IconFN size={25} style={{ color: COLOR.SECONDARY }} name="star" />,
+          activeIcon: <IconFN size={25} style={{ color: '#FFFFFF' }} name="star" />
+        },
+        Community: {
+          label: ' ',
+          icon: <IconFN size={25} style={{ color: COLOR.SECONDARY }} name="torsos-all-female" />,
+          activeIcon: <IconFN size={25} style={{ color: COLOR.SECONDARY }} name="torsos-all-female" />
         },
         Analysis: {
           label: ' ',
-          icon: <Icon style={{ color: COLOR.SECONDARY }} name="stats" />,
-          activeIcon: <Icon style={{ color: '#FFFFFF' }} name="stats" />
+          icon: <IconFN size={25} style={{ color: COLOR.SECONDARY }} name="graph-bar" />,
+          activeIcon: <IconFN size={25} style={{ color: '#FFFFFF' }} name="graph-bar" />
         }
       }
     }
