@@ -6,6 +6,9 @@ import {
   Button,
   Image
 } from 'react-native';
+import { Icon } from 'native-base';
+import Fab from 'react-native-action-button';
+import { COLOR } from '../config/globals';
 import { scheduleNotification } from '../services/notificationService';
 import logo from '../assets/images/logo.png';
 
@@ -33,18 +36,35 @@ export default class CommunityScreen extends Component {
     headerTintColor: 'rgb(60,60,60)'
   }
 
+  updateEntries() {
+    // TODO
+  }
+
+  renderFab() {
+    const { navigate } = this.props.navigation;
+
+    return (
+      <Fab
+        onPress={() => {
+          navigate('Question', {
+            handleEntry: () => this.updateEntries()
+          });
+        }}
+        degrees={0}
+        backgroundTappable
+        buttonColor={COLOR.PRIMARY}
+        useNativeFeedback
+      >
+        <Icon name="add" />
+      </Fab>
+    );
+  }
+
   render() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <Text>Screen Community</Text>
-        <Button
-          title="Show Notification"
-          onPress={() => scheduleNotification(
-            'Heute schon alles erfasst?',
-            'Erfasse schnell die wichtigsten Angaben über deinen Tag und halte deine Auswertungen aktuell',
-            new Date(Date.now() + (5 * 1000))
-          )}
-        />
+        { this.renderFab() }
       </View>
     );
   }

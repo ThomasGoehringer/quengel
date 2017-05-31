@@ -119,7 +119,7 @@ export default class MilestoneEntryScreen extends Component {
       getData('user')
         .then(user => databaseService.createMilestone(entry, user.jwt))
         .then(() => {
-          // Callback to LogScreen
+          // Callback to MilestoneScreen
           this.props.navigation.state.params.handleEntry();
           goBack();
         });

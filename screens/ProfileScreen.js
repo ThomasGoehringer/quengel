@@ -14,7 +14,7 @@ import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getData, removeData, setData } from '../services/storageService';
 import { createProfile, getProfile } from '../services/databaseService';
-import { enableNotifications } from '../services/notificationService';
+import { enableNotifications, scheduleNotification } from '../services/notificationService';
 import NameModal from '../components/NameModal';
 import GenderModal from '../components/GenderModal';
 import BirthdayModal from '../components/BirthdayModal';
@@ -327,7 +327,14 @@ export default class Profile extends Component {
             }}
           />
         </View>
-
+        <Button
+          title="Show Notification"
+          onPress={() => scheduleNotification(
+            'Heute schon alles erfasst?',
+            'Erfasse schnell die wichtigsten Angaben über deinen Tag und halte deine Auswertungen aktuell',
+            new Date(Date.now() + (5 * 1000))
+          )}
+        />
         {this.renderNameModal()}
         {this.renderGenderModal()}
         {this.renderBirthdayModal()}

@@ -71,6 +71,42 @@ async function getCharts(jwt) {
   }
 }
 
+async function createQuestion(question, jwt) {
+  try {
+    const options = {
+      method: 'post',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      },
+      body: JSON.stringify(question)
+    };
+
+    await fetch(`${serverAPI}/quengel/question`, options);
+    return null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+async function createComment(comment, jwt) {
+  try {
+    const options = {
+      method: 'post',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      },
+      body: JSON.stringify(comment)
+    };
+
+    await fetch(`${serverAPI}/quengel/comment`, options);
+    return null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 async function register(user) {
   try {
     const response = await fetch(`${serverAPI}/quengel/user/register`, {
@@ -145,5 +181,7 @@ module.exports = {
   register,
   login,
   createProfile,
-  getProfile
+  getProfile,
+  createQuestion,
+  createComment
 };

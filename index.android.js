@@ -29,6 +29,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 import CreateProfileScreen from './screens/CreateProfileScreen';
 import CameraScreen from './screens/CameraScreen';
+import QuestionScreen from './screens/QuestionScreen';
 import { getData } from './services/storageService';
 import { notificationsEnabled, scheduleNotification } from './services/notificationService';
 import logo from './assets/images/logo.png';
@@ -154,7 +155,8 @@ const OnboardingNavigator = StackNavigator({
   Profile: { screen: ProfileScreen },
   Entry: { screen: EntryScreen },
   Camera: { screen: CameraScreen },
-  MilestoneEntry: { screen: MilestoneEntryScreen }
+  MilestoneEntry: { screen: MilestoneEntryScreen },
+  Question: { screen: QuestionScreen }
 }, {
   headerMode: 'screen',
   navigationOptions: ({ navigation }) => ({
@@ -187,7 +189,8 @@ const MainNavigator = StackNavigator({
   Profile: { screen: ProfileScreen },
   Entry: { screen: EntryScreen },
   Camera: { screen: CameraScreen },
-  MilestoneEntry: { screen: MilestoneEntryScreen }
+  MilestoneEntry: { screen: MilestoneEntryScreen },
+  Question: { screen: QuestionScreen }
 }, {
   headerMode: 'screen',
   navigationOptions: ({ navigation }) => ({
