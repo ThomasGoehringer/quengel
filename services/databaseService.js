@@ -96,7 +96,7 @@ async function createQuestion(question, jwt) {
   }
 }
 
-async function getQuestions(jwt) {
+async function getQuestions(category, jwt) {
   try {
     const options = {
       method: 'get',
@@ -105,7 +105,7 @@ async function getQuestions(jwt) {
       }
     };
 
-    const response = await fetch(`${serverAPI}/quengel/questions`, options);
+    const response = await fetch(`${serverAPI}/quengel/questions/${category}`, options);
     return response.json();
   } catch (err) {
     console.error(err);
