@@ -6,13 +6,20 @@ import {
 } from 'react-native';
 import { Card } from 'native-base';
 import moment from 'moment';
+import { COLOR } from '../config/globals';
 
 const styles = StyleSheet.create({
   timeDiff: {
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    color: COLOR.SECONDARY
+  },
+  question: {
+    color: 'rgb(50,50,50)',
+    marginVertical: 5
   },
   comments: {
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    color: COLOR.SECONDARY
   }
 });
 
@@ -22,7 +29,7 @@ export default class QuestionEntry extends Component {
     const createdAt = moment(date);
     const diff = moment.duration(currDate.diff(createdAt)).hours();
 
-    if (diff === 0) {
+    if (diff < 1) {
       return 'vor weniger als 1 h';
     } else if (diff >= 24) {
       const days = Math.floor(diff / 24);

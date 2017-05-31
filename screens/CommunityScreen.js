@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Picker,
+  StyleSheet,
   FlatList
 } from 'react-native';
 import { Icon } from 'native-base';
@@ -10,6 +11,13 @@ import { COLOR } from '../config/globals';
 import { getData } from '../services/storageService';
 import { getQuestions } from '../services/databaseService';
 import QuestionEntry from '../components/QuestionEntry';
+
+const styles = StyleSheet.create({
+  picker: {
+    marginHorizontal: 15,
+    marginTop: 10
+  }
+});
 
 export default class CommunityScreen extends Component {
   static navigationOptions = {
@@ -50,6 +58,11 @@ export default class CommunityScreen extends Component {
       });
   }
 
+  handleCategoryPick(category) {
+    this.setState({ category });
+    this.updateEntries();
+  }
+
   renderListItem(data) {
     return <QuestionEntry navigation={this.props.navigation} {...data.item} />;
   }
@@ -78,8 +91,9 @@ export default class CommunityScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Picker
-          onValueChange={category => this.setState({ category })}
+          onValueChange={category => this.handleCategoryPick(category)}
           selectedValue={this.state.category}
+          style={styles.picker}
         >
           <Picker.Item label="Ernährung" value="food" />
           <Picker.Item label="Alltagshelfer" value="helpers" />
