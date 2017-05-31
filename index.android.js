@@ -134,7 +134,7 @@ const BottomBarNavigator = TabNavigator({
         Community: {
           label: ' ',
           icon: <IconFN size={25} style={{ color: COLOR.SECONDARY }} name="torsos-all-female" />,
-          activeIcon: <IconFN size={25} style={{ color: COLOR.SECONDARY }} name="torsos-all-female" />
+          activeIcon: <IconFN size={25} style={{ color: '#FFFFFF' }} name="torsos-all-female" />
         },
         Analysis: {
           label: ' ',

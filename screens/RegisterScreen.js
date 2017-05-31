@@ -72,17 +72,21 @@ export default class RegisterScreen extends Component {
 
       if (user.email.length === 0 || user.password.length === 0) return;
 
-      databaseService.register(user).then((jwt) => {
-        const data = {
-          email: this.state.email,
-          jwt
-        };
+      databaseService.register(user)
+        .then((jwt) => {
+          const data = {
+            email: this.state.email,
+            jwt
+          };
 
-        setData('user', data).then(() => {
-          Keyboard.dismiss();
-          this.props.navigation.navigate('CreateProfile');
+          setData('user', data).then(() => {
+            Keyboard.dismiss();
+            this.props.navigation.navigate('CreateProfile');
+          });
+        })
+        .catch(() => {
+          ToastAndroid.show('Dieser Nutzer existiert bereits!', ToastAndroid.SHORT);
         });
-      });
     } else {
       ToastAndroid.show('Passwörter stimmen nich überein!', ToastAndroid.SHORT);
     }

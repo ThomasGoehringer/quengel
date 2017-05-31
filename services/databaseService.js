@@ -1,6 +1,13 @@
 import { serverAPI } from '../config/api';
 
 
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.status);
+  }
+  return response;
+}
+
 async function getEntries(jwt) {
   try {
     const options = {
@@ -107,34 +114,42 @@ async function createComment(comment, jwt) {
   }
 }
 
-async function register(user) {
-  try {
-    const response = await fetch(`${serverAPI}/quengel/user/register`, {
-      method: 'post',
-      body: JSON.stringify(user)
-    });
+function register(user) {
+  const options = {
+    method: 'post',
+    body: JSON.stringify(user)
+  };
 
-    const json = await response.json();
-    return json.token;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+  return new Promise((resolve, reject) => {
+    fetch(`${serverAPI}/quengel/user/register`, options)
+    .then(handleErrors)
+    .then(response => response.json())
+    .then((json) => {
+      resolve(json.token);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 async function login(user) {
-  try {
-    const response = await fetch(`${serverAPI}/quengel/user/login`, {
-      method: 'post',
-      body: JSON.stringify(user)
-    });
+  const options = {
+    method: 'post',
+    body: JSON.stringify(user)
+  };
 
-    const json = await response.json();
-    return json.token;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+  return new Promise((resolve, reject) => {
+    fetch(`${serverAPI}/quengel/user/login`, options)
+    .then(handleErrors)
+    .then(response => response.json())
+    .then((json) => {
+      resolve(json.token);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+  });
 }
 
 async function createProfile(userProfile, jwt) {

@@ -73,27 +73,31 @@ export default class LoginScreen extends Component {
       return;
     }
 
-    databaseService.login(user).then((jwt) => {
-      databaseService.getProfile(jwt).then((profileData) => {
-        const data = {
-          email: this.state.email,
-          jwt
-        };
-        const mergedData = Object.assign(data, profileData);
-        setData('user', mergedData).then(() => {
-          Keyboard.dismiss();
+    databaseService.login(user)
+      .then((jwt) => {
+        databaseService.getProfile(jwt).then((profileData) => {
+          const data = {
+            email: this.state.email,
+            jwt
+          };
+          const mergedData = Object.assign(data, profileData);
+          setData('user', mergedData).then(() => {
+            Keyboard.dismiss();
 
-          // Reset the StackNavigator to MainScreen
-          const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-              NavigationActions.navigate({ routeName: 'Main' })
-            ]
+            // Reset the StackNavigator to MainScreen
+            const resetAction = NavigationActions.reset({
+              index: 0,
+              actions: [
+                NavigationActions.navigate({ routeName: 'Main' })
+              ]
+            });
+            this.props.navigation.dispatch(resetAction);
           });
-          this.props.navigation.dispatch(resetAction);
         });
+      })
+      .catch(() => {
+        ToastAndroid.show('Username oder Passwort ist falsch!', ToastAndroid.SHORT);
       });
-    });
   }
 
   render() {
