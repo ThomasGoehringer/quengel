@@ -49,7 +49,6 @@ export default class CommunityScreen extends Component {
   }
 
   updateEntries() {
-    console.log('UPDATING');
     getData('user')
       .then((user) => {
         getQuestions(this.state.category, user.jwt)
@@ -65,10 +64,9 @@ export default class CommunityScreen extends Component {
   }
 
   renderListItem(data) {
-    console.log(data);
     return (
       <QuestionEntry
-        onUpdate={() => { console.log('asdasdasdds'); this.updateEntries(); }}
+        onUpdate={() => this.updateEntries()}
         navigation={this.props.navigation}
         {...data.item}
       />
@@ -96,7 +94,6 @@ export default class CommunityScreen extends Component {
   }
 
   render() {
-    console.log('RERENDER');
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>

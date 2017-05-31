@@ -46,7 +46,7 @@ export default class QuestionEntry extends Component {
       createdAt: this.props.createdAt,
       question: this.props.text,
       comments: this.props.comments,
-      handleEntry: () => { console.log('asdasdasdds'); this.props.onUpdate(); }
+      handleEntry: () => this.props.onUpdate()
     });
   }
 
