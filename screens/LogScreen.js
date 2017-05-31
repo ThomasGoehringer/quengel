@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
-  Image,
   FlatList
 } from 'react-native';
 import { Icon } from 'native-base';
@@ -13,7 +12,7 @@ import { COLOR } from '../config/globals';
 import LogEntry from '../components/LogEntry';
 import databaseService from '../services/databaseService';
 import { getData } from '../services/storageService';
-import logo from '../assets/images/logo.png';
+
 
 const styles = StyleSheet.create({
   logo: {
@@ -35,11 +34,10 @@ export default class LogScreen extends Component {
 
   static navigationOptions = {
     headerTitle: 'Tagebuch',
-    headerLeft: <Image source={logo} style={styles.logo} />,
     headerRight: null,
     headerTitleStyle: {
       fontWeight: 'normal',
-      marginLeft: 40
+      marginLeft: 15
     },
     headerStyle: {
       backgroundColor: '#FFFFFF'
