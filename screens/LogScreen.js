@@ -12,8 +12,7 @@ import Fab from 'react-native-action-button';
 import { COLOR } from '../config/globals';
 import LogEntry from '../components/LogEntry';
 import databaseService from '../services/databaseService';
-import { getData, setData } from '../services/storageService';
-import { transformCharts } from '../services/helperService';
+import { getData } from '../services/storageService';
 import logo from '../assets/images/logo.png';
 
 const styles = StyleSheet.create({
@@ -48,7 +47,7 @@ export default class LogScreen extends Component {
     headerTintColor: 'rgb(60,60,60)'
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.updateEntries();
   }
 
