@@ -96,14 +96,33 @@ async function createQuestion(question, jwt) {
   }
 }
 
-async function createComment(comment, jwt) {
+async function getQuestions(jwt) {
+  try {
+    const options = {
+      method: 'get',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      }
+    };
+
+    const response = await fetch(`${serverAPI}/quengel/questions`, options);
+    return response.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+async function createComment(questionId, comment, jwt) {
+  const requestBody = Object.assign(comment, { id: questionId });
+
   try {
     const options = {
       method: 'post',
       headers: {
         Authorization: `JWT ${jwt}`
       },
-      body: JSON.stringify(comment)
+      body: JSON.stringify(requestBody)
     };
 
     await fetch(`${serverAPI}/quengel/comment`, options);
@@ -198,5 +217,6 @@ module.exports = {
   createProfile,
   getProfile,
   createQuestion,
+  getQuestions,
   createComment
 };
