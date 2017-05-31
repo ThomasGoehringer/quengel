@@ -21,7 +21,6 @@ import BirthdayModal from '../components/BirthdayModal';
 import profile from '../assets/images/quengel_thumb.png';
 import { COLOR } from '../config/globals';
 
-
 const styles = StyleSheet.create({
   thumbnailContainer: {
     flexDirection: 'row',
@@ -92,7 +91,7 @@ export default class Profile extends Component {
       modalVisible: false,
       activeModal: '',
       notificationsEnabled: true,
-      avatar: 'Profile'
+      avatar: ''
     };
 
     this.handleNotificationSwitchChange = this.handleNotificationSwitchChange.bind(this);
@@ -309,7 +308,7 @@ export default class Profile extends Component {
             />
           </View>
         </View>
-        <View style={[styles.itemContainer, {  paddingBottom: 20 }]}>
+        <View style={[styles.itemContainer, { paddingBottom: 20 }]}>
           <Button
             title="Abmelden"
             color={COLOR.SECONDARY}
