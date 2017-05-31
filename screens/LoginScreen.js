@@ -76,6 +76,18 @@ export default class LoginScreen extends Component {
     databaseService.login(user)
       .then((jwt) => {
         databaseService.getProfile(jwt).then((profileData) => {
+          if (Object.keys(profileData).length === 0) {
+            // Reset the StackNavigator to MainScreen
+            const resetAction = NavigationActions.reset({
+              index: 0,
+              actions: [
+                NavigationActions.navigate({ routeName: 'CreateProfile' })
+              ]
+            });
+            this.props.navigation.dispatch(resetAction);
+            return;
+          }
+
           const data = {
             email: this.state.email,
             jwt

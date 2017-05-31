@@ -57,7 +57,7 @@ class Quenqel extends Component {
 
   componentWillMount() {
     getData('user').then((data) => {
-      if (!data) {
+      if (!data || !data.name) {
         this.setState({ onboarding: true });
       }
     });
