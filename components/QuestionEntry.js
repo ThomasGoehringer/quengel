@@ -34,7 +34,13 @@ export default class QuestionEntry extends Component {
 
   handlePress() {
     const { navigate } = this.props.navigation;
-    navigate('QuestionDetail', { questionId: this.props._id });
+    navigate('QuestionDetail', {
+      questionId: this.props._id,
+      category: this.props.category,
+      createdAt: this.props.createdAt,
+      question: this.props.text,
+      comments: this.props.comments
+    });
   }
 
   render() {

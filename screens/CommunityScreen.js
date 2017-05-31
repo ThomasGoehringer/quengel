@@ -33,7 +33,6 @@ export default class CommunityScreen extends Component {
       loading: true
     };
     this.renderListItem = this.renderListItem.bind(this);
-    this.updateEntries = this.updateEntries.bind(this);
   }
 
   componentWillMount() {
