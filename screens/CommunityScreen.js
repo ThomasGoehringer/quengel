@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {
   View,
   Picker,
-  FlatList
+  StyleSheet,
+  FlatList,
+  ActivityIndicator
 } from 'react-native';
 import { Icon } from 'native-base';
 import Fab from 'react-native-action-button';
@@ -10,6 +12,13 @@ import { COLOR } from '../config/globals';
 import { getData } from '../services/storageService';
 import { getQuestions } from '../services/databaseService';
 import QuestionEntry from '../components/QuestionEntry';
+
+const styles = StyleSheet.create({
+  picker: {
+    marginHorizontal: 15,
+    marginTop: 2
+  }
+});
 
 export default class CommunityScreen extends Component {
   static navigationOptions = {
@@ -49,6 +58,11 @@ export default class CommunityScreen extends Component {
       });
   }
 
+  handleCategoryPick(category) {
+    this.setState({ category });
+    this.updateEntries();
+  }
+
   renderListItem(data) {
     return <QuestionEntry navigation={this.props.navigation} {...data.item} />;
   }
@@ -74,22 +88,33 @@ export default class CommunityScreen extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+          <ActivityIndicator size={50} color={COLOR.PRIMARY} />
+        </View>
+      );
+    }
+
     return (
       <View style={{ flex: 1 }}>
-        <Picker
-          onValueChange={category => this.setState({ category })}
-          selectedValue={this.state.category}
-        >
-          <Picker.Item label="Ernährung" value="food" />
-          <Picker.Item label="Alltagshelfer" value="helpers" />
-          <Picker.Item label="Entwicklung & Erziehung" value="development" />
-          <Picker.Item label="Familie, Partnerschaft & Sex" value="family" />
-          <Picker.Item label="Baby & Job" value="work" />
-          <Picker.Item label="Rechtliches" value="legal" />
-          <Picker.Item label="Muttiforum" value="mother" />
-          <Picker.Item label="Biete / Suche" value="offerSearch" />
-          <Picker.Item label="Kontakte" value="contacts" />
-        </Picker>
+        <View style={{backgroundColor: '#fff', elevation: 3, height: 50}}>
+          <Picker
+            onValueChange={category => this.handleCategoryPick(category)}
+            selectedValue={this.state.category}
+            style={styles.picker}
+          >
+            <Picker.Item label="Ernährung" value="food" />
+            <Picker.Item label="Alltagshelfer" value="helpers" />
+            <Picker.Item label="Entwicklung & Erziehung" value="development" />
+            <Picker.Item label="Familie, Partnerschaft & Sex" value="family" />
+            <Picker.Item label="Baby & Job" value="work" />
+            <Picker.Item label="Rechtliches" value="legal" />
+            <Picker.Item label="Muttiforum" value="mother" />
+            <Picker.Item label="Biete / Suche" value="offerSearch" />
+            <Picker.Item label="Kontakte" value="contacts" />
+          </Picker>
+        </View>
         <FlatList
           style={{ paddingHorizontal: 10 }}
           data={this.state.questions}

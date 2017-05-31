@@ -1,6 +1,6 @@
 import PushNotification from 'react-native-push-notification';
 import { getData, setData } from '../services/storageService';
-
+import { COLOR } from '../config/globals';
 
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
@@ -28,6 +28,7 @@ function enableNotifications(enabled) {
 
 function scheduleNotification(title, message, date) {
   PushNotification.localNotificationSchedule({
+    color: COLOR.SECONDARY,
     title,
     message,
     date: new Date(date)
