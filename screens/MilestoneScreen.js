@@ -13,16 +13,6 @@ import { COLOR } from '../config/globals';
 import databaseService from '../services/databaseService';
 import { getData } from '../services/storageService';
 import MilestoneEntry from '../components/MilestoneEntry';
-import logo from '../assets/images/logo.png';
-
-const styles = StyleSheet.create({
-  logo: {
-    marginLeft: 15,
-    justifyContent: 'center',
-    width: 60,
-    height: 60
-  }
-});
 
 export default class MilestoneScreen extends Component {
   constructor() {
@@ -36,12 +26,11 @@ export default class MilestoneScreen extends Component {
   }
 
   static navigationOptions = {
-    headerTitle: 'Meilenstein',
-    headerLeft: <Image source={logo} style={styles.logo} />,
+    headerTitle: 'Meilensteine',
     headerRight: null,
     headerTitleStyle: {
       fontWeight: 'normal',
-      marginLeft: 40
+      marginLeft: 15
     },
     headerStyle: {
       backgroundColor: '#FFFFFF'

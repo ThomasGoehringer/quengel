@@ -14,23 +14,13 @@ import { getQuestions } from '../services/databaseService';
 import logo from '../assets/images/logo.png';
 import QuestionEntry from '../components/QuestionEntry';
 
-const styles = StyleSheet.create({
-  logo: {
-    marginLeft: 15,
-    justifyContent: 'center',
-    width: 60,
-    height: 60
-  }
-});
-
 export default class CommunityScreen extends Component {
   static navigationOptions = {
     headerTitle: 'Community',
-    headerLeft: <Image source={logo} style={styles.logo} />,
     headerRight: null,
     headerTitleStyle: {
       fontWeight: 'normal',
-      marginLeft: 40
+      marginLeft: 15
     },
     headerStyle: {
       backgroundColor: '#FFFFFF'

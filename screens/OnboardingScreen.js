@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   textWrap: {
     marginTop: 28,
     padding: 10,
+    paddingHorizontal: 20,
     alignItems: 'center'
   },
   textTitle: {
@@ -66,27 +67,29 @@ const styles = StyleSheet.create({
     height: 60
   },
   buttonIcon: {
+    marginTop: 12,
     color: COLOR.NURSING
   },
   dot: {
-    backgroundColor: COLOR.SECONDARY,
-    width: 12,
-    height: 12,
+    backgroundColor: '#000000',
+    opacity: 0.3,
+    width: 10,
+    height: 10,
     borderRadius: 12,
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 15
+    marginBottom: 25
   },
   activeDot: {
     backgroundColor: COLOR.WHITE,
-    width: 12,
-    height: 12,
+    width: 10,
+    height: 10,
     borderRadius: 12,
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
-    marginBottom: 15
+    marginBottom: 25
   }
 });
 
@@ -180,7 +183,7 @@ export default class OnboardingScreen extends Component {
               <Icon
                 style={styles.buttonIcon}
                 name="arrow-right-bold-circle"
-                size={60}
+                size={70}
               />
             </TouchableOpacity>
           </View>

@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
 
 export default class EntryScreen extends Component {
   static navigationOptions = {
-    headerTitle: 'Tagebuch hinzufügen',
+    headerTitle: 'Eintrag hinzufügen',
     headerRight: null,
     headerTitleStyle: {
       color: COLOR.DARKGRAY,
