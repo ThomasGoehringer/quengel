@@ -27,16 +27,15 @@ export default class QuestionEntry extends Component {
   calculateTime(date) {
     const currDate = moment();
     const createdAt = moment(date);
-    const diff = moment.duration(currDate.diff(createdAt)).hours();
+    const diffHours = moment.duration(currDate.diff(createdAt)).hours();
+    const diffDays = moment.duration(currDate.diff(createdAt)).days();
 
-    if (diff < 1) {
-      return 'vor weniger als 1 h';
-    } else if (diff >= 24) {
-      const days = Math.floor(diff / 24);
-      const hours = diff % 24;
-      return `vor ${days} d ${hours} h`;
+    if (diffDays > 0) {
+      return createdAt.format('DD MMM YY  hh:mm');
+    } else if (diffHours < 1) {
+      return 'weniger als 1 h';
     }
-    return `vor ${diff} h`;
+    return `${diffHours} h`;
   }
 
   handlePress() {
