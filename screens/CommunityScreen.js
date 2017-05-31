@@ -33,6 +33,7 @@ export default class CommunityScreen extends Component {
       loading: true
     };
     this.renderListItem = this.renderListItem.bind(this);
+    this.updateEntries = this.updateEntries.bind(this);
   }
 
   componentWillMount() {
@@ -42,7 +43,7 @@ export default class CommunityScreen extends Component {
   updateEntries() {
     getData('user')
       .then((user) => {
-        getQuestions(user.jwt)
+        getQuestions(this.state.category, user.jwt)
           .then((questions) => {
             this.setState({ loading: false, questions: questions.reverse() });
           });

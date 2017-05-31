@@ -113,8 +113,8 @@ async function getQuestions(jwt) {
   }
 }
 
-async function createComment(questionId, comment, jwt) {
-  const requestBody = Object.assign(comment, { id: questionId });
+async function createComment(questionId, text, jwt) {
+  const requestBody = { questionId, text };
 
   try {
     const options = {

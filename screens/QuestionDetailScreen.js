@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Picker,
-  FlatList
+  TextInput,
+  Button
 } from 'react-native';
 import { COLOR } from '../config/globals';
 import { getData } from '../services/storageService';
-import { getQuestions } from '../services/databaseService';
-import QuestionEntry from '../components/QuestionEntry';
+import { createComment } from '../services/databaseService';
+
 
 export default class QuestionDetailScreen extends Component {
   static navigationOptions = {
@@ -27,7 +27,8 @@ export default class QuestionDetailScreen extends Component {
   constructor() {
     super();
     this.state = {
-      questionId: ''
+      questionId: '',
+      comment: ''
     };
   }
 
@@ -35,9 +36,29 @@ export default class QuestionDetailScreen extends Component {
     this.setState({ questionId: this.props.navigation.state.params.questionId });
   }
 
+  handleSubmit() {
+    getData('user')
+      .then((user) => {
+        createComment(this.state.questionId, this.state.comment, user.jwt);
+      });
+  }
+
   render() {
     return (
-      <Text>{this.state.questionId}</Text>
+      <View>
+        <Text>{this.state.questionId}</Text>
+        <TextInput
+          onChangeText={comment => this.setState({ comment })}
+          placeholder="Kommentar hinzufügen"
+          selectionColor={COLOR.PRIMARY}
+          underlineColorAndroid={COLOR.SECONDARY}
+        />
+        <Button
+          color={COLOR.SECONDARY}
+          onPress={() => this.handleSubmit()}
+          title="Hinzufügen"
+        />
+      </View>
     );
   }
 }

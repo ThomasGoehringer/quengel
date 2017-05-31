@@ -102,7 +102,6 @@ export default class QuestionScreen extends Component {
           <Button
             color={COLOR.SECONDARY}
             onPress={() => this.handleSubmit()}
-            style={styles.button}
             title="Bestätigen"
           />
         </View>
