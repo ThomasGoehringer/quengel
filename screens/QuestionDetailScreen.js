@@ -1,15 +1,40 @@
 import React, { Component } from 'react';
 import {
+  Keyboard,
+  ScrollView,
   View,
   Text,
   TextInput,
-  Button
+  StyleSheet,
+  TouchableNativeFeedback
 } from 'react-native';
 import moment from 'moment';
-import { COLOR } from '../config/globals';
+import { COLOR, FONTSIZE } from '../config/globals';
 import { getData } from '../services/storageService';
 import { createComment } from '../services/databaseService';
 
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between'
+  },
+  textInputContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF'
+  },
+  textInput: {
+    flex: 1,
+    marginHorizontal: 5
+  },
+  button: {
+    color: COLOR.DARKGRAY,
+    alignSelf: 'center',
+    marginRight: 10,
+    fontWeight: 'bold',
+    fontSize: FONTSIZE.BODY
+  }
+});
 
 export default class QuestionDetailScreen extends Component {
   static navigationOptions = {
@@ -55,8 +80,10 @@ export default class QuestionDetailScreen extends Component {
     const commentText = this.state.comment;
     getData('user')
       .then((user) => {
-        createComment(this.state.questionId,
-           commentText, user.jwt);
+        createComment(this.state.questionId, commentText, user.jwt).then(() => {
+          // Callback to CommunityScreen
+          this.props.navigation.state.params.handleEntry();
+        });
       });
 
     // Update comment list to provide instant feedback
@@ -73,30 +100,43 @@ export default class QuestionDetailScreen extends Component {
 
   render() {
     return (
-      <View>
-        <Text>{this.state.question}</Text>
-        <Text>{this.state.createdAt}</Text>
-        <Text>{this.state.category}</Text>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <Text>{this.state.question}</Text>
+          <Text>{this.state.createdAt}</Text>
+          <Text>{this.state.category}</Text>
 
-        {this.state.comments.map(comment =>
-          <View key={comment.createdAt + comment.text}>
-            <Text>{comment.text}</Text>
-            <Text>{comment.createdAt}</Text>
-          </View>
-        )}
-
-        <TextInput
-          value={this.state.comment}
-          onChangeText={comment => this.setState({ comment })}
-          placeholder="Kommentar hinzufügen"
-          selectionColor={COLOR.PRIMARY}
-          underlineColorAndroid={COLOR.SECONDARY}
-        />
-        <Button
-          color={COLOR.SECONDARY}
-          onPress={() => this.handleSubmit()}
-          title="Hinzufügen"
-        />
+          {this.state.comments.map(comment =>
+            <View key={comment.createdAt + comment.text}>
+              <Text>{comment.text}</Text>
+              <Text>{comment.createdAt}</Text>
+            </View>
+          )}
+        </ScrollView>
+        <View
+          elevation={8}
+          style={styles.textInputContainer}
+        >
+          <TextInput
+            value={this.state.comment}
+            onChangeText={comment => this.setState({ comment })}
+            placeholder="Kommentar hinzufügen"
+            selectionColor={COLOR.PRIMARY}
+            style={styles.textInput}
+            underlineColorAndroid={COLOR.SECONDARY}
+          />
+          <TouchableNativeFeedback>
+            <Text
+              style={styles.button}
+              onPress={() => {
+                this.handleSubmit();
+                Keyboard.dismiss();
+              }}
+            >
+              FERTIG
+            </Text>
+          </TouchableNativeFeedback>
+        </View>
       </View>
     );
   }

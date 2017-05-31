@@ -49,6 +49,7 @@ export default class CommunityScreen extends Component {
   }
 
   updateEntries() {
+    console.log('UPDATING');
     getData('user')
       .then((user) => {
         getQuestions(this.state.category, user.jwt)
@@ -64,7 +65,14 @@ export default class CommunityScreen extends Component {
   }
 
   renderListItem(data) {
-    return <QuestionEntry navigation={this.props.navigation} {...data.item} />;
+    console.log(data);
+    return (
+      <QuestionEntry
+        onUpdate={() => { console.log('asdasdasdds'); this.updateEntries(); }}
+        navigation={this.props.navigation}
+        {...data.item}
+      />
+    );
   }
 
   renderFab() {
@@ -88,6 +96,7 @@ export default class CommunityScreen extends Component {
   }
 
   render() {
+    console.log('RERENDER');
     if (this.state.loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
@@ -98,7 +107,7 @@ export default class CommunityScreen extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={{backgroundColor: '#fff', elevation: 3, height: 50}}>
+        <View style={{ backgroundColor: '#fff', elevation: 3, height: 50 }}>
           <Picker
             onValueChange={category => this.handleCategoryPick(category)}
             selectedValue={this.state.category}
