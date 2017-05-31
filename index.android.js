@@ -30,10 +30,11 @@ import LoginScreen from './screens/LoginScreen';
 import CreateProfileScreen from './screens/CreateProfileScreen';
 import CameraScreen from './screens/CameraScreen';
 import QuestionScreen from './screens/QuestionScreen';
+import QuestionDetailScreen from './screens/QuestionDetailScreen';
 import { getData } from './services/storageService';
 import { notificationsEnabled, scheduleNotification } from './services/notificationService';
 import logo from './assets/images/logo.png';
-import IconCM from './assets/icons/feet.png';
+
 
 moment.locale('de');
 
@@ -156,7 +157,8 @@ const OnboardingNavigator = StackNavigator({
   Entry: { screen: EntryScreen },
   Camera: { screen: CameraScreen },
   MilestoneEntry: { screen: MilestoneEntryScreen },
-  Question: { screen: QuestionScreen }
+  Question: { screen: QuestionScreen },
+  QuestionDetail: { screen: QuestionDetailScreen }
 }, {
   headerMode: 'screen',
   navigationOptions: ({ navigation }) => ({
@@ -190,7 +192,8 @@ const MainNavigator = StackNavigator({
   Entry: { screen: EntryScreen },
   Camera: { screen: CameraScreen },
   MilestoneEntry: { screen: MilestoneEntryScreen },
-  Question: { screen: QuestionScreen }
+  Question: { screen: QuestionScreen },
+  QuestionDetail: { screen: QuestionDetailScreen }
 }, {
   headerMode: 'screen',
   navigationOptions: ({ navigation }) => ({

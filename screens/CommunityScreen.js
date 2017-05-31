@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import {
   View,
   Picker,
-  StyleSheet,
-  FlatList,
-  Image
+  FlatList
 } from 'react-native';
 import { Icon } from 'native-base';
 import Fab from 'react-native-action-button';
 import { COLOR } from '../config/globals';
 import { getData } from '../services/storageService';
 import { getQuestions } from '../services/databaseService';
-import logo from '../assets/images/logo.png';
 import QuestionEntry from '../components/QuestionEntry';
 
 export default class CommunityScreen extends Component {
@@ -35,6 +32,7 @@ export default class CommunityScreen extends Component {
       questions: [],
       loading: true
     };
+    this.renderListItem = this.renderListItem.bind(this);
   }
 
   componentWillMount() {
@@ -52,7 +50,7 @@ export default class CommunityScreen extends Component {
   }
 
   renderListItem(data) {
-    return <QuestionEntry {...data.item} />;
+    return <QuestionEntry navigation={this.props.navigation} {...data.item} />;
   }
 
   renderFab() {

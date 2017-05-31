@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import {
+  TouchableNativeFeedback,
+  Text,
+  StyleSheet
+} from 'react-native';
 import { Card } from 'native-base';
 import moment from 'moment';
 
@@ -28,20 +32,22 @@ export default class QuestionEntry extends Component {
     return `vor ${diff} h`;
   }
 
-  render() {
+  handlePress() {
     const { navigate } = this.props.navigation;
+    navigate('QuestionDetail', { questionId: this.props._id });
+  }
 
+  render() {
     return (
-      <Card style={{ padding: 15 }}>
-        <Text style={styles.timeDiff}>{this.calculateTime(this.props.createdAt)}</Text>
-        <Text>{this.props.text}</Text>
-        <Text
-          onPress={false}
-          style={styles.comments}
-        >
-          {this.props.comments.length} Kommentare
-        </Text>
-      </Card>
+      <TouchableNativeFeedback onPress={() => this.handlePress()}>
+        <Card style={{ padding: 15 }}>
+          <Text style={styles.timeDiff}>{this.calculateTime(this.props.createdAt)}</Text>
+          <Text>{this.props.text}</Text>
+          <Text style={styles.comments}>
+            {this.props.comments.length} Kommentare
+          </Text>
+        </Card>
+      </TouchableNativeFeedback>
     );
   }
 }
