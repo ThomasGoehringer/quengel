@@ -16,16 +16,6 @@ import { COLOR } from '../../config/globals';
 import { getCharts } from '../../services/databaseService';
 import { getData } from '../../services/storageService';
 import { transformCharts } from '../../services/helperService';
-import logo from '../../assets/images/logo.png';
-
-const styles = StyleSheet.create({
-  logo: {
-    marginLeft: 15,
-    justifyContent: 'center',
-    width: 60,
-    height: 60
-  }
-});
 
 export default class AnalysisScreen extends Component {
   constructor() {
@@ -36,12 +26,11 @@ export default class AnalysisScreen extends Component {
   }
 
   static navigationOptions = {
-    headerTitle: 'Analyse',
-    headerLeft: <Image source={logo} style={styles.logo} />,
+    headerTitle: 'Auswertungen',
     headerRight: null,
     headerTitleStyle: {
       fontWeight: 'normal',
-      marginLeft: 40
+      marginLeft: 15
     },
     headerStyle: {
       backgroundColor: '#FFFFFF',
