@@ -130,6 +130,23 @@ async function getUserQuestions(jwt) {
   }
 }
 
+async function getQuestionById(id, jwt) {
+  try {
+    const options = {
+      method: 'get',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      }
+    };
+
+    const response = await fetch(`${serverAPI}/quengel/question/${id}`, options);
+    return response.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 async function createComment(questionId, text, jwt) {
   const requestBody = { questionId, text };
 
@@ -236,5 +253,6 @@ module.exports = {
   createQuestion,
   getQuestions,
   getUserQuestions,
+  getQuestionById,
   createComment
 };

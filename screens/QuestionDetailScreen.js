@@ -7,12 +7,13 @@ import {
   TextInput,
   StyleSheet,
   ToastAndroid,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  RefreshControl
 } from 'react-native';
 import moment from 'moment';
 import { COLOR, FONTSIZE } from '../config/globals';
 import { getData } from '../services/storageService';
-import { createComment } from '../services/databaseService';
+import { createComment, getQuestionById } from '../services/databaseService';
 
 
 const styles = StyleSheet.create({
@@ -162,6 +163,16 @@ export default class QuestionDetailScreen extends Component {
     }
   }
 
+  updateQuestion() {
+    getData('user')
+      .then((user) => {
+        getQuestionById(this.state.questionId, user.jwt)
+          .then((question) => {
+            this.setState({ comments: question.comments.reverse() });
+          });
+      });
+  }
+
   renderListHeader() {
     return (
       <View elevation={3} style={{ backgroundColor: COLOR.SECONDARY, padding: 15 }}>
@@ -211,6 +222,13 @@ export default class QuestionDetailScreen extends Component {
           ItemSeparatorComponent={() => this.renderListSeparator()}
           ListHeaderComponent={() => this.renderListHeader()}
           ListFooterComponent={() => <View style={{ paddingTop: 10 }} />}
+          refreshControl={
+            <RefreshControl
+              colors={[COLOR.SECONDARY]}
+              refreshing={false}
+              onRefresh={() => this.updateQuestion()}
+            />
+          }
         />
         <View
           elevation={8}
