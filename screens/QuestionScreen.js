@@ -94,7 +94,6 @@ export default class QuestionScreen extends Component {
             <Picker.Item label="Baby & Job" value="work" />
             <Picker.Item label="Rechtliches" value="legal" />
             <Picker.Item label="Muttiforum" value="mother" />
-            <Picker.Item label="Biete / Suche" value="offerSearch" />
             <Picker.Item label="Kontakte" value="contacts" />
           </Picker>
           <TextInput

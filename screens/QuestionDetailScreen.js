@@ -136,11 +136,34 @@ export default class QuestionDetailScreen extends Component {
     this.setState({ comments: updatedComments, comment: '' });
   }
 
+  getCategory() {
+    switch (this.state.category) {
+      case 'food':
+        return 'Ernährung';
+      case 'helpers':
+        return 'Alltagshelfer';
+      case 'development':
+        return 'Entwicklung & Erziehung';
+      case 'family':
+        return 'Familie, Partnerschaft & Sex';
+      case 'work':
+        return 'Baby & Job';
+      case 'legal':
+        return 'Rechtliches';
+      case 'mother':
+        return 'Muttiforum';
+      case 'contacts':
+        return 'Kontakte';
+      default:
+        return '';
+    }
+  }
+
   renderListHeader() {
     return (
       <View elevation={3} style={{ backgroundColor: '#FFFFFF', padding: 15 }}>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.questionCategory}>{this.state.category}</Text>
+          <Text style={styles.questionCategory}>{this.getCategory()}</Text>
           <Text style={styles.questionDate}>{moment(this.state.createdAt).format('DD.MM.YY  hh:mm')}</Text>
         </View>
         <Text style={styles.questionHeadline}>{this.state.title}</Text>
