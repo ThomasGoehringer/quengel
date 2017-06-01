@@ -113,6 +113,23 @@ async function getQuestions(category, jwt) {
   }
 }
 
+async function getUserQuestions(jwt) {
+  try {
+    const options = {
+      method: 'get',
+      headers: {
+        Authorization: `JWT ${jwt}`
+      }
+    };
+
+    const response = await fetch(`${serverAPI}/quengel/user/questions`, options);
+    return response.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 async function createComment(questionId, text, jwt) {
   const requestBody = { questionId, text };
 
@@ -218,5 +235,6 @@ module.exports = {
   getProfile,
   createQuestion,
   getQuestions,
+  getUserQuestions,
   createComment
 };

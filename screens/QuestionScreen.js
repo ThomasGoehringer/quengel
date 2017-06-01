@@ -4,34 +4,35 @@ import {
   Picker,
   StyleSheet,
   ScrollView,
-  TextInput,
   Button,
-  ToastAndroid
+  ToastAndroid,
+  Text
 } from 'react-native';
-import { LAYOUT, COLOR } from '../config/globals';
+import { TextField } from 'react-native-material-textfield';
+import { LAYOUT, COLOR, FONTSIZE } from '../config/globals';
 import { getData } from '../services/storageService';
 import { createQuestion } from '../services/databaseService';
 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 10,
-    paddingBottom: 15
+    backgroundColor: '#fff',
+    flex: 1
   },
-  scrollView: {
+  pickerTitleContainer: {
+    backgroundColor: COLOR.SECONDARY,
+    paddingHorizontal: LAYOUT.PADDING,
+    paddingBottom: 10
+  },
+  picker: {
+    color: '#fff'
+  },
+  descriptionInputContainer: {
     paddingHorizontal: LAYOUT.PADDING
-  },
-  inputTitle: {
-    textAlignVertical: 'bottom'
-  },
-  inputDescription: {
-    height: 150,
-    textAlignVertical: 'bottom',
-    marginBottom: 10
   },
   buttonContainer: {
-    paddingHorizontal: LAYOUT.PADDING
+    paddingHorizontal: LAYOUT.PADDING,
+    marginBottom: 15
   }
 });
 
@@ -51,7 +52,8 @@ export default class QuestionScreen extends Component {
       category: 'food',
       title: '',
       text: '',
-      tags: []
+      tags: [],
+      height: 0
     };
   }
 
@@ -83,34 +85,49 @@ export default class QuestionScreen extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <Picker
-            onValueChange={category => this.setState({ category })}
-            selectedValue={this.state.category}
-          >
-            <Picker.Item label="Ernährung" value="food" />
-            <Picker.Item label="Alltagshelfer" value="helpers" />
-            <Picker.Item label="Entwicklung & Erziehung" value="development" />
-            <Picker.Item label="Familie, Partnerschaft & Sex" value="family" />
-            <Picker.Item label="Baby & Job" value="work" />
-            <Picker.Item label="Rechtliches" value="legal" />
-            <Picker.Item label="Muttiforum" value="mother" />
-            <Picker.Item label="Kontakte" value="contacts" />
-          </Picker>
-          <TextInput
-            onChangeText={value => this.setState({ title: value })}
-            placeholder="Titel der Frage"
-            selectionColor={COLOR.PRIMARY}
-            style={styles.inputTitle}
-            underlineColorAndroid={COLOR.SECONDARY}
-          />
-          <TextInput
-            multiline
-            onChangeText={value => this.setState({ text: value })}
-            placeholder="Gib deine Frage ein"
-            selectionColor={COLOR.PRIMARY}
-            style={styles.inputDescription}
-            underlineColorAndroid={COLOR.SECONDARY}
-          />
+          <View style={styles.pickerTitleContainer}>
+            <Picker
+              onValueChange={category => this.setState({ category })}
+              selectedValue={this.state.category}
+              style={styles.picker}
+            >
+              <Picker.Item label="Ernährung" value="food" />
+              <Picker.Item label="Alltagshelfer" value="helpers" />
+              <Picker.Item label="Entwicklung & Erziehung" value="development" />
+              <Picker.Item label="Familie, Partnerschaft & Sex" value="family" />
+              <Picker.Item label="Baby & Job" value="work" />
+              <Picker.Item label="Rechtliches" value="legal" />
+              <Picker.Item label="Muttiforum" value="mother" />
+              <Picker.Item label="Kontakte" value="contacts" />
+            </Picker>
+            <TextField
+              label="Titel"
+              onChangeText={value => this.setState({ title: value })}
+              textColor={COLOR.WHITE}
+              fontSize={FONTSIZE.HEADLINE}
+              tintColor={COLOR.WHITE}
+              baseColor={COLOR.PRIMARY}
+              value={this.state.title}
+            />
+          </View>
+          <View style={styles.descriptionInputContainer}>
+            <TextField
+              multiline
+              label="Frage"
+              onChange={(event) => {
+                this.setState({
+                  text: event.nativeEvent.text,
+                  height: event.nativeEvent.contentSize.height
+                });
+              }}
+              textColor={COLOR.SECONDARY}
+              fontSize={FONTSIZE.BODY}
+              tintColor={COLOR.SECONDARY}
+              baseColor={COLOR.PRIMARY}
+              value={this.state.text}
+              style={{ height: Math.max(35, this.state.height) }}
+            />
+          </View>
         </ScrollView>
         <View style={styles.buttonContainer}>
           <Button

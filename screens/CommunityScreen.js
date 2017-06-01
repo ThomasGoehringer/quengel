@@ -11,7 +11,7 @@ import { Icon } from 'native-base';
 import Fab from 'react-native-action-button';
 import { COLOR } from '../config/globals';
 import { getData } from '../services/storageService';
-import { getQuestions } from '../services/databaseService';
+import { getQuestions, getUserQuestions } from '../services/databaseService';
 import QuestionEntry from '../components/QuestionEntry';
 
 const styles = StyleSheet.create({
@@ -53,10 +53,17 @@ export default class CommunityScreen extends Component {
     this.setState({ loading: true });
     getData('user')
       .then((user) => {
-        getQuestions(this.state.category, user.jwt)
-          .then((questions) => {
-            this.setState({ loading: false, questions: questions.reverse() });
-          });
+        if (this.state.category === 'ownQuestions') {
+          getUserQuestions(user.jwt)
+            .then((questions) => {
+              this.setState({ loading: false, questions: questions.reverse() });
+            });
+        } else {
+          getQuestions(this.state.category, user.jwt)
+            .then((questions) => {
+              this.setState({ loading: false, questions: questions.reverse() });
+            });
+        }
       });
   }
 
@@ -112,6 +119,7 @@ export default class CommunityScreen extends Component {
             selectedValue={this.state.category}
             style={styles.picker}
           >
+            <Picker.Item label="Eigene Fragen" value="ownQuestions" />
             <Picker.Item label="Ernährung" value="food" />
             <Picker.Item label="Alltagshelfer" value="helpers" />
             <Picker.Item label="Entwicklung & Erziehung" value="development" />
