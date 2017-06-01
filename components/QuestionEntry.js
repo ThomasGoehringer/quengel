@@ -13,7 +13,7 @@ import { COLOR, FONTSIZE } from '../config/globals';
 const styles = StyleSheet.create({
   timeDiff: {
     textAlign: 'right',
-    flexShrink: 1,
+    flexGrow: 1,
     color: COLOR.SECONDARY
   },
   headerContainer: {
@@ -21,8 +21,7 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   questionTitle: {
-    flex: 1,
-    flexGrow: 1,
+    flexShrink: 1,
     color: COLOR.DARKGRAY,
     fontSize: FONTSIZE.SUBHEADING
   },
