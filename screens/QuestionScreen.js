@@ -22,7 +22,10 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingHorizontal: LAYOUT.PADDING
   },
-  textInput: {
+  inputTitle: {
+    textAlignVertical: 'bottom'
+  },
+  inputDescription: {
     height: 150,
     textAlignVertical: 'bottom',
     marginBottom: 10
@@ -46,7 +49,9 @@ export default class QuestionScreen extends Component {
     super();
     this.state = {
       category: 'food',
-      text: ''
+      title: '',
+      text: '',
+      tags: []
     };
   }
 
@@ -55,10 +60,13 @@ export default class QuestionScreen extends Component {
 
     const question = {
       category: this.state.category,
+      title: this.state.title,
       text: this.state.text
     };
 
-    if (this.state.text === '') {
+    if (this.state.title === '') {
+      ToastAndroid.show('Titel der Frage eingeben', ToastAndroid.SHORT);
+    } else if (this.state.text === '') {
       ToastAndroid.show('Fragetext eingeben', ToastAndroid.SHORT);
     } else {
       getData('user')
@@ -90,11 +98,18 @@ export default class QuestionScreen extends Component {
             <Picker.Item label="Kontakte" value="contacts" />
           </Picker>
           <TextInput
+            onChangeText={value => this.setState({ title: value })}
+            placeholder="Titel der Frage"
+            selectionColor={COLOR.PRIMARY}
+            style={styles.inputTitle}
+            underlineColorAndroid={COLOR.SECONDARY}
+          />
+          <TextInput
             multiline
             onChangeText={value => this.setState({ text: value })}
             placeholder="Gib deine Frage ein"
             selectionColor={COLOR.PRIMARY}
-            style={styles.textInput}
+            style={styles.inputDescription}
             underlineColorAndroid={COLOR.SECONDARY}
           />
         </ScrollView>

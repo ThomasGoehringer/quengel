@@ -48,7 +48,7 @@ export default class QuestionEntry extends Component {
       <TouchableNativeFeedback onPress={() => this.handlePress()}>
         <Card style={{ padding: 15 }}>
           <Text style={styles.timeDiff}>{this.calculateTime(this.props.createdAt)}</Text>
-          <Text>{this.props.text}</Text>
+          <Text style={styles.question}>{this.props.title}</Text>
           <Text style={styles.comments}>
             {this.props.comments.length} Kommentare
           </Text>
