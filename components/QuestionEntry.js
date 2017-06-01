@@ -31,7 +31,7 @@ export default class QuestionEntry extends Component {
     const diffDays = moment.duration(currDate.diff(createdAt)).days();
 
     if (diffDays > 0) {
-      return createdAt.format('DD MMM YY  hh:mm');
+      return createdAt.format('DD.MM.YY  hh:mm');
     } else if (diffHours < 1) {
       return 'weniger als 1 h';
     }
@@ -44,7 +44,8 @@ export default class QuestionEntry extends Component {
       questionId: this.props._id,
       category: this.props.category,
       createdAt: this.props.createdAt,
-      question: this.props.text,
+      text: this.props.text,
+      title: this.props.title,
       comments: this.props.comments,
       handleEntry: () => this.props.onUpdate()
     });

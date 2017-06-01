@@ -9,7 +9,6 @@ import {
   ToastAndroid,
   TouchableNativeFeedback
 } from 'react-native';
-import { Card } from 'native-base';
 import moment from 'moment';
 import { COLOR, FONTSIZE } from '../config/globals';
 import { getData } from '../services/storageService';
@@ -19,20 +18,36 @@ import { createComment } from '../services/databaseService';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: COLOR.SECONDARY
+  },
+  questionCategory: {
+    fontSize: FONTSIZE.CAPTION
+  },
+  questionDate: {
+    textAlign: 'right',
+    flex: 1,
+    fontSize: FONTSIZE.CAPTION
+  },
+  questionHeadline: {
+    fontSize: FONTSIZE.HEADLINE,
+    paddingVertical: 10,
+    color: COLOR.TEXT
+  },
+  questionText: {
+    fontSize: FONTSIZE.BODY,
+    paddingBottom: 10,
+    color: COLOR.TEXT
   },
   comment: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: COLOR.PRIMARY
-  },
-  commentText: {
-    flex: 2
+    padding: 15
   },
   commentDate: {
-    flex: 1,
-    alignSelf: 'flex-end'
+    color: COLOR.PRIMARY,
+    fontSize: FONTSIZE.CAPTION
+  },
+  commentText: {
+    color: COLOR.WHITE
   },
   textInputContainer: {
     flexDirection: 'row',
@@ -78,16 +93,18 @@ export default class QuestionDetailScreen extends Component {
       questionId,
       createdAt,
       category,
-      question,
+      text,
+      title,
       comments
     } = this.props.navigation.state.params;
 
     this.setState({
       questionId,
       createdAt,
-      question,
+      text,
+      title,
       category,
-      comments
+      comments: comments.reverse()
     });
   }
 
@@ -114,9 +131,34 @@ export default class QuestionDetailScreen extends Component {
     };
 
     const updatedComments = this.state.comments;
-    updatedComments.push(newComment);
+    updatedComments.unshift(newComment);
 
     this.setState({ comments: updatedComments, comment: '' });
+  }
+
+  renderListHeader() {
+    return (
+      <View elevation={3} style={{ backgroundColor: '#FFFFFF', padding: 15 }}>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.questionCategory}>{this.state.category}</Text>
+          <Text style={styles.questionDate}>{moment(this.state.createdAt).format('DD.MM.YY  hh:mm')}</Text>
+        </View>
+        <Text style={styles.questionHeadline}>{this.state.title}</Text>
+        <Text style={styles.questionText}>{this.state.text}</Text>
+      </View>
+    );
+  }
+
+  renderListSeparator() {
+    return (
+      <View
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: COLOR.PRIMARY,
+          marginHorizontal: 15
+        }}
+      />
+    );
   }
 
   renderListItem(data) {
@@ -125,28 +167,23 @@ export default class QuestionDetailScreen extends Component {
         style={styles.comment}
         key={data.item.createdAt + data.item.text}
       >
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.commentDate}>{moment(data.item.createdAt).format('DD.MM.YY  hh:mm')}</Text>
+        </View>
         <Text style={styles.commentText}>{data.item.text}</Text>
-        <Text style={styles.commentDate}>{moment(data.item.createdAt).format('DD MMM YY  hh:mm')}</Text>
       </View>
     );
   }
 
   render() {
-    const commentsReversed = this.state.comments;
-
     return (
       <View style={styles.container}>
-        <Card style={{ padding: 15 }}>
-          <Text>{this.state.question}</Text>
-          <Text>{this.state.createdAt}</Text>
-          <Text>{this.state.category}</Text>
-        </Card>
         <FlatList
-          style={{ paddingHorizontal: 10 }}
-          data={commentsReversed}
+          data={this.state.comments}
           keyExtractor={comment => comment.createdAt}
           renderItem={this.renderListItem}
-          ListHeaderComponent={() => <View style={{ paddingTop: 10 }} />}
+          ItemSeparatorComponent={() => this.renderListSeparator()}
+          ListHeaderComponent={() => this.renderListHeader()}
           ListFooterComponent={() => <View style={{ paddingTop: 10 }} />}
         />
         <View
