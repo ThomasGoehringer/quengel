@@ -17,7 +17,8 @@ import QuestionEntry from '../components/QuestionEntry';
 
 const styles = StyleSheet.create({
   picker: {
-    marginHorizontal: 15,
+    marginLeft: 15,
+    marginRight: 28,
     marginTop: 2
   }
 });
@@ -114,33 +115,40 @@ export default class CommunityScreen extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ backgroundColor: '#fff', elevation: 3, height: 50, flexDirection: 'row' }}>
-          <Picker
-            onValueChange={category => this.handleCategoryPick(category)}
-            selectedValue={this.state.category}
-            style={styles.picker}
-          >
-            <Picker.Item label="Eigene Fragen" value="ownQuestions" />
-            <Picker.Item label="Ernährung" value="food" />
-            <Picker.Item label="Alltagshelfer" value="helpers" />
-            <Picker.Item label="Entwicklung & Erziehung" value="development" />
-            <Picker.Item label="Familie, Partnerschaft & Sex" value="family" />
-            <Picker.Item label="Baby & Job" value="work" />
-            <Picker.Item label="Rechtliches" value="legal" />
-            <Picker.Item label="Muttiforum" value="mother" />
-            <Picker.Item label="Kontakte" value="contacts" />
-          </Picker>
-          <SearchBar
-            onSearchChange={() => console.log('On Focus')}
-            height={25}
-            onFocus={() => console.log('On Focus')}
-            onBlur={() => console.log('On Blur')}
-            placeholder={'Search...'}
-            autoCorrect={false}
-            padding={5}
-            returnKeyType={'search'}
-            inputStyle={{ borderWidth: 0 }}
-          />
+        <View style={{ backgroundColor: '#fff', elevation: 3, height: 90, flexDirection: 'column' }}>
+          <View style={{ flex: 1 }}>
+            <Picker
+              onValueChange={category => this.handleCategoryPick(category)}
+              selectedValue={this.state.category}
+              style={styles.picker}
+            >
+              <Picker.Item label="Eigene Fragen" value="ownQuestions" />
+              <Picker.Item label="Ernährung" value="food" />
+              <Picker.Item label="Alltagshelfer" value="helpers" />
+              <Picker.Item label="Entwicklung & Erziehung" value="development" />
+              <Picker.Item label="Familie, Partnerschaft & Sex" value="family" />
+              <Picker.Item label="Baby & Job" value="work" />
+              <Picker.Item label="Rechtliches" value="legal" />
+              <Picker.Item label="Muttiforum" value="mother" />
+              <Picker.Item label="Kontakte" value="contacts" />
+            </Picker>
+          </View>
+          <View style={{ flex: 1.5 }}>
+            <SearchBar
+              onSearchChange={() => console.log('On Focus')}
+              height={40}
+              onFocus={() => console.log('On Focus')}
+              onBlur={() => console.log('On Blur')}
+              placeholder={'Suchen...'}
+              autoCorrect={false}
+              padding={5}
+              returnKeyType={'search'}
+              inputStyle={{ borderWidth: 0, marginHorizontal: 8 }}
+              inputProps={{
+                placeholderTextColor: COLOR.LIGHTGRAY
+              }}
+            />
+          </View>
         </View>
         <FlatList
           data={this.state.questions}
