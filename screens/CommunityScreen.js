@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Icon } from 'native-base';
 import Fab from 'react-native-action-button';
+import SearchBar from 'react-native-material-design-searchbar'
 import { COLOR } from '../config/globals';
 import { getData } from '../services/storageService';
 import { getQuestions, getUserQuestions } from '../services/databaseService';
@@ -113,7 +114,7 @@ export default class CommunityScreen extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ backgroundColor: '#fff', elevation: 3, height: 50 }}>
+        <View style={{ backgroundColor: '#fff', elevation: 3, height: 50, flexDirection: 'row' }}>
           <Picker
             onValueChange={category => this.handleCategoryPick(category)}
             selectedValue={this.state.category}
@@ -129,6 +130,17 @@ export default class CommunityScreen extends Component {
             <Picker.Item label="Muttiforum" value="mother" />
             <Picker.Item label="Kontakte" value="contacts" />
           </Picker>
+          <SearchBar
+            onSearchChange={() => console.log('On Focus')}
+            height={25}
+            onFocus={() => console.log('On Focus')}
+            onBlur={() => console.log('On Blur')}
+            placeholder={'Search...'}
+            autoCorrect={false}
+            padding={5}
+            returnKeyType={'search'}
+            inputStyle={{ borderWidth: 0 }}
+          />
         </View>
         <FlatList
           data={this.state.questions}
