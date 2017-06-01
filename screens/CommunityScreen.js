@@ -42,7 +42,6 @@ export default class CommunityScreen extends Component {
       loading: true
     };
     this.renderListItem = this.renderListItem.bind(this);
-    this.updateEntries = this.updateEntries.bind(this);
   }
 
   componentWillMount() {
@@ -65,7 +64,13 @@ export default class CommunityScreen extends Component {
   }
 
   renderListItem(data) {
-    return <QuestionEntry navigation={this.props.navigation} {...data.item} />;
+    return (
+      <QuestionEntry
+        onUpdate={() => this.updateEntries()}
+        navigation={this.props.navigation}
+        {...data.item}
+      />
+    );
   }
 
   renderFab() {
@@ -99,7 +104,7 @@ export default class CommunityScreen extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={{backgroundColor: '#fff', elevation: 3, height: 50}}>
+        <View style={{ backgroundColor: '#fff', elevation: 3, height: 50 }}>
           <Picker
             onValueChange={category => this.handleCategoryPick(category)}
             selectedValue={this.state.category}
