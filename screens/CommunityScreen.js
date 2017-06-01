@@ -4,7 +4,8 @@ import {
   Picker,
   StyleSheet,
   FlatList,
-  ActivityIndicator
+  ActivityIndicator,
+  RefreshControl
 } from 'react-native';
 import { Icon } from 'native-base';
 import Fab from 'react-native-action-button';
@@ -49,6 +50,7 @@ export default class CommunityScreen extends Component {
   }
 
   updateEntries() {
+    this.setState({ loading: true });
     getData('user')
       .then((user) => {
         getQuestions(this.state.category, user.jwt)
@@ -122,13 +124,19 @@ export default class CommunityScreen extends Component {
           </Picker>
         </View>
         <FlatList
-          style={{ paddingHorizontal: 10 }}
           data={this.state.questions}
           keyExtractor={item => item._id}
           renderItem={this.renderListItem}
           ListHeaderComponent={() => <View style={{ paddingTop: 10 }} />}
           ListFooterComponent={() => <View style={{ paddingTop: 10 }} />}
           ref={(list) => { this.logList = list; }}
+          refreshControl={
+            <RefreshControl
+              colors={[COLOR.SECONDARY]}
+              refreshing={this.state.loading}
+              onRefresh={() => this.updateEntries()}
+            />
+          }
         />
         { this.renderFab() }
       </View>

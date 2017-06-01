@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   question: {
     color: 'rgb(50,50,50)',
-    marginVertical: 5
+    marginVertical: 15
   },
   comments: {
     alignSelf: 'flex-end',
@@ -54,7 +54,7 @@ export default class QuestionEntry extends Component {
   render() {
     return (
       <TouchableNativeFeedback onPress={() => this.handlePress()}>
-        <Card style={{ padding: 15 }}>
+        <Card style={{ padding: 15, marginLeft: 10, marginRight: 10 }}>
           <Text style={styles.timeDiff}>{this.calculateTime(this.props.createdAt)}</Text>
           <Text style={styles.question}>{this.props.title}</Text>
           <Text style={styles.comments}>
