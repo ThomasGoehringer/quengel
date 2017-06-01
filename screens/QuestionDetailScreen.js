@@ -19,46 +19,49 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: COLOR.SECONDARY
+    backgroundColor: COLOR.WHITE
   },
   questionCategory: {
-    fontSize: FONTSIZE.CAPTION
+    fontSize: FONTSIZE.CAPTION,
+    color: COLOR.PRIMARY
   },
   questionDate: {
     textAlign: 'right',
     flex: 1,
-    fontSize: FONTSIZE.CAPTION
+    fontSize: FONTSIZE.CAPTION,
+    color: COLOR.PRIMARY
   },
   questionHeadline: {
     fontSize: FONTSIZE.HEADLINE,
     paddingVertical: 10,
-    color: COLOR.TEXT
+    color: COLOR.WHITE
   },
   questionText: {
     fontSize: FONTSIZE.BODY,
     paddingBottom: 10,
-    color: COLOR.TEXT
+    color: COLOR.WHITE
   },
   comment: {
     padding: 15
   },
   commentDate: {
-    color: COLOR.PRIMARY,
+    color: COLOR.SECONDARY,
     fontSize: FONTSIZE.CAPTION
   },
   commentText: {
-    color: COLOR.WHITE
+    color: COLOR.TEXT
   },
   textInputContainer: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: COLOR.SECONDARY
   },
   textInput: {
     flex: 1,
-    marginHorizontal: 5
+    marginHorizontal: 10,
+    color: COLOR.WHITE
   },
   button: {
-    color: COLOR.DARKGRAY,
+    color: COLOR.WHITE,
     alignSelf: 'center',
     marginRight: 10,
     fontWeight: 'bold',
@@ -161,7 +164,7 @@ export default class QuestionDetailScreen extends Component {
 
   renderListHeader() {
     return (
-      <View elevation={3} style={{ backgroundColor: '#FFFFFF', padding: 15 }}>
+      <View elevation={3} style={{ backgroundColor: COLOR.SECONDARY, padding: 15 }}>
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.questionCategory}>{this.getCategory()}</Text>
           <Text style={styles.questionDate}>{moment(this.state.createdAt).format('DD.MM.YY  hh:mm')}</Text>
@@ -177,7 +180,7 @@ export default class QuestionDetailScreen extends Component {
       <View
         style={{
           borderBottomWidth: 1,
-          borderBottomColor: COLOR.PRIMARY,
+          borderBottomColor: COLOR.LIGHTGRAY,
           marginHorizontal: 15
         }}
       />
@@ -217,9 +220,10 @@ export default class QuestionDetailScreen extends Component {
             value={this.state.comment}
             onChangeText={comment => this.setState({ comment })}
             placeholder="Kommentar hinzufügen"
-            selectionColor={COLOR.PRIMARY}
+            placeholderTextColor={COLOR.PRIMARY}
+            selectionColor={COLOR.LIGHTGRAY}
             style={styles.textInput}
-            underlineColorAndroid={COLOR.SECONDARY}
+            underlineColorAndroid={COLOR.WHITE}
           />
           <TouchableNativeFeedback>
             <Text

@@ -124,7 +124,13 @@ function transformCharts(user, charts) {
   };
 }
 
+function excerpt(str, limit) {
+  const summary = `${str.substr(0, str.lastIndexOf(' ', limit))}...`;
+  return summary;
+}
+
 module.exports = {
   pad,
-  transformCharts
+  transformCharts,
+  excerpt
 };
