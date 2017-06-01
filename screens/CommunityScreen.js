@@ -42,9 +42,11 @@ export default class CommunityScreen extends Component {
     this.state = {
       category: 'food',
       questions: [],
+      filteredQuestions: [],
       loading: true
     };
     this.renderListItem = this.renderListItem.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentWillMount() {
@@ -72,6 +74,16 @@ export default class CommunityScreen extends Component {
   handleCategoryPick(category) {
     this.setState({ category });
     this.updateEntries();
+  }
+
+  handleSearch(query) {
+    const filteredQuestions = this.state.questions.filter((question) => {
+      if (question.title.includes(query) || question.text.includes(query)) {
+        return question;
+      }
+    });
+
+    this.setState({ questions: filteredQuestions });
   }
 
   renderListItem(data) {
@@ -135,7 +147,7 @@ export default class CommunityScreen extends Component {
           </View>
           <View style={{ flex: 1.5 }}>
             <SearchBar
-              onSearchChange={() => console.log('On Focus')}
+              onSearchChange={(query) => this.handleSearch(query)}
               height={40}
               onFocus={() => console.log('On Focus')}
               onBlur={() => console.log('On Blur')}
