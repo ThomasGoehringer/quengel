@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
   timeDiff: {
     textAlign: 'right',
     flexGrow: 1,
-    color: COLOR.SECONDARY
+    color: COLOR.SECONDARY,
+    fontSize: FONTSIZE.CAPTION
   },
   headerContainer: {
     flexDirection: 'row',
