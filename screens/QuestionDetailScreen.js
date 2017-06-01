@@ -167,7 +167,7 @@ export default class QuestionDetailScreen extends Component {
       <View elevation={3} style={{ backgroundColor: COLOR.SECONDARY, padding: 15 }}>
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.questionCategory}>{this.getCategory()}</Text>
-          <Text style={styles.questionDate}>{moment(this.state.createdAt).format('DD.MM.YY  hh:mm')}</Text>
+          <Text style={styles.questionDate}>{moment(this.state.createdAt).format('DD.MM.YY  HH:mm')}</Text>
         </View>
         <Text style={styles.questionHeadline}>{this.state.title}</Text>
         <Text style={styles.questionText}>{this.state.text}</Text>
@@ -194,7 +194,7 @@ export default class QuestionDetailScreen extends Component {
         key={data.item.createdAt + data.item.text}
       >
         <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.commentDate}>{moment(data.item.createdAt).format('DD.MM.YY  hh:mm')}</Text>
+          <Text style={styles.commentDate}>{moment(data.item.createdAt).format('DD.MM.YY  HH:mm')}</Text>
         </View>
         <Text style={styles.commentText}>{data.item.text}</Text>
       </View>

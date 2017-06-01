@@ -43,7 +43,7 @@ export default class QuestionEntry extends Component {
     const diffDays = moment.duration(currDate.diff(createdAt)).days();
 
     if (diffDays > 0) {
-      return createdAt.format('DD.MM.YY  hh:mm');
+      return createdAt.format('DD.MM.YY  HH:mm');
     } else if (diffHours < 1) {
       return 'weniger als 1 h';
     }

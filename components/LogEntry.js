@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
   textTime: {
     color: 'rgb(120,120,120)',
     paddingTop: 5,
-    paddingLeft: 20,
-    paddingRight: 10
+    paddingLeft: 20
   }
 });
 
