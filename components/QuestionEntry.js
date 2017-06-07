@@ -13,7 +13,8 @@ import { COLOR, FONTSIZE } from '../config/globals';
 const styles = StyleSheet.create({
   category: {
     color: COLOR.SECONDARY,
-    fontSize: FONTSIZE.CAPTION
+    fontSize: FONTSIZE.CAPTION,
+    marginBottom: 5
   },
   timeDiff: {
     textAlign: 'right',
