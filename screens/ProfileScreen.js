@@ -327,7 +327,8 @@ export default class Profile extends Component {
           />
         </View>
         <Button
-          title="Show Notification"
+          title="Notification testen"
+          color={COLOR.SECONDARY}
           onPress={() => scheduleNotification(
             'Heute schon alles erfasst?',
             'Erfasse schnell die wichtigsten Angaben über deinen Tag und halte deine Auswertungen aktuell',

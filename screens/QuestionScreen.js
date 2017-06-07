@@ -61,7 +61,11 @@ export default class QuestionScreen extends Component {
   }
 
   componentWillMount() {
-    this.setState({ category: this.props.navigation.state.params.category });
+    const activeCategory = this.props.navigation.state.params.category;
+
+    if (activeCategory !== 'ownQuestions') {
+      this.setState({ category: this.props.navigation.state.params.category });
+    }
   }
 
   handleSubmit() {
