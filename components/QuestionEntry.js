@@ -11,6 +11,10 @@ import { excerpt } from '../services/helperService';
 import { COLOR, FONTSIZE } from '../config/globals';
 
 const styles = StyleSheet.create({
+  category: {
+    color: COLOR.SECONDARY,
+    fontSize: FONTSIZE.CAPTION
+  },
   timeDiff: {
     textAlign: 'right',
     flexGrow: 1,
@@ -18,13 +22,13 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.CAPTION
   },
   headerContainer: {
-    flexDirection: 'row',
-    marginBottom: 5
+    flexDirection: 'row'
   },
   questionTitle: {
     flexShrink: 1,
     color: COLOR.DARKGRAY,
-    fontSize: FONTSIZE.SUBHEADING
+    fontSize: FONTSIZE.SUBHEADING,
+    marginBottom: 5
   },
   questionText: {
     color: COLOR.DARKGRAY
@@ -49,6 +53,29 @@ export default class QuestionEntry extends Component {
       return 'weniger als 1 h';
     }
     return `${diffHours} h`;
+  }
+
+  getCategory() {
+    switch (this.props.category) {
+      case 'food':
+        return 'Ernährung';
+      case 'helpers':
+        return 'Alltagshelfer';
+      case 'development':
+        return 'Entwicklung & Erziehung';
+      case 'family':
+        return 'Familie, Partnerschaft & Sex';
+      case 'work':
+        return 'Baby & Job';
+      case 'legal':
+        return 'Rechtliches';
+      case 'mother':
+        return 'Muttiforum';
+      case 'contacts':
+        return 'Kontakte';
+      default:
+        return '';
+    }
   }
 
   handlePress() {
@@ -77,13 +104,24 @@ export default class QuestionEntry extends Component {
     return (
       <TouchableNativeFeedback onPress={() => this.handlePress()}>
         <Card style={{ padding: 15, marginLeft: 10, marginRight: 10 }}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.questionTitle}>{this.props.title}</Text>
-            <Text style={styles.timeDiff}>{this.calculateTime(this.props.createdAt)}</Text>
-          </View>
+          {this.props.showCategory ?
+            <View>
+              <View style={styles.headerContainer}>
+                <Text style={styles.category}>{this.getCategory()}</Text>
+                <Text style={styles.timeDiff}>{this.calculateTime(this.props.createdAt)}</Text>
+              </View>
+              <Text style={styles.questionTitle}>{this.props.title}</Text>
+            </View> :
+            <View style={styles.headerContainer}>
+              <Text style={styles.questionTitle}>{this.props.title}</Text>
+              <Text style={styles.timeDiff}>{this.calculateTime(this.props.createdAt)}</Text>
+            </View>
+          }
+
           {textExcerpt.length !== 0 ?
             <Text style={styles.questionText}>{textExcerpt}</Text> : null
           }
+
           <Text style={styles.comments}>
             {this.props.comments.length} Kommentare
           </Text>

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Icon } from 'native-base';
 import Fab from 'react-native-action-button';
-import SearchBar from 'react-native-material-design-searchbar'
+import SearchBar from 'react-native-material-design-searchbar';
 import { COLOR } from '../config/globals';
 import { getData } from '../services/storageService';
 import { getQuestions, getUserQuestions } from '../services/databaseService';
@@ -42,7 +42,7 @@ export default class CommunityScreen extends Component {
     this.state = {
       category: 'food',
       questions: [],
-      filteredQuestions: [],
+      originalQuestions: [],
       loading: true
     };
     this.renderListItem = this.renderListItem.bind(this);
@@ -60,12 +60,20 @@ export default class CommunityScreen extends Component {
         if (this.state.category === 'ownQuestions') {
           getUserQuestions(user.jwt)
             .then((questions) => {
-              this.setState({ loading: false, questions: questions.reverse() });
+              this.setState({
+                loading: false,
+                questions: questions.reverse(),
+                originalQuestions: questions.reverse()
+              });
             });
         } else {
           getQuestions(this.state.category, user.jwt)
             .then((questions) => {
-              this.setState({ loading: false, questions: questions.reverse() });
+              this.setState({
+                loading: false,
+                questions: questions.reverse(),
+                originalQuestions: questions.reverse()
+              });
             });
         }
       });
@@ -77,16 +85,35 @@ export default class CommunityScreen extends Component {
   }
 
   handleSearch(query) {
-    const filteredQuestions = this.state.questions.filter((question) => {
-      if (question.title.includes(query) || question.text.includes(query)) {
+    this.setState({ questions: this.state.originalQuestions });
+    if (query.nativeEvent) return;
+
+    const filteredQuestions = this.state.originalQuestions.filter((question) => {
+      const normedQuery = query.toLowerCase();
+      const normedTitle = question.title.toLowerCase();
+      const normedText = question.text.toLowerCase();
+
+      if (normedTitle.includes(normedQuery) || normedText.includes(normedQuery)) {
         return question;
       }
+      return null;
     });
 
     this.setState({ questions: filteredQuestions });
   }
 
   renderListItem(data) {
+    if (this.state.category === 'ownQuestions') {
+      return (
+        <QuestionEntry
+          onUpdate={() => this.updateEntries()}
+          navigation={this.props.navigation}
+          showCategory
+          {...data.item}
+        />
+      );
+    }
+
     return (
       <QuestionEntry
         onUpdate={() => this.updateEntries()}
@@ -103,6 +130,7 @@ export default class CommunityScreen extends Component {
       <Fab
         onPress={() => {
           navigate('Question', {
+            category: this.state.category,
             handleEntry: () => this.updateEntries()
           });
         }}
@@ -147,10 +175,8 @@ export default class CommunityScreen extends Component {
           </View>
           <View style={{ flex: 1.5 }}>
             <SearchBar
-              onSearchChange={(query) => this.handleSearch(query)}
+              onSearchChange={query => this.handleSearch(query)}
               height={40}
-              onFocus={() => console.log('On Focus')}
-              onBlur={() => console.log('On Blur')}
               placeholder={'Suchen...'}
               autoCorrect={false}
               padding={5}

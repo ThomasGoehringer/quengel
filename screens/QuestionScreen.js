@@ -5,8 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   Button,
-  ToastAndroid,
-  Text
+  ToastAndroid
 } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import { LAYOUT, COLOR, FONTSIZE } from '../config/globals';
@@ -40,6 +39,10 @@ export default class QuestionScreen extends Component {
   static navigationOptions = {
     headerTitle: 'Frage hinzufügen',
     headerRight: null,
+    headerTitleStyle: {
+      color: COLOR.DARKGRAY,
+      fontWeight: 'normal'
+    },
     headerStyle: {
       backgroundColor: '#FFFFFF'
     },
@@ -55,6 +58,10 @@ export default class QuestionScreen extends Component {
       tags: [],
       height: 0
     };
+  }
+
+  componentWillMount() {
+    this.setState({ category: this.props.navigation.state.params.category });
   }
 
   handleSubmit() {
