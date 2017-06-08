@@ -309,6 +309,7 @@ export default class Profile extends Component {
           />
         </View>
         <Button
+          style={{ position: 'absolute', bottom: 0 }}
           title="Notification testen"
           color={COLOR.SECONDARY}
           onPress={() => scheduleNotification(
