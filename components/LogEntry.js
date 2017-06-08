@@ -77,7 +77,14 @@ export default class LogEntry extends Component {
 
     return mergedBadges.map((badge) => {
       if (badge.badgeType === 'nursing') {
-        const sum = Number(badge.value.left) + Number(badge.value.right);
+        let sum;
+        if (badge.value.left && badge.value.right) {
+          sum = Number(badge.value.left) + Number(badge.value.right);
+        } else if (badge.value.left) {
+          sum = Number(badge.value.left);
+        } else if (badge.value.right) {
+          sum = Number(badge.value.right);
+        }
         const formattedSum = moment.utc(sum * 1000).format('m:ss');
 
         return (
