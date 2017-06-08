@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    borderRadius: 0
   },
   container: {
     flexDirection: 'row',
