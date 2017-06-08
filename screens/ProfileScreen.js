@@ -282,6 +282,7 @@ export default class Profile extends Component {
           </View>
           <View style={styles.itemText2}>
             <Switch
+              style={{ height: 23, marginBottom: -8 }}
               onValueChange={this.handleNotificationSwitchChange}
               value={this.state.notificationsEnabled}
               onTintColor={COLOR.PRIMARY}
