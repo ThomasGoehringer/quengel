@@ -28,19 +28,22 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10
   },
+  itemsContainer: {
+    padding: 25
+  },
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 8
   },
   itemText1: {
-    width: 150,
+    flex: 2,
     padding: 8,
     borderBottomWidth: 1,
     borderBottomColor: COLOR.PRIMARY
   },
   itemText2: {
-    width: 150,
+    flex: 3,
     padding: 8,
     borderBottomWidth: 1,
     borderBottomColor: COLOR.PRIMARY
@@ -212,102 +215,109 @@ export default class Profile extends Component {
     }
 
     return (
-      <ScrollView style={{ flex: 1 }}>
-        <View style={styles.thumbnailContainer}>
-          <TouchableOpacity
-            style={styles.imageContainer}
-            onPress={() => navigate('Camera', {
-              handlePhoto: path => this.setState({ avatar: path })
-            })}
-          >
-            <Image
-              resizeMode={this.state.avatar !== '' ? 'cover' : 'contain'}
-              style={styles.image}
-              source={this.state.avatar !== '' ? { uri: this.state.avatar } : profile}
-            />
-            {this.handleSubmit()}
-          </TouchableOpacity>
-        </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.thumbnailContainer}>
+            <TouchableOpacity
+              style={styles.imageContainer}
+              onPress={() => navigate('Camera', {
+                handlePhoto: path => this.setState({ avatar: path })
+              })}
+            >
+              <Image
+                resizeMode={this.state.avatar !== '' ? 'cover' : 'contain'}
+                style={styles.image}
+                source={this.state.avatar !== '' ? { uri: this.state.avatar } : profile}
+              />
+              {this.handleSubmit()}
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.itemContainer}>
-          <View style={styles.itemText1}>
-            <Text>Name</Text>
-          </View>
-          <View style={styles.itemText2}>
-            <Text>{this.state.name}</Text>
-          </View>
-        </View>
+          <View style={styles.itemsContainer}>
+            <View style={styles.itemContainer}>
+              <View style={styles.itemText1}>
+                <Text>Name</Text>
+              </View>
+              <View style={styles.itemText2}>
+                <Text>{this.state.name}</Text>
+              </View>
+            </View>
 
-        <View style={styles.itemContainer}>
-          <View style={styles.itemText1}>
-            <Text>Geschlecht</Text>
-          </View>
-          <View style={styles.itemText2}>
-            <Text>{this.state.gender === 'male' ? 'männlich' : 'weiblich'}</Text>
-          </View>
-        </View>
+            <View style={styles.itemContainer}>
+              <View style={styles.itemText1}>
+                <Text>Geschlecht</Text>
+              </View>
+              <View style={styles.itemText2}>
+                <Text>{this.state.gender === 'male' ? 'männlich' : 'weiblich'}</Text>
+              </View>
+            </View>
 
-        <View style={styles.itemContainer}>
-          <View style={styles.itemText1}>
-            <Text>Geburtstag</Text>
-          </View>
-          <View style={styles.itemText2}>
-            <Text>{this.state.dateOfBirth}</Text>
-          </View>
-        </View>
+            <View style={styles.itemContainer}>
+              <View style={styles.itemText1}>
+                <Text>Geburtstag</Text>
+              </View>
+              <View style={styles.itemText2}>
+                <Text>{this.state.dateOfBirth}</Text>
+              </View>
+            </View>
 
-        <View style={styles.itemContainer}>
-        </View>
+            <View style={styles.itemContainer}>
+            </View>
 
-        <View style={styles.itemContainer}>
-          <View style={styles.itemText1}>
-            <Text>Kontodaten</Text>
-          </View>
-          <View style={styles.itemText2}>
-          </View>
-        </View>
+            <View style={styles.itemContainer}>
+              <View style={styles.itemText1}>
+                <Text style={{ fontWeight: 'bold' }}>Kontodaten</Text>
+              </View>
+              <View style={styles.itemText2}>
+              </View>
+            </View>
 
-        <View style={styles.itemContainer}>
-          <View style={styles.itemText1}>
-            <Text>E-Mail Adresse</Text>
-          </View>
-          <View style={styles.itemText2}>
-            <Text>{this.state.email}</Text>
-          </View>
-        </View>
+            <View style={styles.itemContainer}>
+              <View style={styles.itemText1}>
+                <Text>E-Mail</Text>
+              </View>
+              <View style={styles.itemText2}>
+                <Text>{this.state.email}</Text>
+              </View>
+            </View>
 
-        <View style={styles.itemContainer}>
-          <View style={styles.itemText1}>
-            <Text>Notifications</Text>
+            <View style={styles.itemContainer}>
+              <View style={styles.itemText1}>
+                <Text>Notifications</Text>
+              </View>
+              <View style={styles.itemText2}>
+                <Switch
+                  style={{ height: 23, marginBottom: -8 }}
+                  onValueChange={this.handleNotificationSwitchChange}
+                  value={this.state.notificationsEnabled}
+                  onTintColor={COLOR.PRIMARY}
+                  thumbTintColor={this.state.notificationsEnabled ? COLOR.SECONDARY : '#FFFFFF'}
+                />
+              </View>
+            </View>
+            <View style={[styles.itemContainer, { paddingBottom: 20 }]}>
+              <Button
+                title="Abmelden"
+                color={COLOR.SECONDARY}
+                onPress={() => {
+                  removeData('user');
+                  removeData('notifications');
+                  removeData('charts');
+                  const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                      NavigationActions.navigate({ routeName: 'Register' })
+                    ]
+                  });
+                  this.props.navigation.dispatch(resetAction);
+                }}
+              />
+            </View>
           </View>
-          <View style={styles.itemText2}>
-            <Switch
-              style={{ height: 23, marginBottom: -8 }}
-              onValueChange={this.handleNotificationSwitchChange}
-              value={this.state.notificationsEnabled}
-              onTintColor={COLOR.PRIMARY}
-              thumbTintColor={this.state.notificationsEnabled ? COLOR.SECONDARY : '#FFFFFF'}
-            />
-          </View>
-        </View>
-        <View style={[styles.itemContainer, { paddingBottom: 20 }]}>
-          <Button
-            title="Abmelden"
-            color={COLOR.SECONDARY}
-            onPress={() => {
-              removeData('user');
-              removeData('notifications');
-              removeData('charts');
-              const resetAction = NavigationActions.reset({
-                index: 0,
-                actions: [
-                  NavigationActions.navigate({ routeName: 'Register' })
-                ]
-              });
-              this.props.navigation.dispatch(resetAction);
-            }}
-          />
-        </View>
+          {this.renderNameModal()}
+          {this.renderGenderModal()}
+          {this.renderBirthdayModal()}
+        </ScrollView>
         <Button
           style={{ position: 'absolute', bottom: 0 }}
           title="Notification testen"
@@ -318,10 +328,7 @@ export default class Profile extends Component {
             new Date(Date.now() + (5 * 1000))
           )}
         />
-        {this.renderNameModal()}
-        {this.renderGenderModal()}
-        {this.renderBirthdayModal()}
-      </ScrollView>
+      </View>
     );
   }
 }
