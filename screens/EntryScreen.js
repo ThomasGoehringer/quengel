@@ -173,9 +173,17 @@ export default class EntryScreen extends Component {
     let newEmotion;
 
     if (direction === 'previous') {
-      newEmotion = emotions[emotions.indexOf(currEmotion) - 1];
+      if (emotions.indexOf(currEmotion) === 0) {
+        newEmotion = emotions[emotions.length - 1];
+      } else {
+        newEmotion = emotions[emotions.indexOf(currEmotion) - 1];
+      }
     } else if (direction === 'next') {
-      newEmotion = emotions[emotions.indexOf(currEmotion) + 1];
+      if (emotions.indexOf(currEmotion) === emotions.length - 1) {
+        newEmotion = emotions[0];
+      } else {
+        newEmotion = emotions[emotions.indexOf(currEmotion) + 1];
+      }
     }
 
     if (newEmotion) {
