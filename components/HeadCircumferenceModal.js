@@ -50,6 +50,17 @@ export default class HeadCircumferenceModal extends Component {
     this.setState({ visible: this.props.visible, data: this.props.data });
   }
 
+  handleChange(value) {
+    let cleanValue = value.replace(/[^(\d+.)?\d+$]/g, '');
+    if (this.state.data.toString().includes('.')) {
+      cleanValue = cleanValue.replace(/\.\s*$/, '');
+    } else {
+      cleanValue = cleanValue.replace(/\.{2,}/g, '.');
+    }
+
+    this.setState({ data: cleanValue });
+  }
+
   render() {
     return (
       <Modal
@@ -64,10 +75,10 @@ export default class HeadCircumferenceModal extends Component {
             <Text style={styles.headline}>Kopfumfang eingeben</Text>
             <View style={styles.inputContainer}>
               <TextInput
-                defaultValue={`${this.state.data}`}
+                value={`${this.state.data}`}
                 editable
                 keyboardType="numeric"
-                onChangeText={value => this.setState({ data: Number(value) })}
+                onChangeText={value => this.handleChange(value)}
                 placeholder="Kopfumfang"
                 ref={(input) => { this.textInput = input; }}
                 returnKeyType="done"
