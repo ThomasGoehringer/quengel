@@ -132,6 +132,7 @@ export default class LoginScreen extends Component {
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="E-Mail"
           onChangeText={email => this.setState({ email })}
+          keyboardType="email-address"
         />
         <TextInput
           style={styles.textInput}
