@@ -94,7 +94,7 @@ export default class HeightAnalysisScreen extends Component {
     const gender = this.props.screenProps.gender;
     let lastElement = 0;
     if (this.props.screenProps.height.length >= 2) {
-      lastElement = this.props.screenProps.height[this.props.screenProps.height.length - 1].x;
+      lastElement = this.props.screenProps.height[0].x;
     }
     const heightData = gender === 'male' ? HEIGHT.MALE : HEIGHT.FEMALE;
     if (lastElement < 36) {

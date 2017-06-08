@@ -94,7 +94,7 @@ export default class WeightAnalysisScreen extends Component {
     const gender = this.props.screenProps.gender;
     let lastElement = 0;
     if (this.props.screenProps.weight.length >= 2) {
-      lastElement = this.props.screenProps.weight[this.props.screenProps.weight.length - 1].x;
+      lastElement = this.props.screenProps.weight[0].x;
     }
     const weightData = gender === 'male' ? WEIGHT.MALE : WEIGHT.FEMALE;
     if (lastElement < 36) {
