@@ -119,13 +119,20 @@ export default class MilestoneEntryScreen extends Component {
       customType = this.state.customType;
     }
 
+    const currDate = moment();
+    const date = moment(this.state.date, 'DD.MM.YYYY');
+    date.hours(currDate.hours());
+    date.minutes(currDate.minutes());
+    date.seconds(currDate.seconds());
+    date.milliseconds(currDate.milliseconds());
+
     const entry = {
       text,
       imagePath: this.state.imagePath,
       milestone: true,
       milestoneType: this.state.type,
       customType,
-      date: moment(this.state.date, 'DD.MM.YYYY')
+      date
     };
 
     if (this.state.type === 'custom' && this.state.customType === '') {
