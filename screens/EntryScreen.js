@@ -461,7 +461,7 @@ export default class EntryScreen extends Component {
                   />
                 </TouchableOpacity>
                 <Icon
-                  name="cup"
+                  name="gas-cylinder"
                   size={80}
                   color="#fff"
                 />

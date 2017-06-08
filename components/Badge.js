@@ -33,7 +33,7 @@ const Badge = (props) => {
       break;
     case 'hydration':
       backgroundColor = { backgroundColor: COLOR.HYDRATION };
-      iconName = 'cup';
+      iconName = 'gas-cylinder';
       break;
     case 'meals':
       backgroundColor = { backgroundColor: COLOR.MEALS };
