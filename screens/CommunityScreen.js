@@ -63,7 +63,7 @@ export default class CommunityScreen extends Component {
               this.setState({
                 loading: false,
                 questions: questions.reverse(),
-                originalQuestions: questions.reverse()
+                originalQuestions: questions
               });
             });
         } else {
@@ -72,7 +72,7 @@ export default class CommunityScreen extends Component {
               this.setState({
                 loading: false,
                 questions: questions.reverse(),
-                originalQuestions: questions.reverse()
+                originalQuestions: questions
               });
             });
         }

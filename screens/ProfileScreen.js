@@ -61,6 +61,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     textAlign: 'right'
   },
+  imageContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 150,
+    overflow: 'hidden'
+  },
   image: {
     width: 100,
     height: 100,
@@ -209,7 +215,7 @@ export default class Profile extends Component {
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.thumbnailContainer}>
           <TouchableOpacity
-            style={styles.image}
+            style={styles.imageContainer}
             onPress={() => navigate('Camera', {
               handlePhoto: path => this.setState({ avatar: path })
             })}
@@ -251,31 +257,6 @@ export default class Profile extends Component {
         </View>
 
         <View style={styles.itemContainer}>
-          <TouchableOpacity
-            onPress={() => this.setState({
-              modalVisible: true
-            })}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-end'
-            }}
-          >
-            <Text
-              style={{
-                paddingTop: 5
-              }}
-            >
-              weiteres Kind
-            </Text>
-            <Icon
-              style={{
-                color: COLOR.PRIMARY,
-                marginLeft: 15
-              }}
-              name="plus-circle"
-              size={30}
-            />
-          </TouchableOpacity>
         </View>
 
         <View style={styles.itemContainer}>
