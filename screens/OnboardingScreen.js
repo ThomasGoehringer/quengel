@@ -4,7 +4,8 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Swiper from 'react-native-swiper';
@@ -64,11 +65,8 @@ const styles = StyleSheet.create({
   navButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60
-  },
-  buttonIcon: {
-    marginTop: 12,
-    color: COLOR.NURSING
+    paddingVertical: 10,
+    marginBottom: 15
   },
   dot: {
     backgroundColor: '#000000',
@@ -90,6 +88,12 @@ const styles = StyleSheet.create({
     marginRight: 3,
     marginTop: 3,
     marginBottom: 25
+  },
+  controlButtons: {
+    fontSize: FONTSIZE.DISPLAY2,
+    padding: 5,
+    color: '#000000',
+    opacity: 0.4
   }
 });
 
@@ -104,7 +108,16 @@ export default class OnboardingScreen extends Component {
     return (
       <Swiper
         loop={false}
-        showsButtons={false}
+        showsButtons
+        style={{
+          backgroundColor: 'red'
+        }}
+        nextButton={
+          <Text style={styles.controlButtons}>›</Text>
+        }
+        prevButton={
+          <Text style={styles.controlButtons}>‹</Text>
+        }
         dot={
           <View style={styles.dot} />
         }
@@ -176,16 +189,12 @@ export default class OnboardingScreen extends Component {
               Auswertungsbereich.
             </Text>
           </View>
-          <View style={styles.navButton} >
-            <TouchableOpacity
+          <View style={styles.navButton}>
+            <Button
               onPress={() => navigate('Register')}
-            >
-              <Icon
-                style={styles.buttonIcon}
-                name="arrow-right-bold-circle"
-                size={70}
-              />
-            </TouchableOpacity>
+              color={COLOR.NURSING}
+              title="Jetzt loslegen!"
+            />
           </View>
         </View>
       </Swiper>
