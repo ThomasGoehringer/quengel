@@ -131,6 +131,7 @@ export default class QuestionScreen extends Component {
                   height: event.nativeEvent.contentSize.height
                 });
               }}
+              selectionColor={COLOR.PRIMARY}
               textColor={COLOR.SECONDARY}
               fontSize={FONTSIZE.BODY}
               tintColor={COLOR.SECONDARY}

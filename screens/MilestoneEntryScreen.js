@@ -11,10 +11,11 @@ import {
   Dimensions,
   ToastAndroid
 } from 'react-native';
+import { TextField } from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
-import { COLOR, LAYOUT } from '../config/globals';
+import { COLOR, FONTSIZE, LAYOUT } from '../config/globals';
 import placeholder from '../assets/images/placeholder.png';
 import { getData } from '../services/storageService';
 import databaseService from '../services/databaseService';
@@ -31,25 +32,25 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width,
-    alignSelf: 'center',
-    marginBottom: 15
+    alignSelf: 'center'
   },
   picker: {
     color: COLOR.WHITE
   },
   pickerTitleContainer: {
     backgroundColor: COLOR.SECONDARY,
-    paddingHorizontal: LAYOUT.PADDING
+    paddingHorizontal: LAYOUT.PADDING,
+    paddingBottom: 15
   },
   datePickerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
-    borderColor: 'white'
+    borderBottomWidth: 1,
+    marginHorizontal: 10,
+    borderColor: COLOR.WHITE
   },
   datePickerIcon: {
-    color: COLOR.SECONDARY,
-    marginLeft: 5
+    color: COLOR.WHITE
   },
   datePicker: {
     flex: 1
@@ -59,8 +60,17 @@ const styles = StyleSheet.create({
     textAlignVertical: 'bottom',
     marginBottom: 10
   },
+  descriptionInputContainer: {
+    paddingHorizontal: LAYOUT.PADDING
+  },
   buttonContainer: {
     paddingHorizontal: LAYOUT.PADDING
+  },
+  imageContainer: {
+    borderWidth: 1,
+    borderColor: COLOR.PRIMARY,
+    margin: 10,
+    marginBottom: 25
   }
 });
 
@@ -85,7 +95,8 @@ export default class MilestoneEntryScreen extends Component {
       imagePath: '',
       text: '',
       type: 'laugh',
-      customType: ''
+      customType: '',
+      height: 0
     };
   }
 
@@ -167,51 +178,66 @@ export default class MilestoneEntryScreen extends Component {
                 underlineColorAndroid={COLOR.SECONDARY}
               />
             )}
+            <TouchableOpacity
+              style={styles.imageContainer}
+              onPress={() => navigate('Camera', {
+                handlePhoto: path => this.setState({ imagePath: path })
+              })}
+            >
+              <Image
+                resizeMode={this.state.imagePath !== '' ? 'cover' : 'contain'}
+                style={styles.image}
+                source={this.state.imagePath !== '' ? { uri: this.state.imagePath } : placeholder}
+              />
+            </TouchableOpacity>
+            <View style={styles.datePickerContainer}>
+              <Icon
+                style={styles.datePickerIcon}
+                name="calendar"
+                size={30}
+              />
+              <DatePicker
+                style={styles.datePicker}
+                date={this.state.date}
+                mode="date"
+                androidMode="spinner"
+                placeholder="Datum auswählen"
+                format="DD.MM.YYYY"
+                showIcon={false}
+                customStyles={{
+                  dateInput: {
+                    borderWidth: 0
+                  },
+                  dateText: {
+                    color: COLOR.WHITE
+                  },
+                  placeholderText: {
+                    color: COLOR.WHITE
+                  }
+                }}
+                onDateChange={date => this.setState({ date })}
+              />
+            </View>
           </View>
-          <TouchableOpacity
-            onPress={() => navigate('Camera', {
-              handlePhoto: path => this.setState({ imagePath: path })
-            })}
-          >
-            <Image
-              resizeMode={this.state.imagePath !== '' ? 'cover' : 'contain'}
-              style={styles.image}
-              source={this.state.imagePath !== '' ? { uri: this.state.imagePath } : placeholder}
-            />
-          </TouchableOpacity>
-          <View style={styles.datePickerContainer}>
-            <Icon
-              style={styles.datePickerIcon}
-              name="calendar"
-              size={30}
-            />
-            <DatePicker
-              style={styles.datePicker}
-              date={this.state.date}
-              mode="date"
-              androidMode="spinner"
-              placeholder="Datum auswählen"
-              format="DD.MM.YYYY"
-              showIcon={false}
-              customStyles={{
-                dateInput: {
-                  borderWidth: 0
-                },
-                placeholderText: {
-                  color: COLOR.TEXT
-                }
+          <View style={styles.descriptionInputContainer}>
+            <TextField
+              multiline
+              label="Notiere eure Erinnerungen"
+              onChange={(event) => {
+                this.setState({
+                  text: event.nativeEvent.text,
+                  height: event.nativeEvent.contentSize.height
+                });
               }}
-              onDateChange={date => this.setState({ date })}
+              selectionColor={COLOR.PRIMARY}
+              textColor={COLOR.SECONDARY}
+              fontSize={FONTSIZE.BODY}
+              tintColor={COLOR.SECONDARY}
+              baseColor={COLOR.PRIMARY}
+              style={{ height: Math.max(35, this.state.height) }}
+              value={this.state.text}
             />
           </View>
-          <TextInput
-            multiline
-            onChangeText={value => this.setState({ text: value })}
-            placeholder="Notiere eure Erinnerungen"
-            selectionColor={COLOR.PRIMARY}
-            style={styles.textInput}
-            underlineColorAndroid={COLOR.SECONDARY}
-          />
         </ScrollView>
         <View style={styles.buttonContainer}>
           <Button
