@@ -15,7 +15,7 @@ import { createQuestion } from '../services/databaseService';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
     flex: 1
   },
   pickerTitleContainer: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   picker: {
-    color: '#fff'
+    color: COLOR.WHITE
   },
   descriptionInputContainer: {
     paddingHorizontal: LAYOUT.PADDING

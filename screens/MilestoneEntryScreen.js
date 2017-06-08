@@ -25,17 +25,21 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 10,
+    backgroundColor: COLOR.WHITE,
     paddingBottom: 15
-  },
-  scrollView: {
-    paddingHorizontal: LAYOUT.PADDING
   },
   image: {
     height: 200,
     width,
     alignSelf: 'center',
     marginBottom: 15
+  },
+  picker: {
+    color: COLOR.WHITE
+  },
+  pickerTitleContainer: {
+    backgroundColor: COLOR.SECONDARY,
+    paddingHorizontal: LAYOUT.PADDING
   },
   datePickerContainer: {
     flexDirection: 'row',
@@ -132,35 +136,38 @@ export default class MilestoneEntryScreen extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <Picker
-            onValueChange={type => this.setState({ type })}
-            selectedValue={this.state.type}
-          >
-            <Picker.Item label="Lächeln" value="laugh" />
-            <Picker.Item label="Drehen" value="turn" />
-            <Picker.Item label="Köpfchen halten" value="head" />
-            <Picker.Item label="Greifen" value="grab" />
-            <Picker.Item label="Brei" value="babyFood" />
-            <Picker.Item label="Laute" value="sounds" />
-            <Picker.Item label="Zahn" value="tooth" />
-            <Picker.Item label="Krabbeln" value="crawl" />
-            <Picker.Item label="Stehen" value="stand" />
-            <Picker.Item label="Schritte" value="steps" />
-            <Picker.Item label="Sitzen" value="sit" />
-            <Picker.Item label="Durchschlafen" value="sleepThrough" />
-            <Picker.Item label="Wort" value="word" />
-            <Picker.Item label="Babysitter" value="babysitter" />
-            <Picker.Item label="Reise" value="trip" />
-            <Picker.Item label="Eigener Meilenstein" value="custom" />
-          </Picker>
-          {this.state.type === 'custom' && (
-            <TextInput
-              onChangeText={text => this.setState({ customType: text })}
-              placeholder="Meilensteinname"
-              selectionColor={COLOR.PRIMARY}
-              underlineColorAndroid={COLOR.SECONDARY}
-            />
-          )}
+          <View style={styles.pickerTitleContainer}>
+            <Picker
+              onValueChange={type => this.setState({ type })}
+              selectedValue={this.state.type}
+              style={styles.picker}
+            >
+              <Picker.Item label="Lächeln" value="laugh" />
+              <Picker.Item label="Drehen" value="turn" />
+              <Picker.Item label="Köpfchen halten" value="head" />
+              <Picker.Item label="Greifen" value="grab" />
+              <Picker.Item label="Brei" value="babyFood" />
+              <Picker.Item label="Laute" value="sounds" />
+              <Picker.Item label="Zahn" value="tooth" />
+              <Picker.Item label="Krabbeln" value="crawl" />
+              <Picker.Item label="Stehen" value="stand" />
+              <Picker.Item label="Schritte" value="steps" />
+              <Picker.Item label="Sitzen" value="sit" />
+              <Picker.Item label="Durchschlafen" value="sleepThrough" />
+              <Picker.Item label="Wort" value="word" />
+              <Picker.Item label="Babysitter" value="babysitter" />
+              <Picker.Item label="Reise" value="trip" />
+              <Picker.Item label="Eigener Meilenstein" value="custom" />
+            </Picker>
+            {this.state.type === 'custom' && (
+              <TextInput
+                onChangeText={text => this.setState({ customType: text })}
+                placeholder="Meilensteinname"
+                selectionColor={COLOR.PRIMARY}
+                underlineColorAndroid={COLOR.SECONDARY}
+              />
+            )}
+          </View>
           <TouchableOpacity
             onPress={() => navigate('Camera', {
               handlePhoto: path => this.setState({ imagePath: path })

@@ -3,8 +3,6 @@ import {
   View,
   ActivityIndicator,
   FlatList,
-  StyleSheet,
-  Image,
   Text
 } from 'react-native';
 import { Icon } from 'native-base';
@@ -15,16 +13,6 @@ import { getData } from '../services/storageService';
 import MilestoneEntry from '../components/MilestoneEntry';
 
 export default class MilestoneScreen extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loading: true,
-      entries: [],
-      imagePath: '',
-      text: ''
-    };
-  }
-
   static navigationOptions = {
     headerTitle: 'Meilensteine',
     headerRight: null,
@@ -36,6 +24,16 @@ export default class MilestoneScreen extends Component {
       backgroundColor: '#FFFFFF'
     },
     headerTintColor: 'rgb(60,60,60)'
+  }
+
+  constructor() {
+    super();
+    this.state = {
+      loading: true,
+      entries: [],
+      imagePath: '',
+      text: ''
+    };
   }
 
   componentDidMount() {
